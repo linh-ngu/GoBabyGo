@@ -10,9 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_08_025555) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_08_163556) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "car_types", force: :cascade do |t|
+    t.integer "max_height"
+    t.integer "min_height"
+    t.string "name"
+    t.float "price"
+    t.integer "quantity_purchased"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cars", force: :cascade do |t|
+    t.text "modification_details"
+    t.boolean "complete"
+    t.float "total_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "car_type_id"
+    t.integer "user_application_id"
+    t.integer "finance_id"
+  end
+
+  create_table "finances", force: :cascade do |t|
+    t.float "total_expense"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "parts", force: :cascade do |t|
+    t.string "part_name"
+    t.float "part_price"
+    t.string "purchase_source"
+    t.integer "quantity_purchased"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "car_id"
+  end
 
   create_table "user_applications", force: :cascade do |t|
     t.string "child_name"

@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  modification_details: MyText
+  complete: false
+  total_price: 1.5
+
+two:
+  modification_details: MyText
+  complete: false
+  total_price: 1.5
