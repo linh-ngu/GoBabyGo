@@ -1,3 +1,3 @@
 class Part < ApplicationRecord
-    belongs_to :car, optional: true
+    has_and_belongs_to_many :car, optional: true
 end
