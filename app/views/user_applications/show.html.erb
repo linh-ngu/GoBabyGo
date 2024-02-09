@@ -1,0 +1,14 @@
+<h1>UserApplications#show</h1>
+
+<div class="user_application show">
+    <h2>Show Application</h2>
+
+    <div class="actions">
+        <%= link_to('Edit', edit_user_application_path(@user_application)) %>
+        <%= link_to('Delete', delete_user_application_path(@user_application)) %>
+    </div>
+
+    <%= form_for @user_application do |f| %>
+        <%= render(partial: 'form', locals: {f: f}) %>
+    <% end %>
+</div>
