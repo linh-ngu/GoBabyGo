@@ -1,0 +1,15 @@
+<h1>UserApplications#delete</h1>
+
+<div class="books delete">
+    <h2>Delete Application</h2>
+
+    <%= form_for(@user_application, method: 'delete') do |f| %>
+
+        <p>Are you sure you want to permanently delete this application for <%= @user_application.child_name %>? </p>
+
+        <div class="form-buttons">
+            <%= f.submit("Delete Application") %>
+        </div>
+
+  <% end %>
+</div>
