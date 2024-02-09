@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  part_name: MyString
+  part_price: 1.5
+  purchase_source: MyString
+  quantity_purchased: 1
+
+two:
+  part_name: MyString
+  part_price: 1.5
+  purchase_source: MyString
+  quantity_purchased: 1

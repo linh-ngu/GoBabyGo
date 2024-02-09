@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  child_name: MyString
+  child_birthdate: 2024-02-08
+  primary_diagnosis: MyText
+  secondary_diagnosis: MyString
+  text: MyString
+  child_height: 1
+  child_weight: 1
+  caregiver_name: MyString
+  caregiver_email: MyString
+  caregiver_phone: 1
+  can_transport: false
+  can_store: false
+  notes: MyText
+  eligibility: 1
+  accepted: false
+
+two:
+  child_name: MyString
+  child_birthdate: 2024-02-08
+  primary_diagnosis: MyText
+  secondary_diagnosis: MyString
+  text: MyString
+  child_height: 1
+  child_weight: 1
+  caregiver_name: MyString
+  caregiver_email: MyString
+  caregiver_phone: 1
+  can_transport: false
+  can_store: false
+  notes: MyText
+  eligibility: 1
+  accepted: false
