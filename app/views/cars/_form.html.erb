@@ -1,0 +1,26 @@
+<%= form_with(model: car) do |form| %>
+  <% if car.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(car.errors.count, "error") %> prohibited this car from being saved:</h2>
+
+      <ul>
+        <% car.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :modification_details, style: "display: block" %>
+    <%= form.text_field :modification_details %>
+  </div>
+  <div>
+    <%= form.label :car_type_id, 'Car Type' %>
+    <%= form.collection_select :car_type_id, CarType.all, :id, :name, { prompt: 'Select Car Type' }, { class: 'form-control' } %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

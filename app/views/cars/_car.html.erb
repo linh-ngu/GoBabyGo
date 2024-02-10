@@ -1,0 +1,23 @@
+<div id="<%= dom_id car %>">
+  <p>
+    <strong>Name:</strong>
+    <%= car.car_type.name %>
+  </p>
+  <p>
+    <strong>Price:</strong>
+    $<%= car.car_type.price %>
+  </p>
+  <p>
+      <strong>Height:</strong>
+      <%= car.car_type.max_height %> in. - <%= car.car_type.min_height %> in.
+  </p>
+  <p>
+    <strong>Modifications:</strong>
+    <%= car.modification_details %>
+  </p>
+  <p>
+    <strong>Complete?:</strong>
+    <%= car.complete ? "true" : "false" %>
+  </p>
+
+</div>
