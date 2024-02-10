@@ -49,7 +49,7 @@ gem "bootsnap", require: false
 # ADDED GEM FILES BY US - any gems added, describe here
 
 gem 'devise'
-gem 'omniauth'
+gem 'omniauth' 
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 
