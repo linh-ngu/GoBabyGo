@@ -48,12 +48,21 @@ gem "bootsnap", require: false
 #######################################################
 # ADDED GEM FILES BY US - any gems added, describe here
 
+#these 4 gems are for oAuth - DQ
 gem 'devise'
-gem 'omniauth' 
+gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 
-
+#this group is for RSpec which is running unit/integration test - DQ
+group :development, :test do
+  gem 'rspec-rails'
+  end
+  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  group :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  end
 
 #######################################################
 
@@ -80,11 +89,6 @@ group :development do
   # gem "spring"
 end
 
-group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
-  gem "selenium-webdriver"
 
-end
 
 gem "tailwindcss-rails", "~> 2.3"
