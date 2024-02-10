@@ -57,12 +57,12 @@ gem 'omniauth-rails_csrf_protection'
 #this group is for RSpec which is running unit/integration test - DQ
 group :development, :test do
   gem 'rspec-rails'
-  end
+end
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  group :test do
+group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
-  end
+end
 
 #######################################################
 
