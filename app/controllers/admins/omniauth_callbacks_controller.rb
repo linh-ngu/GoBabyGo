@@ -1,6 +1,9 @@
 class Admins::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+
+  # google_oath2 is called after the user selects the email.
+  # If the Admin record is found, its a success and redirects back to dashboard.
   def google_oauth2
-    admin = Admin.from_google(from_google_params)
+    admin = Admin.from_google(**from_google_params)
 
     if admin.present?
       sign_out_all_scopes
