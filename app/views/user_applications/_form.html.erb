@@ -1,0 +1,60 @@
+<table summary="Application form fields">
+    <tr>
+        <th>Child's Name</th>
+        <td><%= ['new', 'edit'].include?(action_name) ? f.text_field(:child_name) : @user_application.child_name %></td>
+    </tr>
+    <tr>
+        <th>Child's Birthdate</th>
+        <td><%= ['new', 'edit'].include?(action_name) ? f.date_field(:child_birthdate) : @user_application.child_birthdate %></td>
+    </tr>
+    <tr>
+        <th>Child's Primary Diagnosis</th>
+        <td><%= ['new', 'edit'].include?(action_name) ? f.text_field(:primary_diagnosis) : @user_application.primary_diagnosis %></td>
+    </tr>
+    <tr>
+        <th>Child's Secondary Diagnosis (if applicable)</th>
+        <td><%= ['new', 'edit'].include?(action_name) ? f.text_field(:secondary_diagnosis) : @user_application.secondary_diagnosis %></td>
+    </tr>
+    <tr>
+        <th>What adaptive equipment does your child use?</th>
+        <td><%= ['new', 'edit'].include?(action_name) ? f.text_field(:adaptive_equipment) : @user_application.adaptive_equipment %></td>
+    </tr>
+    <tr>
+        <th>Child's Height</th>
+        <td><%= ['new', 'edit'].include?(action_name) ? f.number_field(:child_height) : @user_application.child_height %></td>
+    </tr>
+    <tr>
+        <th>Child's Weight</th>
+        <td><%= ['new', 'edit'].include?(action_name) ? f.number_field(:child_weight) : @user_application.child_weight %></td>
+    </tr>
+    <tr>
+        <th>Caregiver's Name</th>
+        <td><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_name) : @user_application.caregiver_name %></td>
+    </tr>
+    <tr>
+        <th>Caregiver's Email</th>
+        <td><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_email) : @user_application.caregiver_email %></td>
+    </tr>
+    <tr>
+        <th>Caregiver's Phone</th>
+        <td><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_phone) : @user_application.caregiver_phone %></td>
+    </tr>
+    <tr>
+        <th>Do you have the ability to transport the car on Build Day?</th>
+        <td><%= ['new', 'edit'].include?(action_name) ? f.check_box(:can_transport) : @user_application.can_transport %></td>
+    </tr>
+    <tr>
+        <th>Do you have the ability to store the car?</th>
+        <td><%= ['new', 'edit'].include?(action_name) ? f.check_box(:can_store) : @user_application.can_store %></td>
+    </tr>
+    <tr>
+        <th>Additional Notes</th>
+        <td><%= ['new', 'edit'].include?(action_name) ? f.text_area(:notes) : @user_application.notes %></td>
+    </tr>
+    <% if action_name == 'show' %>
+        <tr>
+            <th>Application Status</th>
+            <td><%= @user_application.accepted.nil? ? 'Pending' : @user_application.accepted %></td>
+        </tr>
+    <% end %>
+</table>
