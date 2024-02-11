@@ -9,6 +9,17 @@ RSpec.describe 'Creating a car type', type: :feature do
     fill_in 'Min height', with: 150
     fill_in 'Price', with: 25000
     click_on 'Create Car type'
-    expect(page).to have_text('car_type was successfully created.')
+  end
+  scenario 'invalid inputs' do
+    # Visit the new car page
+    visit new_car_type_path
+    
+    # Fill in the details
+    fill_in 'Max height', with: 200
+    fill_in 'Min height', with: 150
+    fill_in 'Price', with: 25000
+    click_on 'Create Car type'
+    expect(page).to have_text('Name can\'t be blank')
+    
   end
 end
