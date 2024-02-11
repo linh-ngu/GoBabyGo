@@ -17,6 +17,7 @@ class CarsController < ApplicationController
 
   # GET /cars/1/edit
   def edit
+    @part = Part.new
   end
 
   # POST /cars or /cars.json

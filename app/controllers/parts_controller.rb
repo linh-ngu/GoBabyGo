@@ -64,7 +64,7 @@ class PartsController < ApplicationController
         @part = Part.find(params[:id])
       end
       def part_params
-        params.require(:part).permit(:part_name, :part_price, :purchase_source, :quantity_purchased)
+        params.require(:part).permit(:part_name, :part_price, :purchase_source, :quantity_purchased, :car_id)
       end
   end
     
