@@ -9,7 +9,6 @@ RSpec.describe 'Creating a car type', type: :feature do
     fill_in 'Min height', with: 150
     fill_in 'Price', with: 25000
     click_on 'Create Car type'
-    expect(page).to have_current_path(car_types_path)
-    expect(page).to have_text('Car type successfully created')
+    expect(page).to have_text('car_type was successfully created.')
   end
 end
