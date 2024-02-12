@@ -21,11 +21,16 @@ class PartsController < ApplicationController
   
     # POST /parts or /parts.json
     def create
-      # Associate finance with the part
-      @part = Part.new(part_params)
+        # Find the car
+        # puts "Params received: #{params.inspect}"
+        c = Car.find(params[:part][:car_id])
+        # Create a new part associated with the car
+        @part = c.parts.build(part_params)
+        
   
       respond_to do |format|
         if @part.save
+          c.parts << @part
           format.html { redirect_to part_url(@part), notice: "part was successfully created." }
           format.json { render :show, status: :created, location: @part }
         else

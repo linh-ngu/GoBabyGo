@@ -5,7 +5,7 @@
   <h2>Parts:</h2>
   <ul>
     <% @car.parts.each do |part| %>
-      <li><%= part.name %> - <%= part.price %></li>
+      <li><%= part.part_name %> - <%= part.part_price %></li>
     <% end %>
   </ul>
 <% else %>
