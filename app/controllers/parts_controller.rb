@@ -31,7 +31,7 @@ class PartsController < ApplicationController
       respond_to do |format|
         if @part.save
           c.parts << @part
-          format.html { redirect_to part_url(@part), notice: "part was successfully created." }
+          format.html { redirect_to car_url(c), notice: "part was successfully created." }
           format.json { render :show, status: :created, location: @part }
         else
           format.html { render :new, status: :unprocessable_entity }
