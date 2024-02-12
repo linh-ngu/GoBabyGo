@@ -5,7 +5,8 @@
   <h2>Parts:</h2>
   <ul>
     <% @car.parts.each do |part| %>
-      <li><%= part.part_name %> - <%= part.part_price %></li>
+      <li><%= part.part_name %> - <%= part.part_price %>
+      <%= button_to "Destroy", part, method: :delete %></li>
     <% end %>
   </ul>
 <% else %>
