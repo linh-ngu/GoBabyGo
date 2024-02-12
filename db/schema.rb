@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_10_015823) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_12_044920) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_10_015823) do
     t.string "avatar_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "user_account_created", default: false
     t.index ["email"], name: "index_admins_on_email", unique: true
   end
 
@@ -92,9 +93,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_10_015823) do
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.integer "level"
-    t.integer "phone"
+    t.bigint "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "admin_id"
   end
 
 end
