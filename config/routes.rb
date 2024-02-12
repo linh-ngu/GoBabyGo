@@ -6,5 +6,8 @@ Rails.application.routes.draw do
   end
   get 'main/index'
   root "main#index"
+  resources :cars
+  resources :car_types
+  resources :parts
 end
 
