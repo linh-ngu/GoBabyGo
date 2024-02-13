@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new(email: current_admin.email, admin_id: current_admin.id)
+    @user = User.new(email: current_admin.email, admin_id: current_admin.id, level: 0)
   end
 
   def create
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @admin.update(user_account_created: true)
     if @user.save
       @admin.save
-      # need to redirect here somehow to the dashboard
+      redirect_to redirect_to root_path, :action => 'index'
     else
       render('new')
     end
