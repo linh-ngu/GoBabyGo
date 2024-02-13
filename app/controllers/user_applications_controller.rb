@@ -8,12 +8,14 @@ class UserApplicationsController < ApplicationController
   end
 
   def create
-    params[:user_application][:caregiver_phone].gsub!(/\D/, '')
     @user_application = UserApplication.new(app_params)
+    params[:user_application][:caregiver_phone].gsub!(/\D/, '')
+    @user_application.user_id = current_admin.id
     if @user_application.save
       redirect_to user_application_path(@user_application)
     else
-      render('new')
+      flash[:notice] = @user_application.errors.full_messages.join(", ")
+      redirect_to new_user_application_path
     end
   end
 
@@ -26,7 +28,7 @@ class UserApplicationsController < ApplicationController
     if @user_application.update(app_params)
       redirect_to user_application_path(@user_application)
     else
-      render('edit')
+      redirect_to edit_user_application_path(@user_application)
     end
   end
 
@@ -46,12 +48,15 @@ class UserApplicationsController < ApplicationController
       :child_name, 
       :child_birthdate,
       :primary_diagnosis,
+      :secondary_diagnosis,
+      :adaptive_equipment,
       :child_height,
       :child_weight,
       :caregiver_name,
       :caregiver_email,
       :caregiver_phone,
       :can_transport,
-      :can_store,)
+      :can_store,
+      :notes)
   end
 end
