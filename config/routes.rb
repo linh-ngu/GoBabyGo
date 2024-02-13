@@ -28,6 +28,6 @@ Rails.application.routes.draw do
     get 'admins/sign_out', to: 'admins/sessions#destroy', as: :destroy_admin_session
   end
 
-  get 'main/index'
+  get 'main/index', to:'main#index', as:'home'
 
 end
