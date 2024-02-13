@@ -1,8 +1,8 @@
-<h1 class='text-7xl'>Main#index</h1>
-<p>This will be the homepage</p>
+<h1 class='m-4 text-7xl'>Main#index</h1>
+<p class='m-4'>This will be the homepage</p>
 
 <% if admin_signed_in? %>
-  <%= link_to "Sign Out", destroy_admin_session_path, method: :delete %>
+  <%= link_to "Sign Out", destroy_admin_session_path, method: :delete, class: "border border-black px-2 py-1 mx-4" %>
 <% else %>
-  <%= link_to 'Sign In', new_admin_session_path %>
+  <%= link_to 'Sign In', new_admin_session_path, class: "border border-black px-2 py-1 mx-4" %>
 <% end %>
