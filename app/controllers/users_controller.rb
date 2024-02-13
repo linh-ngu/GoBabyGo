@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @admin.update(user_account_created: true)
     if @user.save
       @admin.save
-      redirect_to redirect_to root_path, :action => 'index'
+      redirect_to root_path, :action => 'show'
     else
       render('new')
     end
