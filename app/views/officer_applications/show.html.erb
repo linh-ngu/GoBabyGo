@@ -1,11 +1,11 @@
-<%= link_to("Back to List", officer_applications_path, class: 'back-link') %>
+<%= link_to("Back to List", officer_applications_path, class: 'back-link border border-black px-2 py-1') %>
 
 <div class="applications show">
     <h2>User Application</h2>
 
     <div class="actions">
-        <%= link_to('Edit', edit_officer_application_path(@user_application)) %>
-        <%= link_to("Delete", delete_officer_application_path(@user_application)) %>
+        <%= link_to('Edit', edit_officer_application_path(@user_application), class:'border border-black px-2 py-1') %>
+        <%= link_to("Delete", delete_officer_application_path(@user_application), class:'border border-black px-2 py-1') %>
     </div>
 
     <table summary="Officer Application fields">
