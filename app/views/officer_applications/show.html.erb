@@ -55,13 +55,18 @@
     </tr>
     <tr>
       <th>Do you have the ability to store the car?</th>
-      <td><%= @user_application.can_store  %></td>
+      <td><%= @user_application.can_store %></td>
     </tr>
     <tr>
       <th>Additional Notes</th>
-      <td><%= @user_application.notes  %></td>
+      <td><%= @user_application.notes %></td>
     </tr>
-    <th>Application Status</th>
+    <tr>
+      <th>User ID</th>
+      <td><%= @user_application.user_id %></td>
+    </tr>
+    <tr>
+      <th>Application Status</th>
       <td><%= @user_application.accepted.nil? ? 'Not Accepted' : 'Accepted' %></td>
     </tr>
 
