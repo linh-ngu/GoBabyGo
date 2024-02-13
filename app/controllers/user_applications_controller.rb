@@ -10,6 +10,7 @@ class UserApplicationsController < ApplicationController
   def create
     @user_application = UserApplication.new(app_params)
     params[:user_application][:caregiver_phone].gsub!(/\D/, '')
+    params[:user_application][:user_id] = Admin.find_by(id: current_admin.id)
     if @user_application.save
       redirect_to user_application_path(@user_application)
     else
