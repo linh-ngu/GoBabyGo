@@ -8,7 +8,9 @@ class Admins::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if admin.present?
       sign_out_all_scopes
       flash[:success] = t 'devise.omniauth_callbacks.success', kind: 'Google'
-      sign_in_and_redirect admin, event: :authentication
+      # sign_in_and_redirect admin, event: :authentication
+      sign_in(admin, event: :authentication) # Sign in the admin
+      redirect_to dashboard_path # Redirect to the dashboards#show - this route is defined in route file
     else
       flash[:alert] = t 'devise.omniauth_callbacks.failure', kind: 'Google', reason: "#{auth.info.email} is not authorized."
       redirect_to new_admin_session_path
