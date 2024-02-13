@@ -1,0 +1,37 @@
+<%= form_with(model: car_type) do |form| %>
+  <% if car_type.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(car_type.errors.count, "error") %> prohibited this car_type from being saved:</h2>
+
+      <ul>
+        <% car_type.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :max_height %>
+    <%= form.number_field :max_height %>
+  </div>
+
+  <div>
+    <%= form.label :min_height %>
+    <%= form.number_field :min_height %>
+  </div>
+
+  <div>
+    <%= form.label :price %>
+    <%= form.number_field :price, step: '0.01' %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

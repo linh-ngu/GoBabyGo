@@ -1,0 +1,21 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @car %>
+<% if @car.parts.any? %>
+  <h2>Parts:</h2>
+  <ul>
+    <% @car.parts.each do |part| %>
+      <li><%= part.part_name %> - <%= part.part_price %>
+      <%= button_to "Destroy", part, method: :delete %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No parts associated with this car.</p>
+<% end %>
+
+<div>
+  <%= link_to "Edit this Car", edit_car_path(@car) %> |
+  <%= link_to "Back to Cars", cars_path %>
+
+  <%= button_to "Destroy this Car", @car, method: :delete %>
+</div>
