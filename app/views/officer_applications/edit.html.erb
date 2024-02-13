@@ -1,4 +1,4 @@
-<%= link_to("Back to List", officer_applications_path, :class => 'back-link') %>
+<%= link_to("Back to List", officer_applications_path, class: 'back-link border border-black px-2 py-1') %>
 
 <div class="applications edit">
   <h2>View/Edit User Application</h2>
@@ -7,9 +7,7 @@
 
     <%= render(partial: 'form', locals: {f: f}) %>
 
-    <div class="form-buttons">
-      <%= f.submit("Edit User Acceptance Status") %>
-    </div>
+    <button type="submit" class="border border-black py-1 px-2 m-2">Edit User Acceptance Status</button>
 
   <% end %>
 </div>
