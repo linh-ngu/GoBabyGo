@@ -42,47 +42,19 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+gem "rexml"
+
 # Use Sass to process CSS
 # gem "sassc-rails"
-
-#######################################################
-# ADDED GEM FILES BY US - any gems added, describe here
-
-#these 4 gems are for oAuth - DQ
-gem 'devise'
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection'
-
-#this group is for RSpec which is running unit/integration test - DQ
-group :development, :test do
-  gem 'rspec-rails'
-end
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-group :test do
-  gem 'capybara'
-  gem 'selenium-webdriver'
-end
-
-#######################################################
-
-
-
-
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem 'rspec-rails'
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "rspec-rails"
 end
-
-group :test do
-  gem 'capybara'
-  gem 'selenium-webdriver'
-  end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
@@ -95,6 +67,11 @@ group :development do
   # gem "spring"
 end
 
-
+group :test do
+  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem "webdrivers"
+end
 
 gem "tailwindcss-rails", "~> 2.3"

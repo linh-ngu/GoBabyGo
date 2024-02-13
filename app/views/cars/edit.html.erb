@@ -1,0 +1,12 @@
+<h1>Editing Car</h1>
+
+<%= render "form", car: @car %>
+
+<br>
+
+<%= render partial: 'form_part', locals: { car: @car, part: @part } %>
+
+<div>
+  <%= link_to "Show this Car", @car %> |
+  <%= link_to "Back to Cars", cars_path %>
+</div>
