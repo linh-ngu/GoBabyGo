@@ -17,7 +17,9 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: 'dashboards#show'
+  root to: 'main#index'
+
+  # root to: 'dashboards#show'
   devise_for :admins, controllers: { omniauth_callbacks: 'admins/omniauth_callbacks' }
   devise_scope :admin do
     get 'admins/sign_in', to: 'admins/sessions#new', as: :new_admin_session
@@ -25,5 +27,5 @@ Rails.application.routes.draw do
   end
 
   get 'main/index'
-  
+
 end
