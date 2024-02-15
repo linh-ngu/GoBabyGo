@@ -1,4 +1,9 @@
 class UserApplicationsController < ApplicationController
+  def index
+    @user = User.find_by(admin_id: current_admin.id)
+    @user_applications = UserApplication.where(user_id: @user.id)
+  end
+
   def show
     @user_application = UserApplication.find(params[:id])
   end
@@ -10,9 +15,10 @@ class UserApplicationsController < ApplicationController
   def create
     @user_application = UserApplication.new(app_params)
     params[:user_application][:caregiver_phone].gsub!(/\D/, '')
-    @user_application.user_id = current_admin.id
+    @user = User.find_by(admin_id: current_admin.id)
+    @user_application.user_id = @user.id
     if @user_application.save
-      redirect_to user_application_path(@user_application)
+      redirect_to user_application_path(@user.id)
     else
       flash[:notice] = @user_application.errors.full_messages.join(", ")
       redirect_to new_user_application_path
@@ -25,8 +31,9 @@ class UserApplicationsController < ApplicationController
 
   def update
     @user_application = UserApplication.find(params[:id])
+    @user = User.find_by(admin_id: current_admin.id)
     if @user_application.update(app_params)
-      redirect_to user_application_path(@user_application)
+      redirect_to user_application_path(@user.id)
     else
       redirect_to edit_user_application_path(@user_application)
     end
@@ -38,8 +45,9 @@ class UserApplicationsController < ApplicationController
 
   def destroy
     @user_application = UserApplication.find(params[:id])
+    @user = User.find_by(admin_id: current_admin.id)
     @user_application.destroy
-    redirect_to main_index_path
+    redirect_to user_application_path(@user.id)
   end
 
   private

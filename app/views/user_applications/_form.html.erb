@@ -21,11 +21,11 @@
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:adaptive_equipment, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{@user_application.adaptive_equipment}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class='p'>Child's Height</th>
+            <th class='p'>Child's Height (inches)</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.number_field(:child_height, class: 'py-1 px-2', min: 1) : "<div class='py-1 px-2 bg-white'>#{@user_application.child_height}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class=''>Child's Weight</th>
+            <th class=''>Child's Weight (pounds)</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.number_field(:child_weight, class: 'py-1 px-2', min: 1) : "<div class='py-1 px-2 bg-white'>#{@user_application.child_weight}</div>".html_safe %></td>
         </tr>
         <tr>
@@ -68,10 +68,6 @@
         </tr>
     </tbody>
     <% if action_name == 'show' %>
-        <tr>
-            <th class=''>User ID</th>
-            <td class='p-1'><%= "<div class='py-1 px-2 bg-white'>#{@user_application.user_id}</div>".html_safe %></td>
-        <tr>
             <th class=''>Application Status</th>
             <td class='p-1'><%= @user_application.accepted.nil? ? "<div class='py-1 px-2 bg-white'>Pending</div>".html_safe : "<div class='py-1 px-2 bg-white'>#{@user_application.accepted}</div>".html_safe %></td>
         </tr>
