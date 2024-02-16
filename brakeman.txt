@@ -1,0 +1,144 @@
+
+== Brakeman Report ==
+
+Application Path: /csce431/GoBabyGo
+Rails Version: 7.0.8
+Brakeman Version: 6.1.2
+Scan Date: 2024-02-16 02:46:41 +0000
+Duration: 7.70024117 seconds
+Checks Run: BasicAuth, BasicAuthTimingAttack, CSRFTokenForgeryCVE, ContentTag, CookieSerialization, CreateWith, CrossSiteScripting, DefaultRoutes, Deserialize, DetailedExceptions, DigestDoS, DynamicFinders, EOLRails, EOLRuby, EscapeFunction, Evaluation, Execute, FileAccess, FileDisclosure, FilterSkipping, ForgerySetting, HeaderDoS, I18nXSS, JRubyXML, JSONEncoding, JSONEntityEscape, JSONParsing, LinkTo, LinkToHref, MailTo, MassAssignment, MimeTypeDoS, ModelAttrAccessible, ModelAttributes, ModelSerialize, NestedAttributes, NestedAttributesBypass, NumberToCurrency, PageCachingCVE, Pathname, PermitAttributes, QuoteTableName, Ransack, Redirect, RegexDoS, Render, RenderDoS, RenderInline, ResponseSplitting, RouteDoS, SQL, SQLCVEs, SSLVerify, SafeBufferManipulation, SanitizeConfigCve, SanitizeMethods, SelectTag, SelectVulnerability, Send, SendFile, SessionManipulation, SessionSettings, SimpleFormat, SingleQuotes, SkipBeforeFilter, SprocketsPathTraversal, StripTags, SymbolDoSCVE, TemplateInjection, TranslateBug, UnsafeReflection, UnsafeReflectionMethods, ValidationRegex, VerbConfusion, WeakRSAKey, WithoutProtection, XMLDoS, YAMLParsing
+
+== Overview ==
+
+Controllers: 11
+Models: 8
+Templates: 38
+Errors: 0
+Security Warnings: 15
+
+== Warning Types ==
+
+Cross-Site Scripting: 15
+
+== Warnings ==
+
+Confidence: High
+Category: Cross-Site Scripting
+Check: CrossSiteScripting
+Message: Unescaped model attribute
+Code: UserApplication.new.child_name
+File: app/views/user_applications/_form.html.erb
+Line: 5
+
+Confidence: High
+Category: Cross-Site Scripting
+Check: CrossSiteScripting
+Message: Unescaped model attribute
+Code: UserApplication.new.child_birthdate
+File: app/views/user_applications/_form.html.erb
+Line: 9
+
+Confidence: High
+Category: Cross-Site Scripting
+Check: CrossSiteScripting
+Message: Unescaped model attribute
+Code: UserApplication.new.primary_diagnosis
+File: app/views/user_applications/_form.html.erb
+Line: 13
+
+Confidence: High
+Category: Cross-Site Scripting
+Check: CrossSiteScripting
+Message: Unescaped model attribute
+Code: UserApplication.new.secondary_diagnosis
+File: app/views/user_applications/_form.html.erb
+Line: 17
+
+Confidence: High
+Category: Cross-Site Scripting
+Check: CrossSiteScripting
+Message: Unescaped model attribute
+Code: UserApplication.new.adaptive_equipment
+File: app/views/user_applications/_form.html.erb
+Line: 21
+
+Confidence: High
+Category: Cross-Site Scripting
+Check: CrossSiteScripting
+Message: Unescaped model attribute
+Code: UserApplication.new.child_height
+File: app/views/user_applications/_form.html.erb
+Line: 25
+
+Confidence: High
+Category: Cross-Site Scripting
+Check: CrossSiteScripting
+Message: Unescaped model attribute
+Code: UserApplication.new.child_weight
+File: app/views/user_applications/_form.html.erb
+Line: 29
+
+Confidence: High
+Category: Cross-Site Scripting
+Check: CrossSiteScripting
+Message: Unescaped model attribute
+Code: UserApplication.new.caregiver_name
+File: app/views/user_applications/_form.html.erb
+Line: 33
+
+Confidence: High
+Category: Cross-Site Scripting
+Check: CrossSiteScripting
+Message: Unescaped model attribute
+Code: UserApplication.new.caregiver_email
+File: app/views/user_applications/_form.html.erb
+Line: 37
+
+Confidence: High
+Category: Cross-Site Scripting
+Check: CrossSiteScripting
+Message: Unescaped model attribute
+Code: UserApplication.new.caregiver_phone
+File: app/views/user_applications/_form.html.erb
+Line: 41
+
+Confidence: High
+Category: Cross-Site Scripting
+Check: CrossSiteScripting
+Message: Unescaped model attribute
+Code: UserApplication.new.can_transport
+File: app/views/user_applications/_form.html.erb
+Line: 50
+
+Confidence: High
+Category: Cross-Site Scripting
+Check: CrossSiteScripting
+Message: Unescaped model attribute
+Code: UserApplication.new.can_store
+File: app/views/user_applications/_form.html.erb
+Line: 61
+
+Confidence: High
+Category: Cross-Site Scripting
+Check: CrossSiteScripting
+Message: Unescaped model attribute
+Code: UserApplication.new.notes
+File: app/views/user_applications/_form.html.erb
+Line: 67
+
+Confidence: High
+Category: Cross-Site Scripting
+Check: CrossSiteScripting
+Message: Unescaped model attribute
+Code: UserApplication.new.user_id
+File: app/views/user_applications/_form.html.erb
+Line: 73
+
+Confidence: High
+Category: Cross-Site Scripting
+Check: CrossSiteScripting
+Message: Unescaped model attribute
+Code: UserApplication.new.accepted
+File: app/views/user_applications/_form.html.erb
+Line: 76
+
