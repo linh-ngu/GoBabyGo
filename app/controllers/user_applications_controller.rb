@@ -19,17 +19,18 @@ class UserApplicationsController < ApplicationController
 
   def create
     @user = User.find_by(admin_id: current_admin.id)
-    @user_application.user_id = @user.id
 
     if @user.level == 0
       @user_application = UserApplication.new(user_params)
+      flash[:notice] = "Application submitted successfully. We will reach out to you soon with our response."
     elsif @user.level == 1
       @user_application = UserApplication.new(officer_params)
+      "Application submitted successfully."
     end
 
     params[:user_application][:caregiver_phone].gsub!(/\D/, '')
-
     
+    @user_application.user_id = @user.id
     if @user_application.save
       redirect_to user_application_path(@user_application.id)
     else
@@ -48,19 +49,14 @@ class UserApplicationsController < ApplicationController
     @user_application = UserApplication.find(params[:id])
     @user = User.find_by(admin_id: current_admin.id)
 
-    if @user.level == 0
-      if @user_application.update(user_params)
-        redirect_to user_application_path(@user_application.id)
-      else
-        redirect_to edit_user_application_path(@user_application)
-      end
-    elsif @user.level == 1
-      if @user_application.update(officer_params)
-        redirect_to user_applications_path
-      else
-        redirect_to edit_user_application_path(@user_application)
-      end
+    app_params = @user.level == 0 ? user_params : officer_params
+    
+    if @user_application.update(app_params)
+      redirect_to user_application_path(@user_application.id)
+    else
+      redirect_to edit_user_application_path(@user_application)
     end
+  
   end
 
   def delete
