@@ -17,13 +17,17 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: 'dashboards#show'
+  root to: 'main#index'
+
+  # root to: 'dashboards#show'
+  get 'dashboard', to: 'dashboards#show', as: 'dashboard'
+
   devise_for :admins, controllers: { omniauth_callbacks: 'admins/omniauth_callbacks' }
   devise_scope :admin do
     get 'admins/sign_in', to: 'admins/sessions#new', as: :new_admin_session
     get 'admins/sign_out', to: 'admins/sessions#destroy', as: :destroy_admin_session
   end
 
-  get 'main/index'
-  
+  get 'main/index', to:'main#index', as:'home'
+
 end
