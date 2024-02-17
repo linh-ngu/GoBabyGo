@@ -1,7 +1,12 @@
 class UserApplicationsController < ApplicationController
   def index
     @user = User.find_by(admin_id: current_admin.id)
-    @user_applications = UserApplication.where(user_id: @user.id)
+    @page_title = @user.level == 0 ? "Your Applications" : "All User Applications"
+    if @user.level == 0
+      @user_applications = UserApplication.where(user_id: @user.id)
+    elsif @user.level == 1
+      @user_applications = UserApplication.order(:child_name)
+    end
   end
 
   def show
@@ -13,12 +18,20 @@ class UserApplicationsController < ApplicationController
   end
 
   def create
-    @user_application = UserApplication.new(app_params)
-    params[:user_application][:caregiver_phone].gsub!(/\D/, '')
     @user = User.find_by(admin_id: current_admin.id)
     @user_application.user_id = @user.id
+
+    if @user.level == 0
+      @user_application = UserApplication.new(user_params)
+    elsif @user.level == 1
+      @user_application = UserApplication.new(officer_params)
+    end
+
+    params[:user_application][:caregiver_phone].gsub!(/\D/, '')
+
+    
     if @user_application.save
-      redirect_to user_application_path(@user.id)
+      redirect_to user_application_path(@user_application.id)
     else
       flash[:notice] = @user_application.errors.full_messages.join(", ")
       redirect_to new_user_application_path
@@ -27,15 +40,26 @@ class UserApplicationsController < ApplicationController
 
   def edit
     @user_application = UserApplication.find(params[:id])
+    @user = User.find_by(admin_id: current_admin.id)
+    @access_accepted = @user.level == 1
   end
 
   def update
     @user_application = UserApplication.find(params[:id])
     @user = User.find_by(admin_id: current_admin.id)
-    if @user_application.update(app_params)
-      redirect_to user_application_path(@user.id)
-    else
-      redirect_to edit_user_application_path(@user_application)
+
+    if @user.level == 0
+      if @user_application.update(user_params)
+        redirect_to user_application_path(@user_application.id)
+      else
+        redirect_to edit_user_application_path(@user_application)
+      end
+    elsif @user.level == 1
+      if @user_application.update(officer_params)
+        redirect_to user_applications_path
+      else
+        redirect_to edit_user_application_path(@user_application)
+      end
     end
   end
 
@@ -47,11 +71,15 @@ class UserApplicationsController < ApplicationController
     @user_application = UserApplication.find(params[:id])
     @user = User.find_by(admin_id: current_admin.id)
     @user_application.destroy
-    redirect_to user_application_path(@user.id)
+    if @user.level == 0
+      redirect_to user_application_path(@user_application.id)
+    elsif @user.level == 1
+      redirect_to user_applications_path
+    end
   end
 
   private
-  def app_params
+  def user_params
     params.require(:user_application).permit(
       :child_name, 
       :child_birthdate,
@@ -66,5 +94,23 @@ class UserApplicationsController < ApplicationController
       :can_transport,
       :can_store,
       :notes)
+  end
+
+  def officer_params
+    params.require(:user_application).permit(
+      :child_name, 
+      :child_birthdate,
+      :primary_diagnosis,
+      :secondary_diagnosis,
+      :adaptive_equipment,
+      :child_height,
+      :child_weight,
+      :caregiver_name,
+      :caregiver_email,
+      :caregiver_phone,
+      :can_transport,
+      :can_store,
+      :notes,
+      :accepted)
   end
 end
