@@ -39,3 +39,10 @@
 #nav-buttons {
     color:maroon; text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
 }
+
+#dropdown {
+    background-color:white;
+    color:maroon; 
+    text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF; 
+    border-radius: 20px;
+}
