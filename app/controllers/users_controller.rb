@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new(email: current_admin.email, admin_id: current_admin.id, level: 0)
+    @user = User.new(email: current_admin.email, admin_id: current_admin.id, level: :applicant)
   end
 
   def create
