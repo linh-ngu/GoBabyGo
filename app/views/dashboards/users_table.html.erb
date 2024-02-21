@@ -1,5 +1,8 @@
 <!-- app/views/users/index.html.erb -->
-<h1>Member List for Officer</h1>
+<h1>Member List</h1>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+<%= @user.level %>
 
 <table>
   <thead>
@@ -10,7 +13,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @users.each do |user| %>
+    <% @all_users.each do |user| %>
       <tr>
         <td><%= user.email %></td>
         <td><%= user.level.capitalize %></td>

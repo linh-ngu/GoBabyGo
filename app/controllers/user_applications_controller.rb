@@ -2,9 +2,9 @@ class UserApplicationsController < ApplicationController
   def index
     @user = User.find_by(admin_id: current_admin.id)
     # @page_title = @user.level == 0 ? "Your Applications" : "All User Applications"
-    @page_title = @user.visitor? ? "Your Applications" : "All User Applications"
-    # visitor user to their application
-    if @user.visitor?
+    @page_title = @user.applicant? ? "Your Applications" : "All User Applications"
+    # applicant user to view their application
+    if @user.applicant?
       @user_applications = UserApplication.where(user_id: @user.id)
     # officer user to view of entire applications
     elsif @user.officer_member?

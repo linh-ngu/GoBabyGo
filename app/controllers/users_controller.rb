@@ -9,6 +9,16 @@ class UsersController < ApplicationController
     @user = User.new(email: current_admin.email, admin_id: current_admin.id, level: :applicant)
   end
 
+  def update
+    @user = User.find_by(admin_id: current_admin.id)
+
+    if @user.update(user_params)
+      redirect_to table_users_view_path, notice: 'User role was successfully updated.'
+    else
+      redirect_to table_users_view_path, alert: 'Unable to update user role.'
+    end
+  end
+
   def create
     @user = User.new(user_params)
     @admin = Admin.find_by(id: current_admin.id)
@@ -26,7 +36,8 @@ class UsersController < ApplicationController
     params.require(:user).permit(
       :admin_id,
       :email,
-      :phone
+      :phone,
+      :level
     )
   end
 end
