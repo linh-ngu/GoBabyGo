@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :set_user_for_updating_role, only: [:update]
+
   def index
   end
 
@@ -12,7 +14,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find_by(admin_id: current_admin.id)
 
-    if @user.update(user_params)
+    if @user_role_to_be_changed.update(user_params)
       redirect_to table_users_view_path, notice: 'User role was successfully updated.'
     else
       redirect_to table_users_view_path, alert: 'Unable to update user role.'
@@ -40,4 +42,10 @@ class UsersController < ApplicationController
       :level
     )
   end
+
+  def set_user_for_updating_role
+    @user_role_to_be_changed = User.find(params[:id])
+  end
+
+
 end
