@@ -18,7 +18,7 @@
         <td><%= user.email %></td>
         <td><%= user.level.capitalize %></td>
         <td>
-          <%= form_with(model: user, url: user_path(user), local: true, method: :patch) do |form| %>
+          <%= form_with(model: user, url: update_role_user_path(user), local: true, method: :patch) do |form| %>
             <%= form.select :level, User.levels.keys.map { |key| [key.humanize, key] }, {}, {class: "select"} %>
             <%= form.submit "Update Role", class: "btn btn-primary" %>
           <% end %>
