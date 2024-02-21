@@ -25,7 +25,7 @@ class DashboardsController < ApplicationController
     else
       @user = User.find_by(admin_id: current_admin.id)
       @user_level = @user.level if @user.present?
-      @all_users = User.all
+      @all_users = User.order(:id)
 
       # directs user to proper users_table view
       # user w/o permission --> back to home
