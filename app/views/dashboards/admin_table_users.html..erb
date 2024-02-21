@@ -1,0 +1,26 @@
+<!-- app/views/users/index.html.erb -->
+<h1>Member List for Admin</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Current Role</th>
+      <th>Change Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.level.capitalize %></td>
+        <td>
+          <%= form_with(model: user, url: user_path(user), local: true, method: :patch) do |form| %>
+            <%= form.select :level, User.levels.keys.map { |key| [key.humanize, key] }, {}, {class: "select"} %>
+            <%= form.submit "Update Role", class: "btn btn-primary" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
