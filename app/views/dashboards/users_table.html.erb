@@ -2,28 +2,70 @@
 <h1>Member List</h1>
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
-<%= @user.level %>
+<%= @user.level.capitalize %>
 
 <table>
   <thead>
     <tr>
       <th>Email</th>
       <th>Current Role</th>
+      <% if !@user.staff_member? %>
       <th>Change Role</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
-    <% @all_users.each do |user| %>
-      <tr>
-        <td><%= user.email %></td>
-        <td><%= user.level.capitalize %></td>
-        <td>
+    <% if @user.staff_member? %>
+      <% @all_users.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><%= user.level.capitalize %></td>
+          <td>
+          </td>
+        </tr>
+      <% end %>
+    <% elsif @user.officer_member? %>
+      <% @all_users.each do |user| %>
+        <% if user.admin? %>
+          <tr>
+          <td><%= user.email %></td>
+          <td><%= user.level.capitalize %></td>
+          <td>
+          </td>
+          </tr>
+        <% else %>
+          <tr>
+            <td><%= user.email %></td>
+            <td><%= user.level.capitalize %></td>
+            <td>
+            <%= form_with(model: user, url: update_role_user_path(user), local: true, method: :patch) do |form| %>
+              <%# Ensure only visitor, member, and officer roles are selectable %>
+              <% selectable_roles = User.levels.keys - ['admin'] %>
+              <%= form.select :level, selectable_roles.map { |key| [key.humanize, key] }, {}, {class: "select"} %>
+              <%= form.submit "Update Role", class: "btn btn-primary" %>
+            <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+
+    <% elsif @user.admin? %>
+      <% @all_users.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><%= user.level.capitalize %></td>
+          <td>
           <%= form_with(model: user, url: update_role_user_path(user), local: true, method: :patch) do |form| %>
-            <%= form.select :level, User.levels.keys.map { |key| [key.humanize, key] }, {}, {class: "select"} %>
+            <%# Ensure only visitor, member, and officer roles are selectable %>
+            <% selectable_roles = User.levels.keys %>
+            <%= form.select :level, selectable_roles.map { |key| [key.humanize, key] }, {}, {class: "select"} %>
             <%= form.submit "Update Role", class: "btn btn-primary" %>
           <% end %>
-        </td>
-      </tr>
+          </td>
+        </tr>
+      <% end %>
+
     <% end %>
+    
   </tbody>
 </table>
