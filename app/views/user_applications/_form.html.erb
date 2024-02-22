@@ -17,15 +17,15 @@
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:secondary_diagnosis, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.secondary_diagnosis)}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class=''>What adaptive equipment does your child use?</th>
+            <th class=''>What adaptive equipment does your child use? (if applicable)</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:adaptive_equipment, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.adaptive_equipment)}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class='p'>Child's Height</th>
+            <th class='p'>Child's Height (in inches)</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.number_field(:child_height, class: 'py-1 px-2', min: 1) : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_height)}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class=''>Child's Weight</th>
+            <th class=''>Child's Weight (in pounds)</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.number_field(:child_weight, class: 'py-1 px-2', min: 1) : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_weight)}</div>".html_safe %></td>
 
         </tr>
@@ -65,7 +65,7 @@
         </tr>
         <tr>
             <th class=''>Additional Notes</th>
-            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:notes, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.notes)}</div>".html_safe %></td>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_area(:notes, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.notes)}</div>".html_safe %></td>
         </tr>
         <% if @access_accepted %>
             <tr>

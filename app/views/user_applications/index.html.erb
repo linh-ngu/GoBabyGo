@@ -1,23 +1,27 @@
-<%= link_to('Back to Dashboard', {controller: 'dashboards', action: 'show'}, class:'border border-black px-2 py-1') %><br />
-<div class="user_applications index">
-    <h2><span style="font-size: 24px; font-weight: bold;"><%= @page_title %></span></h2>
-    <br />
-    <table class="listing" summary="user_application List" style="width: 100%;">
-        <tr class="header">
-            <th>Child Name</th>
-        </tr>
-        <% @user_applications.each do |user_application| %>
-        <tr>
-            <td><%= user_application.child_name %></td>
-            <td class="actions">
-                <%= link_to("Show", user_application_path(user_application), class: "action show border border-black px-2 py-1 m-2")%>
-                <%= link_to("Edit", edit_user_application_path(user_application), class: "action edit border border-black px-2 py-1 m-2")%>
-                <%= link_to("Delete", delete_user_application_path(user_application), class: "action delete border border-black px-2 py-1 m-2")%>
-            </td>
-        </tr>
-        <% end %>
-    </table>
-    <br />
-    <br />
-    <%= link_to("New Application", new_user_application_path, class: "action show border border-black px-2 py-1 m-2")%>
+<div class='mt-8'><%= link_to('Back to Dashboard', dashboard_path, class:'border border-black bg-white rounded-lg px-2 py-1 m-4') %></div>
+
+<h1 class='font-bold text-4xl m-4 text-center'><%= @page_title %></h1>
+<div class='flex flex-col justify-center items-center border border-black bg-[#FFEFAD] rounded-lg lg:w-2/3 w-[500px] mx-auto'>
+    <div class='w-3/4'>
+        <div class='flex justify-between px-12 py-4 font-bold'>
+            <p>Child's Name</p>
+            <p class='px-8'>Actions</p>
+        </div>
+        <div class='flex flex-col'>
+            <% @user_applications.each do |user_application| %>
+                <div class='flex justify-between'>
+                    <p><%= user_application.child_name %></p>
+                    <div class='py-2'>
+                        <%= link_to("Show", user_application_path(user_application), class: "action show border border-black rounded-lg bg-white px-2 py-1 m-1")%>
+                        <%= link_to("Edit", edit_user_application_path(user_application), class: "action edit border border-black rounded-lg bg-white px-2 py-1 m-1")%>
+                        <%= link_to("Delete", delete_user_application_path(user_application), class: "action delete border border-black rounded-lg bg-white px-2 py-1 m-1")%>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+    
+    <div class='text-center m-4'>
+        <%= link_to("New Application", new_user_application_path, class: "border border-black bg-white px-2 py-1 mt-2 rounded-lg")%>
+    </div>
 </div>
