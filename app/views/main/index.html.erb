@@ -1,18 +1,14 @@
 <h1 class='text-7xl'>Welcome to GoBabyGo!</h1>
 </br>
 <% if admin_signed_in? %>
-  <% if @user.applicant? %>
-        <%= link_to "Go to Dashboard", dashboard_path , class:'border border-black px-2 py-1 mx-4' %><br />
+  <%= link_to "Go to Dashboard", dashboard_path , class:'border border-black px-2 py-1 mx-4' %><br />
 
+    <% if @user.applicant? %>
     <% elsif @user.staff_member? %>
-      <%= link_to "Go to Dashboard", dashboard_path , class:'border border-black px-2 py-1 mx-4' %><br />
-
     <% elsif @user.officer_member? %>
-      <%= link_to "Go to Dashboard", dashboard_path , class:'border border-black px-2 py-1 mx-4' %><br />
-
     <% elsif @user.admin? %>
-      <%= link_to "Go to Dashboard", dashboard_path , class:'border border-black px-2 py-1 mx-4' %><br />
-  <% end %>
+    <% end %>
+  
   </br></br></br>
   <%= link_to "Sign Out", destroy_admin_session_path, method: :delete, class: "border border-black px-2 py-1 mx-4" %>
   </br>

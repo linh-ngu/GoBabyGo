@@ -10,10 +10,10 @@
     <%= link_to "View Member Table", table_users_view_path , class:'border border-black px-2 py-1 mx-4' %><br />
 
   <% elsif @user.officer_member? %>
-    <%= link_to "View Officer Table", table_users_view_path , class:'border border-black px-2 py-1 mx-4' %><br />
+    <%= link_to "View Member Table", table_users_view_path , class:'border border-black px-2 py-1 mx-4' %><br />
 
   <% elsif @user.admin? %>
-    <%= link_to "View Admin Table", table_users_view_path , class:'border border-black px-2 py-1 mx-4' %><br />
+    <%= link_to "View Member Table", table_users_view_path , class:'border border-black px-2 py-1 mx-4' %><br />
   <% end %>
 <br />
 <br />

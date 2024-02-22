@@ -3,9 +3,9 @@
 <%= link_to "Go to Dashboard", dashboard_path , class:'border border-black px-2 py-1 mx-4' %><br />
 
 <h1>Member List</h1>
+<p> Your Role: <%= @user.level.capitalize %></p>
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
-<p> Your Role: <%= @user.level.capitalize %></p>
 
 <table>
   <thead>
