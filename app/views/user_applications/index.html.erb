@@ -1,5 +1,9 @@
 <%= link_to('Back to Dashboard', {controller: 'dashboards', action: 'show'}, class:'border border-black px-2 py-1') %><br />
+
 <div class="user_applications index">
+  <h2><span style="font-size: 24px; font-weight: bold;"><%= @page_title %></span></h2>
+  <br />
+  <% if @user.visitor? %>
     <h2><span style="font-size: 24px; font-weight: bold;"><%= @page_title %></span></h2>
     <br />
     <table class="listing" summary="user_application List" style="width: 100%;">
@@ -19,5 +23,76 @@
     </table>
     <br />
     <br />
-    <%= link_to("New Application", new_user_application_path, class: "action show border border-black px-2 py-1 m-2")%>
+  <% end %>
+
+  <% if @user.officer_member? %>
+    <!-- Not Accepted User Applications -->
+    <div class="section-header">
+        <h3>Not Accepted</h3>
+    </div>
+    <div class="section-body">
+        <table class="listing" summary="user_application List" style="width: 100%;">
+        <tr class="header">
+            <th>Child Name</th>
+            <th>Actions</th>
+        </tr>
+        <% @not_accepted_user_applications.each do |user_application| %>
+            <tr>
+            <td><%= user_application.child_name %></td>
+            <td class="actions">
+                <%= link_to("Accept", edit_user_application_path(user_application), method: :patch, class: "action accept border border-black px-2 py-1 m-2")%>
+                <%= link_to("Waitlist", edit_user_application_path(user_application), method: :patch, class: "action waitlist border border-black px-2 py-1 m-2")%>
+            </td>
+            </tr>
+        <% end %>
+        </table>
+    </div>
+    <br />
+
+    <!-- Waitlist User Applications -->
+    <div class="section-header">
+        <h3>Waitlist</h3>
+    </div>
+    <div class="section-body">
+        <table class="listing" summary="user_application List" style="width: 100%;">
+        <tr class="header">
+            <th>Child Name</th>
+            <th>Actions</th>
+        </tr>
+        <% @waitlist_user_applications.each do |user_application| %>
+            <tr>
+            <td><%= user_application.child_name %></td>
+            <td class="actions">
+                <%= link_to("Accept", edit_user_application_path(user_application), method: :patch, class: "action accept border border-black px-2 py-1 m-2")%>
+            </td>
+            </tr>
+        <% end %>
+        </table>
+    </div>
+    <br />
+
+    <!-- Accepted User Applications -->
+    <div class="section-header">
+        <h3>Accepted</h3>
+    </div>
+    <div class="section-body">
+        <table class="listing" summary="user_application List" style="width: 100%;">
+        <tr class="header">
+            <th>Child Name</th>
+            <th>Actions</th>
+        </tr>
+        <% @accepted_user_applications.each do |user_application| %>
+            <tr>
+            <td><%= user_application.child_name %></td>
+            <td class="actions">
+                <!-- Add any actions specific to accepted user applications here -->
+            </td>
+            </tr>
+        <% end %>
+        </table>
+    </div>
+    <br />
+  <% end %>
+
+  <%= link_to("New Application", new_user_application_path, class: "action show border border-black px-2 py-1 m-2")%>
 </div>

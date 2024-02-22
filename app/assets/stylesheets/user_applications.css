@@ -1,0 +1,14 @@
+.section-header {
+    background-color: #e0e0e0; /* Grey background */
+    padding: 10px;
+  }
+  
+  .section-header h3 {
+    margin: 0;
+  }
+  
+  .section-body {
+    padding: 10px;
+    background-color: #ffffff;
+  }
+  
