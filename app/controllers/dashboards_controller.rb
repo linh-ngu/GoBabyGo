@@ -4,14 +4,17 @@ class DashboardsController < ApplicationController
       redirect_to new_user_path
     else
       @user = User.find_by(admin_id: current_admin.id)
-      if @user.level == 0
+
+      if @user.applicant?
         render 'show_user'
-      elsif @user.level ==1
+      elsif @user.officer_member?
         render 'show_officer'
-      else
+      elsif @user.admin?
         render 'show_admin'
+      else
+        render 'show_user'
       end
     end
   end
-  
+
 end
