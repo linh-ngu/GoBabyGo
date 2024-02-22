@@ -17,6 +17,25 @@ Rails.application.routes.draw do
     end
   end
 
+  
+  resources :parts do
+    member do
+      get :delete
+    end
+  end
+
+  
+  resources :cars do
+    member do
+      get :delete
+    end
+  end
+
+  resources :car_types do
+    member do
+      get :delete
+    end
+  end
   root to: 'main#index'
 
   # root to: 'dashboards#show'

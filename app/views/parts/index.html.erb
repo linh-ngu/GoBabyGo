@@ -2,13 +2,44 @@
 
 <h1>Parts</h1>
 
-<div id="parts">
+<table width="100%">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Quantity</th>
+      <th>Source</th>
+      <th>Price</th>
+      <th>Car</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @parts.each do |part| %>
+      <tr>
+        <td><%= part.part_name %></td>
+        <td><%= part.quantity_purchased %></td>
+        <td><%= part.purchase_source %></td>
+        <td><%= part.part_price %></td>
+        <td><%= part.car.name %></td>
+        <td><%= link_to 'Show', part %></td>
+        <td><%= link_to 'Edit', edit_part_path(part) %></td>
+        <td><%= link_to 'Destroy', part, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%
+=begin%>
+ <div id="parts">
   <% @parts.each do |part| %>
     <%= render part %>
     <p>
       <%= link_to "Show this Part", part %>
     </p>
   <% end %>
-</div>
+</div> 
+<%
+=end%>
 
 <%= link_to "New Part", new_part_path %>
