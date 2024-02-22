@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :cars
+  resources :car_types
+  resources :parts
   root to: 'main#index'
 
   # root to: 'dashboards#show'
