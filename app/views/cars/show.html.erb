@@ -1,14 +1,34 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @car %>
-<% if @car.parts.any? %>
-  <h2>Parts:</h2>
-  <ul>
-    <% @car.parts.each do |part| %>
-      <li><%= part.part_name %> - <%= part.part_price %>
-      <%= button_to "Destroy", part, method: :delete %></li>
-    <% end %>
-  </ul>
+<% if @car.parts.any? %><table width="100%">
+  <table width = "100%">
+    <thead>
+      <tr>
+        <th class="text-left">Part Name</th>
+        <th class="text-left">Quantity</th>
+        <th class="text-left">Source</th>
+        <th class="text-left">Price</th>
+        <th class="text-left">Car</th>
+        <th colspan="3" class="text-left">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @car.parts.each do |part| %>
+        <tr>
+          <td><%= part.part_name %></td>
+          <td><%= part.quantity_purchased %></td>
+          <td><%= part.purchase_source %></td>
+          <td><%= part.part_price %></td>
+          <td><%= link_to Car.find(part.car_id).car_type.name, car_path(part.car_id) %></td>
+          <td><%= link_to 'Show', part %></td>
+          <td><%= link_to 'Edit', edit_part_path(part) %></td>
+          <td><%= link_to 'Destroy', part, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% else %>
   <p>No parts associated with this car.</p>
 <% end %>
