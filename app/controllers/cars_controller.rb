@@ -74,7 +74,7 @@ class CarsController < ApplicationController
       @car = Car.find(params[:id])
     end
     def car_params
-      params.require(:car).permit(:car_type_id, :modification_details, :complete)
+      params.require(:car).permit(:car_type_id, :modification_details, :complete, :user_application_id)
     end
 end
   

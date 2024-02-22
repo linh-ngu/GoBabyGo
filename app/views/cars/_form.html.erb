@@ -12,6 +12,10 @@
   <% end %>
 
   <div>
+    <%= form.label :user_application_id, 'Link to Application', style: "display: block" %>
+    <%= form.collection_select :user_application_id, UserApplication.all, :id, :child_name, { prompt: 'Select Application' }, { class: 'form-control' } %>
+  </div>
+  <div>
     <%= form.label :modification_details, style: "display: block" %>
     <%= form.text_field :modification_details %>
   </div>

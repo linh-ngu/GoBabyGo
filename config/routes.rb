@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       get :delete
     end
   end
+  get 'main/inventory', to: 'main#inventory', as: 'inventory'
 
   
   resources :cars do

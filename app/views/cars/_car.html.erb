@@ -8,9 +8,8 @@
     $<%= car.car_type.price %>
   </p>
   <p>
-      <strong>Height:</strong>
-      <%= car.car_type.max_height %> in. - <%= car.car_type.min_height %> in.
-  </p>
+    <strong>Application:</strong>
+    <%= car.user_application.nil? ? "None" : car.user_application.child_name %>
   <p>
     <strong>Modifications:</strong>
     <%= car.modification_details %>
@@ -19,5 +18,4 @@
     <strong>Complete?:</strong>
     <%= car.complete ? "True" : "False" %>
   </p>
-
 </div>
