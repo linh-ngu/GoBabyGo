@@ -7,7 +7,6 @@ class UserApplicationsController < ApplicationController
       @user_applications = UserApplication.where(user_id: @user.id)
     # officer user to view of entire applications
     elsif @user.officer_member?
-      #@user_applications = UserApplication.order(:child_name)
       @not_accepted_user_applications = UserApplication.where(accepted: [nil, false], waitlist: false)
       @waitlist_user_applications = UserApplication.where(waitlist: true, accepted: false)
       @accepted_user_applications = UserApplication.where(accepted: true)
