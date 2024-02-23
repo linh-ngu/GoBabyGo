@@ -42,11 +42,18 @@ You can run all the test cases by running. This will run both the unit and integ
 ## Execute Code
 
 Run the following code in Powershell if using windows or the terminal using Linux/Mac
+You must have Docker installed.
+
+`docker pull paulinewade/csce431:latest`
 
 `cd GoBabyGo`
 
-`docker start -ai your_container_name`
+(For Windows)
+`docker run --rm -it --volume "${PWD}:/project" -e DATABASE_USER=test_app -e DATABASE_PASSWORD=test_password -p 3000:3000 paulinewade/csce431:latest`
 
+`cd project`
+
+(For more information on Docker, visit this lab activity: https://docs.google.com/document/d/1dy3EiiVQC0RPlgtJVKK1-36hyA6OkcCC/edit)
 
 Install the app
 
@@ -58,7 +65,6 @@ Run the app
 
 
 The application can be seen using a browser and navigating to http://localhost:3000/
-
 
 ## Environmental Variables/Files
 
@@ -147,7 +153,7 @@ Great! You just created a pipeline ready for deployment!
 
 ## CI/CD
 
-CI/CD has been implemented in the GitHub Actions in the repo here -> 
+CI/CD has been implemented in the GitHub Actions in the repo here -> https://github.com/linh-ngu/GoBabyGo/actions
 
 ## Support
 
