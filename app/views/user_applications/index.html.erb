@@ -1,4 +1,4 @@
-<%= link_to('Back to Dashboard', {controller: 'dashboards', action: 'show'}, class: 'border border-black px-2 py-1 ml-3 bg-gray-500 text-white') %>
+<%= link_to('Back to Dashboard', {controller: 'dashboards', action: 'show'}, class: 'border border-black px-2 py-1 ml-3 bg-white text-black hover:bg-gray-200') %>
 <br/>
 
 <div class="user_applications index py-10">
@@ -39,7 +39,9 @@
             <tr>
             <td class="py-3">
             <%= user_application.child_name %>
-            <%= link_to("Accept/Waitlist", edit_user_application_path(user_application), method: :patch, class: "action accept-waitlist border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
+            <%= link_to("View", user_application_path(user_application), method: :patch, class: "action show border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
+            <%= link_to("Accept", edit_user_application_path(user_application), method: :patch, class: "action accept border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
+            <%= link_to("Reject", edit_user_application_path(user_application), method: :patch, class: "action reject border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
             </td>
           </tr>
         <% end %>
@@ -60,8 +62,9 @@
           <tr>
             <td class="py-3">
             <%= user_application.child_name %>
-            <%= link_to("Remove from Waitlist", edit_user_application_path(user_application), method: :patch, class: "action remove-from-waitlist border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
-            </td>
+            <%= link_to("View", user_application_path(user_application), method: :patch, class: "action show border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
+            <%= link_to("Accept", edit_user_application_path(user_application), method: :patch, class: "action accept border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
+            <%= link_to("Reject", edit_user_application_path(user_application), method: :patch, class: "action reject border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
           </tr>
         <% end %>
       </table>
@@ -81,7 +84,8 @@
           <tr>
             <td class="py-3">
             <%= user_application.child_name %>
-            <%= link_to("Unaccept/Waitlist", edit_user_application_path(user_application), method: :patch, class: "action unaccept-waitlist border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
+            <%= link_to("View", user_application_path(user_application), method: :patch, class: "action show border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
+            <%= link_to("Reject", edit_user_application_path(user_application), method: :patch, class: "action reject border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
             </td>
           </tr>
         <% end %>
@@ -90,5 +94,6 @@
     <br />
   <% end %>
 
-  <%= link_to("New Application", new_user_application_path, class: "action show border border-black px-2 py-1 m-2")%>
+  <%= link_to("New Application", new_user_application_path, class: "action show border border-black px-2 py-1 m-2 bg-white hover:bg-gray-200")%>
+  <br />
 </div>

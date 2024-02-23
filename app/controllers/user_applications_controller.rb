@@ -120,6 +120,7 @@ class UserApplicationsController < ApplicationController
       :can_transport,
       :can_store,
       :notes,
-      :accepted)
+      :accepted,
+      :waitlist)
   end
 end
