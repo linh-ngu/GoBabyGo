@@ -37,6 +37,12 @@ Rails.application.routes.draw do
       get :delete
     end
   end
+
+  resources :notes do
+    member do
+      get :delete
+    end
+  end
   root to: 'main#index'
 
   # root to: 'dashboards#show'

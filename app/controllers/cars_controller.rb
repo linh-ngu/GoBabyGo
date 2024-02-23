@@ -3,7 +3,15 @@ class CarsController < ApplicationController
 
   # GET /cars or /cars.json
   def index
-    @cars = Car.all
+    
+    current_user = User.find_by(admin_id: current_admin.id)
+    if current_user.admin?
+      @cars = Car.all
+      @edit_access = true
+    else
+      @cars = Car.joins(:user_application).where(user_applications: { user_id: current_user.id })
+      @edit_access = false
+    end
   end
 
   # GET /cars/1 or /cars/1.json

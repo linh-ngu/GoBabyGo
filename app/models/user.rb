@@ -1,6 +1,8 @@
 class User < ApplicationRecord
     has_many :user_applications
     belongs_to :admin, optional: true
+    has_many :notes
+    has_many :cars
 
     enum level: {
         visitor: 0,
