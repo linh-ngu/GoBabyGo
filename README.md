@@ -28,9 +28,7 @@ This code has been run and tested on:
 
 Download this code repository by using git:
 
-`git clone https://github.com/FA21-CSCE431/project-sprint-3-zlp-interviewer.git`
- or 
- `git clone https://github.com/FA21-CSCE431/project-final-code-zlp-interviewer/`
+`git clone https://github.com/linh-ngu/GoBabyGo.git`
 
 ## Tests
 
@@ -45,9 +43,9 @@ You can run all the test cases by running. This will run both the unit and integ
 
 Run the following code in Powershell if using windows or the terminal using Linux/Mac
 
-`cd project-sprint-3-zlp-interviewer`
+`cd GoBabyGo`
 
-`docker run --rm -it --volume "$(pwd):/rails_app" -e DATABASE_USER=test_app -e DATABASE_PASSWORD=test_password -p 3000:3000 dmartinez05/ruby_rails_postgresql:latest`
+`docker start -ai your_container_name`
 
 
 Install the app
@@ -64,9 +62,7 @@ The application can be seen using a browser and navigating to http://localhost:3
 
 ## Environmental Variables/Files
 
-We have environment variables setup for Authentication. The tutorial can be found here: https://medium.com/craft-academy/encrypted-credentials-in-ruby-on-rails-9db1f36d8570
-
-The tutorial above will help you understand now we encrypted the admin page's username and password!
+We have environment variables setup for Google OAuth and for Postgresql.
 
 
 ## Deployment
@@ -151,12 +147,12 @@ Great! You just created a pipeline ready for deployment!
 
 ## CI/CD
 
-CI/CD has been implemented in the GitHub Actions in the repo here -> https://github.com/PatelHarshank/ZLPInterviewer/actions
+CI/CD has been implemented in the GitHub Actions in the repo here -> 
 
 ## Support
 
-The support of this app has been officially closed. There is nothing more important left to develop. We can scale this app and make it generic enough for all other student orginizations and not just ZLP Interviewer. Thats the future goals of this application.
+N/A
 
 ## Extra Helps
 
-Please contact Pauline Wade paulinewade@tamu.edu for help on Lab assignments which will teach you in more depth
+Please contact Pauline Wade paulinewade@tamu.edu for help on setup and clarification.
