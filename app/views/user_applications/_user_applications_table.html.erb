@@ -1,0 +1,33 @@
+<% title_class = "#{table_class}-header bg-#{header_color}" %>
+<% body_class = "#{table_class}-body bg-white p-2" %>
+
+<div class="section-header <%= title_class %>">
+  <h3 class="text-white"><%= title %></h3>
+</div>
+<div class="section-body <%= body_class %>">
+  <table class="listing w-full">
+    <tr>
+      <th class='text-left'>Applicant Name</th>
+    </tr>
+    <% user_applications.each do |user_application| %>
+      <tr>
+        <td class="py-3">
+          <%= user_application.child_name %>
+          <% if title == "Not Accepted" %>
+            <%= link_to("View", user_application_path(user_application), method: :patch, class: view_link_class)%>
+            <%= link_to("Accept", edit_user_application_path(user_application), method: :patch, class: accept_link_class)%>
+            <%= link_to("Reject", edit_user_application_path(user_application), method: :patch, class: reject_link_class)%>
+            <%= link_to("Waitlist", edit_user_application_path(user_application), method: :patch, class: waitlist_link_class)%>
+          <% elsif title == "Waitlist" %>
+            <%= link_to("View", user_application_path(user_application), method: :patch, class: view_link_class)%>
+            <%= link_to("Accept", edit_user_application_path(user_application), method: :patch, class: accept_link_class)%>
+            <%= link_to("Reject", edit_user_application_path(user_application), method: :patch, class: reject_link_class)%>
+          <% elsif title == "Accepted" %>
+            <%= link_to("View", user_application_path(user_application), method: :patch, class: view_link_class)%>
+            <%= link_to("Undo Accept", edit_user_application_path(user_application), method: :patch, class: undo_accept_link_class)%>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
