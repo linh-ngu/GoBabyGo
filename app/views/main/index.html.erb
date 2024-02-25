@@ -1,8 +1,7 @@
-<h1 class='text-7xl'>Main#index</h1>
-<p class='m-4'>This will be the homepage</p>
+<h1 class='text-7xl'>Welcome to GoBabyGo!</h1>
 </br>
 <% if admin_signed_in? %>
-  <%= link_to "Go to Offcer Dashboard", dashboard_path , class:'border border-black px-2 py-1 mx-4' %><br />
+  <%= link_to "Go to Dashboard", dashboard_path , class:'border border-black px-2 py-1 mx-4' %><br />
 
   </br>
   </br>
@@ -12,6 +11,5 @@
   </br>
 
 <% else %>
-
     <%= button_to "Sign in with Google", admin_google_oauth2_omniauth_authorize_path, class: "border border-black px-2 py-1 mx-4" %>
 <% end %>
