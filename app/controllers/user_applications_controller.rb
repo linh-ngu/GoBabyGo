@@ -32,7 +32,7 @@ class UserApplicationsController < ApplicationController
     elsif @user.officer_member?
       #officer submits application
       @user_application = UserApplication.new(officer_params)
-      "Application submitted successfully."
+      flash[:notice] = "Application submitted successfully."
     end
 
     params[:user_application][:caregiver_phone].gsub!(/\D/, '')
@@ -65,7 +65,6 @@ class UserApplicationsController < ApplicationController
     else
       redirect_to edit_user_application_path(@user_application)
     end
-
   end
 
   def delete
