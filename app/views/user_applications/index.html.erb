@@ -1,3 +1,4 @@
+=begin
 <div class='mt-8'><%= link_to('Back to Dashboard', dashboard_path, class:'border border-black bg-white rounded-lg px-2 py-1 m-4') %></div>
 
 <h1 class='font-bold text-4xl m-4 text-center'><%= @page_title %></h1>
@@ -24,4 +25,105 @@
     <div class='text-center m-4'>
         <%= link_to("New Application", new_user_application_path, class: "border border-black bg-white px-2 py-1 mt-2 rounded-lg")%>
     </div>
+</div>
+
+<%= link_to('Back to Dashboard', {controller: 'dashboards', action: 'show'}, class: 'border border-black px-2 py-1 ml-3 bg-white text-black hover:bg-gray-200') %>
+<br/>
+=end
+
+<div class="user_applications index py-10">
+  <h2 class="text-2xl font-bold ml-3"><%= @page_title %></h2>
+  <br />
+  <% if @user.visitor? %>
+    <table class="listing w-full">
+      <tr class="header">
+        <th>Applicant Name</th>
+      </tr>
+      <% @user_applications.each do |user_application| %>
+        <tr>
+          <td><%= user_application.child_name %></td>
+          <td class="actions">
+            <%= link_to("Show", user_application_path(user_application), class: "action show border border-black px-2 py-1 m-2")%>
+            <%= link_to("Edit", edit_user_application_path(user_application), class: "action edit border border-black px-2 py-1 m-2")%>
+            <%= link_to("Delete", delete_user_application_path(user_application), class: "action delete border border-black px-2 py-1 m-2")%>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+    <br />
+    <br />
+  <% end %>
+
+  <% if @user.officer_member? %>
+    <!-- Not Accepted User Applications -->
+    <div class="section-header bg-red-800 p-2">
+      <h3 class="text-white">Not Accepted</h3>
+    </div>
+    <div class="section-body bg-white p-2">
+      <table class="listing w-full">
+        <tr class="ml-0">
+          <th>Applicant Name</th>
+        </tr>
+        <% @not_accepted_user_applications.each do |user_application| %>
+          <tr>
+            <tr>
+            <td class="py-3">
+            <%= user_application.child_name %>
+            <%= link_to("View", user_application_path(user_application), method: :patch, class: "action show border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
+            <%= link_to("Accept", edit_user_application_path(user_application), method: :patch, class: "action accept border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
+            <%= link_to("Reject", edit_user_application_path(user_application), method: :patch, class: "action reject border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+    <br />
+
+    <!-- Waitlist User Applications -->
+    <div class="section-header bg-gray-600 p-2">
+      <h3 class="text-white">Waitlist</h3>
+    </div>
+    <div class="section-body bg-white p-2">
+      <table class="listing w-full">
+        <tr class="header">
+          <th>Applicant Name</th>
+        </tr>
+        <% @waitlist_user_applications.each do |user_application| %>
+          <tr>
+            <td class="py-3">
+            <%= user_application.child_name %>
+            <%= link_to("View", user_application_path(user_application), method: :patch, class: "action show border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
+            <%= link_to("Accept", edit_user_application_path(user_application), method: :patch, class: "action accept border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
+            <%= link_to("Reject", edit_user_application_path(user_application), method: :patch, class: "action reject border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+    <br />
+
+    <!-- Accepted User Applications -->
+    <div class="section-header bg-blue-500 p-2">
+      <h3 class="text-white">Accepted</h3>
+    </div>
+    <div class="section-body bg-white p-2">
+      <table class="listing w-full">
+        <tr class="header">
+          <th>Applicant Name</th>
+        </tr>
+        <% @accepted_user_applications.each do |user_application| %>
+          <tr>
+            <td class="py-3">
+            <%= user_application.child_name %>
+            <%= link_to("View", user_application_path(user_application), method: :patch, class: "action show border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
+            <%= link_to("Reject", edit_user_application_path(user_application), method: :patch, class: "action reject border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+    <br />
+  <% end %>
+
+  <%= link_to("New Application", new_user_application_path, class: "action show border border-black px-2 py-1 m-2 bg-white hover:bg-gray-200")%>
+  <br />
 </div>
