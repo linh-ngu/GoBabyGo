@@ -1,14 +1,15 @@
 class UserApplicationsController < ApplicationController
   def index
     @user = User.find_by(admin_id: current_admin.id)
-    # @page_title = @user.level == 0 ? "Your Applications" : "All User Applications"
     @page_title = @user.visitor? ? "Your Applications" : "All User Applications"
     # visitor user to their application
     if @user.visitor?
       @user_applications = UserApplication.where(user_id: @user.id)
     # officer user to view of entire applications
     elsif @user.officer_member?
-      @user_applications = UserApplication.order(:child_name)
+      @not_accepted_user_applications = UserApplication.where(accepted: [nil, false], waitlist: false)
+      @waitlist_user_applications = UserApplication.where(waitlist: true, accepted: false)
+      @accepted_user_applications = UserApplication.where(accepted: true)
     end
 
   end
@@ -118,6 +119,7 @@ class UserApplicationsController < ApplicationController
       :can_transport,
       :can_store,
       :notes,
-      :accepted)
+      :accepted,
+      :waitlist)
   end
 end
