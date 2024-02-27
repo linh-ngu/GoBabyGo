@@ -5,13 +5,6 @@
 <div class="<%= body_class %> listing w-full block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2">
   <h3 class="<%= title_class %>"><%= title %></h3>
   <table>
-    <tr>
-      <th class='text-left text-xl'>
-        <% if empty %>
-          None
-        <% end %>
-      </th>
-    </tr>
     <% user_applications.each do |user_application| %>
       <tr>
         <td class="py-3">
@@ -19,7 +12,7 @@
           <% if title == "Not Accepted" %>
             <%= link_to("View", user_application_path(user_application), method: :patch, class: view_link_class)%>
             <%= link_to("Change Status", edit_user_application_path(user_application), method: :patch, class: accept_link_class)%>
-          <% elsif title == "Waitlist" %>
+          <% elsif title == "Waitlisted" %>
             <%= link_to("View", user_application_path(user_application), method: :patch, class: view_link_class)%>
             <%= link_to("Change Status", edit_user_application_path(user_application), method: :patch, class: accept_link_class)%>
           <% elsif title == "Accepted" %>
