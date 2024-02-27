@@ -1,4 +1,4 @@
-=begin
+<% if false %> 
 <div class='mt-8'><%= link_to('Back to Dashboard', dashboard_path, class:'border border-black bg-white rounded-lg px-2 py-1 m-4') %></div>
 
 <h1 class='font-bold text-4xl m-4 text-center'><%= @page_title %></h1>
@@ -26,10 +26,9 @@
         <%= link_to("New Application", new_user_application_path, class: "border border-black bg-white px-2 py-1 mt-2 rounded-lg")%>
     </div>
 </div>
+<% end %>
 
-<%= link_to('Back to Dashboard', {controller: 'dashboards', action: 'show'}, class: 'border border-black px-2 py-1 ml-3 bg-white text-black hover:bg-gray-200') %>
-<br/>
-=end
+<div class='mt-8'><%= link_to('Back to Dashboard', dashboard_path, class:'border border-black bg-white rounded-lg px-2 py-1 m-4') %></div>
 
 <div class="user_applications index py-10">
   <h2 class="text-2xl font-bold ml-3"><%= @page_title %></h2>
