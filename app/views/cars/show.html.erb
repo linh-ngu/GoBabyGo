@@ -1,5 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
+<h1 class="text-4xl font-bold mb-4">Car</h1>
 <%= render @car %>
 <br>
 <br>
@@ -38,11 +39,12 @@
   <% end %>
 
   <div>
-    <%= link_to "Edit this Car", edit_car_path(@car) %> |
-    <%= link_to "Back to Cars", cars_path %>
-
-    <%= button_to "Destroy this Car", @car, method: :delete %>
+    <%= link_to "Edit this Car", edit_car_path(@car), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
+    <br><br>
+    <%= link_to "Back to Cars", cars_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
+    <br><br>
+    <%= button_to "Destroy this Car", @car, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger text-black-500 bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
   </div>
 <% else %>
-  <%= link_to "Back to Dashboard", dashboard_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"%>
+ <%= link_to "Back to Cars", cars_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"%> 
 <% end %>

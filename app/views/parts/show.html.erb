@@ -1,10 +1,14 @@
 <p style="color: green"><%= notice %></p>
 
+<h1 class="text-4xl font-bold mb-4">Part</h1>
 <%= render @part %>
 
-<div>
-  <%= link_to "Edit this Part", edit_part_path(@part) %> |
-  <%= link_to "Back to Parts", parts_path %>
 
-  <%= button_to "Destroy this Part", @part, method: :delete %>
+<div>
+  <br><br>
+  <%= link_to "Edit this Part", edit_car_path(@part), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
+  <br><br>
+  <%= link_to "Back to Parts", parts_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
+  <br><br>
+  <%= button_to "Destroy this Part", @part, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger text-black-500 bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
 </div>
