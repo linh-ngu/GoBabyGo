@@ -62,6 +62,7 @@ class UserApplicationsController < ApplicationController
 
     if @user_application.update(app_params)
       redirect_to user_application_path(@user_application.id)
+      flash[:notice] = "Application updated successfully."
     else
       redirect_to edit_user_application_path(@user_application)
     end

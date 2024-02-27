@@ -6,24 +6,25 @@
   <h3 class="<%= title_class %>"><%= title %></h3>
   <table>
     <tr>
-      <th class='text-left'>Applicant Name</th>
+      <th class='text-left text-xl'>
+        <% if empty %>
+          None
+        <% end %>
+      </th>
     </tr>
     <% user_applications.each do |user_application| %>
       <tr>
         <td class="py-3">
-          <%= user_application.child_name %>
+          <div class="text-lg font-semibold"><%= user_application.child_name %></div>
           <% if title == "Not Accepted" %>
             <%= link_to("View", user_application_path(user_application), method: :patch, class: view_link_class)%>
-            <%= link_to("Accept", edit_user_application_path(user_application), method: :patch, class: accept_link_class)%>
-            <%= link_to("Reject", edit_user_application_path(user_application), method: :patch, class: reject_link_class)%>
-            <%= link_to("Waitlist", edit_user_application_path(user_application), method: :patch, class: waitlist_link_class)%>
+            <%= link_to("Change Status", edit_user_application_path(user_application), method: :patch, class: accept_link_class)%>
           <% elsif title == "Waitlist" %>
             <%= link_to("View", user_application_path(user_application), method: :patch, class: view_link_class)%>
-            <%= link_to("Accept", edit_user_application_path(user_application), method: :patch, class: accept_link_class)%>
-            <%= link_to("Reject", edit_user_application_path(user_application), method: :patch, class: reject_link_class)%>
+            <%= link_to("Change Status", edit_user_application_path(user_application), method: :patch, class: accept_link_class)%>
           <% elsif title == "Accepted" %>
             <%= link_to("View", user_application_path(user_application), method: :patch, class: view_link_class)%>
-            <%= link_to("Undo Accept", edit_user_application_path(user_application), method: :patch, class: undo_accept_link_class)%>
+            <%= link_to("Change Status", edit_user_application_path(user_application), method: :patch, class: reject_link_class)%>
           <% end %>
         </td>
       </tr>

@@ -76,10 +76,6 @@
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_phone, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.caregiver_phone)}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class=''>Additional Notes</th>
-            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:notes, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.notes)}</div>".html_safe %></td>
-        </tr>
-        <tr>
             <th class='p-2'>Do you have the ability to transport the car on Build Day?</th>
             <td class='p-1'>
                 <% if ['new', 'edit'].include?(action_name) %>
@@ -105,19 +101,6 @@
             <th class=''>Additional Notes</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_area(:notes, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.notes)}</div>".html_safe %></td>
         </tr>
-        <% if @access_accepted %>
-            <tr>
-                <th class=''>Accept User?</th>
-                <td class='p-1'>
-                    <% if ['new', 'edit'].include?(action_name) %>
-                        <%= f.radio_button(:accepted, true) %> Yes
-                        <%= f.radio_button(:accepted, false) %> No
-                    <% else %>
-                        <%= "<div class='py-1 px-2 bg-white'>#{h(@user_application.accepted)}</div>".html_safe %>
-                    <% end %>
-                </td>
-            </tr>
-        <% end %>
     </tbody>
     
     <% if action_name == 'show' %>

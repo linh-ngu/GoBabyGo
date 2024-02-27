@@ -1,36 +1,4 @@
-=begin
 <div class='mt-8'><%= link_to('Back to Dashboard', dashboard_path, class:'border border-black bg-white rounded-lg px-2 py-1 m-4') %></div>
-
-<h1 class='font-bold text-4xl m-4 text-center'><%= @page_title %></h1>
-<div class='flex flex-col justify-center items-center border border-black bg-[#FFEFAD] rounded-lg lg:w-2/3 w-[500px] mx-auto'>
-    <div class='w-3/4'>
-        <div class='flex justify-between px-12 py-4 font-bold'>
-            <p>Child's Name</p>
-            <p class='px-8'>Actions</p>
-        </div>
-        <div class='flex flex-col'>
-            <% @user_applications.each do |user_application| %>
-                <div class='flex justify-between'>
-                    <p><%= user_application.child_name %></p>
-                    <div class='py-2'>
-                        <%= link_to("Show", user_application_path(user_application), class: "action show border border-black rounded-lg bg-white px-2 py-1 m-1")%>
-                        <%= link_to("Edit", edit_user_application_path(user_application), class: "action edit border border-black rounded-lg bg-white px-2 py-1 m-1")%>
-                        <%= link_to("Delete", delete_user_application_path(user_application), class: "action delete border border-black rounded-lg bg-white px-2 py-1 m-1")%>
-                    </div>
-                </div>
-            <% end %>
-        </div>
-    </div>
-    
-    <div class='text-center m-4'>
-        <%= link_to("New Application", new_user_application_path, class: "border border-black bg-white px-2 py-1 mt-2 rounded-lg")%>
-    </div>
-</div>
-
-<%= link_to('Back to Dashboard', {controller: 'dashboards', action: 'show'}, class: 'border border-black px-2 py-1 ml-3 bg-white text-black hover:bg-gray-200') %>
-<br/>
-=end
-
 <div class="user_applications index py-10">
   <h2 class="text-2xl font-bold ml-3"><%= @page_title %></h2>
   <br />
@@ -43,9 +11,9 @@
         <tr>
           <td><%= user_application.child_name %></td>
           <td class="actions">
-            <%= link_to("Show", user_application_path(user_application), class: "action show border border-black px-2 py-1 m-2")%>
-            <%= link_to("Edit", edit_user_application_path(user_application), class: "action edit border border-black px-2 py-1 m-2")%>
-            <%= link_to("Delete", delete_user_application_path(user_application), class: "action delete border border-black px-2 py-1 m-2")%>
+            <%= link_to("Show", user_application_path(user_application), class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer")%>
+            <%= link_to("Edit", edit_user_application_path(user_application), class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer")%>
+            <%= link_to("Delete", delete_user_application_path(user_application), class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer")%>
           </td>
         </tr>
       <% end %>
@@ -57,21 +25,23 @@
   <% if @user.officer_member? %>
   <%= render partial: 'user_applications_table', locals: { 
   title: "Not Accepted", 
-  user_applications: @not_accepted_user_applications, 
-  view_link_class: "action show border border-black px-2 py-1 m-2 hover:bg-gray-200",
-  accept_link_class: "action accept border border-black px-2 py-1 m-2 hover:bg-gray-200",
-  reject_link_class: "action reject border border-black px-2 py-1 m-2 hover:bg-gray-200",
-  waitlist_link_class: "action waitlist border border-black px-2 py-1 m-2 hover:bg-gray-200",
+  user_applications: @not_accepted_user_applications,
+  empty: @not_accepted_user_applications.empty?, 
+  view_link_class: "action show rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-500",
+  accept_link_class: "action accept rounded-lg py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-500",
+  reject_link_class: "action reject rounded-lg py-2 px-4 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-500",
+  waitlist_link_class: "action waitlist rounded-lg py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-500",
   table_class: "not-accepted",
   header_color: "red-800"
 } %>
 
 <%= render partial: 'user_applications_table', locals: { 
   title: "Waitlist", 
-  user_applications: @waitlist_user_applications, 
-  view_link_class: "action show border border-black px-2 py-1 m-2 hover:bg-gray-200",
-  accept_link_class: "action accept border border-black px-2 py-1 m-2 hover:bg-gray-200",
-  reject_link_class: "action reject border border-black px-2 py-1 m-2 hover:bg-gray-200",
+  user_applications: @waitlist_user_applications,
+  empty: @waitlist_user_applications.empty?,
+  view_link_class: "action show rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-500",
+  accept_link_class: "action accept rounded-lg py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-500",
+  reject_link_class: "action reject rounded-lg py-2 px-4 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-500",
   table_class: "waitlist",
   header_color: "gray-600"
 } %>
@@ -79,8 +49,9 @@
 <%= render partial: 'user_applications_table', locals: { 
   title: "Accepted", 
   user_applications: @accepted_user_applications, 
-  view_link_class: "action show border border-black px-2 py-1 m-2 hover:bg-gray-200",
-  undo_accept_link_class: "action undo-accept border border-black px-2 py-1 m-2 hover:bg-gray-200",
+  empty: @accepted_user_applications.empty?,
+  view_link_class: "ction show rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-500",
+  reject_link_class: "action reject rounded-lg py-2 px-4 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-500",
   table_class: "accepted",
   header_color: "blue-500"
 } %>
