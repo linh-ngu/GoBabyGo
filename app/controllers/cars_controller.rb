@@ -3,7 +3,6 @@ class CarsController < ApplicationController
 
   # GET /cars or /cars.json
   def index
-    
     current_user = User.find_by(admin_id: current_admin.id)
     if current_user.admin?
       @cars = Car.all
@@ -16,8 +15,9 @@ class CarsController < ApplicationController
 
   # GET /cars/1 or /cars/1.json
   def show
+    current_user = User.find_by(admin_id: current_admin.id)
+    @edit_access = current_user.admin?
     @car = Car.includes(:parts).find(params[:id])
-    
   end
 
   # GET /cars/new

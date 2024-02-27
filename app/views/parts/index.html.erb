@@ -1,6 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
- <h1>Parts</h1> 
+<h1 class="text-4xl font-bold mb-8">Parts</h1>
 
 <table width="100%">
   <thead>
@@ -21,13 +21,13 @@
         <td><%= part.quantity_purchased %></td>
         <td><%= part.purchase_source %></td>
         <td><%= part.part_price %></td>
-        <td><%= link_to Car.find(part.car_id).car_type.name, car_path(part.car_id) %></td>
-        <td><%= link_to 'Show', part %></td>
-        <td><%= link_to 'Edit', edit_part_path(part) %></td>
-        <td><%= link_to 'Destroy', part, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to Car.find(part.car_id).car_type.name, car_path(part.car_id), class: "text-blue-500 hover:underline" %></td>
+        <td><%= link_to 'Show', part, class: "text-blue-500 hover:underline" %></td>
+        <td><%= link_to 'Edit', edit_part_path(part), class: "text-blue-500 hover:underline" %></td>
+        <td><%= link_to 'Destroy', part, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <br>
-<%= link_to "Main Inventory", inventory_path %>
+<%= link_to "Main Inventory", inventory_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>

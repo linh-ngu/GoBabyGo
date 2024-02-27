@@ -19,14 +19,15 @@
         <td><%= car_type.price %></td>
         <td><%= car_type.min_height %></td>
         <td><%= car_type.max_height %></td>
-        <td><%= link_to 'Show', car_type %></td>
-        <td><%= link_to 'Edit', edit_car_type_path(car_type) %></td>
-        <td><%= link_to 'Destroy', car_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', car_type, style: 'color: blue' %></td>
+        <td><%= link_to 'Edit', edit_car_type_path(car_type), style: 'color: blue' %></td>
+        <td><%= link_to 'Destroy', car_type, method: :delete, data: { confirm: 'Are you sure?' }, style: 'color: red' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <br>
-<%= link_to "New Car Type", new_car_type_path %>
+<%= link_to "New Car Type", new_car_type_path, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde' %>
 <br>
-<%= link_to "Main Inventory", inventory_path %>
+<br>
+<%= link_to "Main Inventory", inventory_path, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde' %>
