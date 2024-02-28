@@ -10,16 +10,16 @@
         <td class="py-3">
           <div class="text-lg font-semibold"><%= user_application.child_name %></div>
           <% if title == "Not Accepted" %>
-            <%= link_to("View", user_application_path(user_application), method: :patch, class: view_link_class)%>
-            <%= link_to("Change Status", edit_user_application_path(user_application), method: :patch, class: accept_link_class)%>
+            <%= link_to("View", user_application_path(user_application), class: view_link_class)%>
+            <%= link_to("Change Status", edit_user_application_path(user_application), class: accept_link_class)%>
             <%= link_to("Delete", delete_user_application_path(user_application), class: "rounded-lg py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer hover:bg-red-700")%>
           <% elsif title == "Waitlisted" %>
-            <%= link_to("View", user_application_path(user_application), method: :patch, class: view_link_class)%>
-            <%= link_to("Change Status", edit_user_application_path(user_application), method: :patch, class: accept_link_class)%>
+            <%= link_to("View", user_application_path(user_application),  class: view_link_class)%>
+            <%= link_to("Change Status", edit_user_application_path(user_application), class: accept_link_class)%>
             <%= link_to("Delete", delete_user_application_path(user_application), class: "rounded-lg py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer hover:bg-red-700")%>
           <% elsif title == "Accepted" %>
-            <%= link_to("View", user_application_path(user_application), method: :patch, class: view_link_class)%>
-            <%= link_to("Change Status", edit_user_application_path(user_application), method: :patch, class: reject_link_class)%>
+            <%= link_to("View", user_application_path(user_application),  class: view_link_class)%>
+            <%= link_to("Change Status", edit_user_application_path(user_application), class: reject_link_class)%>
             <%= link_to("Delete", delete_user_application_path(user_application), class: "rounded-lg  py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer hover:bg-red-700")%>
           <% end %>
         </td>

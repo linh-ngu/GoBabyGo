@@ -4,7 +4,7 @@ class UserApplicationsController < ApplicationController
     @page_title = @user.visitor? ? "Your Applications" : "All User Applications"
     
     # Filtering based on user role
-    if @user.visitor?
+    if @user.visitor? || @user.applicant?
       @user_applications = UserApplication.where(user_id: @user.id)
     elsif @user.officer_member?
       @not_accepted_user_applications = UserApplication.where(accepted: [nil, false], waitlist: false)
