@@ -5,10 +5,15 @@
         <th class=''>Accept User?</th>
         <td class='p-1'>
             <% if ['new', 'edit'].include?(action_name) %>
-                <%= f.radio_button(:accepted, true) %> Yes
-                <%= f.radio_button(:accepted, false) %> No
+                <div class="slider-container">
+                    <%= f.hidden_field(:accepted, value: 'false') %>
+                    <label class="switch">
+                        <%= f.check_box(:accepted, class: 'accept-slider') %>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
             <% else %>
-                <%= "<div class='py-1 px-2 bg-white'>#{h(@user_application.accepted)}</div>".html_safe %>
+                <%= "<div class='py-1 px-2 bg-white'>#{h(@user_application.accepted)}</div>" %>
             <% end %>
         </td>
     </tr>
@@ -16,14 +21,19 @@
         <th class=''>Waitlist User?</th>
         <td class='p-1'>
             <% if ['new', 'edit'].include?(action_name) %>
-                <%= f.radio_button(:waitlist, true) %> Yes
-                <%= f.radio_button(:waitlist, false) %> No
+                <div class="slider-container">
+                    <%= f.hidden_field(:waitlist, value: 'false') %>
+                    <label class="switch">
+                        <%= f.check_box(:waitlist, class: 'waitlist-slider') %>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
             <% else %>
-                <%= "<div class='py-1 px-2 bg-white'>#{h(@user_application.waitlist)}</div>".html_safe %>
+                <%= "<div class='py-1 px-2 bg-white'>#{h(@user_application.waitlist)}</div>" %>
             <% end %>
         </td>
     </tr>
-<% end %>
+    <% end %>
         <tr>
             <th class=''>Child's Name</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:child_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_name)}</div>".html_safe %></td>
@@ -91,19 +101,6 @@
             <th class=''>Additional Notes</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_area(:notes, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.notes)}</div>".html_safe %></td>
         </tr>
-        <% if @access_accepted %>
-            <tr>
-                <th class=''>Accept User?</th>
-                <td class='p-1'>
-                    <% if ['new', 'edit'].include?(action_name) %>
-                        <%= f.radio_button(:accepted, true) %> Yes
-                        <%= f.radio_button(:accepted, false) %> No
-                    <% else %>
-                        <%= "<div class='py-1 px-2 bg-white'>#{h(@user_application.accepted)}</div>".html_safe %>
-                    <% end %>
-                </td>
-            </tr>
-        <% end %>
     </tbody>
     
     <% if action_name == 'show' %>
@@ -120,4 +117,23 @@
             <% end %>
         </tr>
     <% end %>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var acceptSlider = document.querySelector('.accept-slider');
+            var waitlistSlider = document.querySelector('.waitlist-slider');
+
+            acceptSlider.addEventListener('change', function() {
+                if (this.checked) {
+                    waitlistSlider.checked = false;
+                }
+            });
+
+            waitlistSlider.addEventListener('change', function() {
+                if (this.checked) {
+                    acceptSlider.checked = false;
+                }
+            });
+        });
+    </script>
 </table>

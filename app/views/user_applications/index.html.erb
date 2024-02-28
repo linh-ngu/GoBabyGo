@@ -1,8 +1,81 @@
-<% if false %> 
-<div class='mt-8'><%= link_to('Back to Dashboard', dashboard_path, class:'border border-black bg-white rounded-lg px-2 py-1 m-4') %></div>
+<div class='mt-8'><%= link_to('<- Back to Dashboard', dashboard_path, class:'rounded-lg ml-3 py-2 px-3 bg-gray-500 text-white inline-block font-medium cursor-pointer hover:bg-gray-600') %></div>
 
-<h1 class='font-bold text-4xl m-4 text-center'><%= @page_title %></h1>
-<div class='flex flex-col justify-center items-center border border-black bg-[#FFEFAD] rounded-lg lg:w-2/3 w-[500px] mx-auto'>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const showFiltersBtn = document.getElementById("showFiltersBtn");
+    const clearFiltersBtn = document.getElementById("clearFiltersBtn");
+    const filterOptions = document.querySelector(".filter-options");
+
+    showFiltersBtn.addEventListener("click", function() {
+      if (filterOptions.classList.contains("hidden")) {
+        filterOptions.classList.remove("hidden");
+        showFiltersBtn.textContent = "Hide Filters";
+      } else {
+        filterOptions.classList.add("hidden");
+        showFiltersBtn.textContent = "Show Filters";
+      }
+    });
+
+    clearFiltersBtn.addEventListener("click", function() {
+      // Uncheck all filter checkboxes
+      document.querySelectorAll("input[type='checkbox']").forEach(function(checkbox) {
+        checkbox.checked = false;
+      });
+      // Submit the form to apply cleared filters
+      filterOptions.querySelector("form").submit();
+    });
+  });
+</script>
+
+
+<div class="user_applications index py-10">
+  <% if @user.officer_member? %>
+    <div class="filter-toggle mb-5">
+      <button id="showFiltersBtn" class="ml-3 py-1 px-2 bg-gray-500 text-white inline-block cursor-pointer rounded-md shadow-xl hover:bg-gray-600">Show Filters</button>
+      <% if params[:accepted].present? || params[:waitlist].present? || params[:not_accepted].present? || params[:start_date].present? || params[:end_date].present? || params[:min_height].present? || params[:max_height].present?%>
+        <button id="clearFiltersBtn" class="rounded-lg ml-3 py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer">Clear Filters</button>
+      <% end %>
+    </div>
+
+    <div class="filter-options hidden ml-3">
+      <h3 class="text-lg font-semibold mb-3">Filter Options:</h3>
+      <%= form_tag(user_applications_path, method: :get) do %>
+        <label>
+          <%= check_box_tag :accepted, 1, params[:accepted] == "1" %>
+          Accepted
+        </label>
+        <label>
+          <%= check_box_tag :waitlist, 1, params[:waitlist] == "1" %>
+          Waitlist
+        </label>
+        <label >
+          <%= check_box_tag :not_accepted, 1, params[:not_accepted] == "1" %>
+          Not Accepted
+        </label>
+        <br />
+        <br />
+        <label>
+          Application Date Range:
+          <%= text_field_tag :start_date, params[:start_date], placeholder: "Start Date" %>
+          <%= text_field_tag :end_date, params[:end_date], placeholder: "End Date" %>
+        </label>
+        <br />
+        <br />
+        <label class="mt-3">
+          Child Height Range (35-45):
+          <%= text_field_tag :min_height, params[:min_height], placeholder: "Min Height" %>
+          <%= text_field_tag :max_height, params[:max_height], placeholder: "Max Height" %>
+        </label>
+        <br />
+        <%= submit_tag "Apply Filters", class: "rounded-lg mt-5 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+      <% end %>
+    </div>
+  <% end %>
+  <h2 class="text-2xl font-bold ml-3"><%= @page_title %></h2>
+  <br />
+  <% if @user.applicant? %>
+    <div class='flex flex-col justify-center items-center border border-black bg-[#FFEFAD] rounded-lg lg:w-2/3 w-[500px] mx-auto'>
     <div class='w-3/4'>
         <div class='flex justify-between px-12 py-4 font-bold'>
             <p>Child's Name</p>
@@ -21,108 +94,46 @@
             <% end %>
         </div>
     </div>
-    
-    <div class='text-center m-4'>
-        <%= link_to("New Application", new_user_application_path, class: "border border-black bg-white px-2 py-1 mt-2 rounded-lg")%>
-    </div>
 </div>
-<% end %>
-
-<div class='mt-8'><%= link_to('Back to Dashboard', dashboard_path, class:'border border-black bg-white rounded-lg px-2 py-1 m-4') %></div>
-
-<div class="user_applications index py-10">
-  <h2 class="text-2xl font-bold ml-3"><%= @page_title %></h2>
-  <br />
-  <% if @user.visitor? %>
-    <table class="listing w-full">
-      <tr class="header">
-        <th>Applicant Name</th>
-      </tr>
-      <% @user_applications.each do |user_application| %>
-        <tr>
-          <td><%= user_application.child_name %></td>
-          <td class="actions">
-            <%= link_to("Show", user_application_path(user_application), class: "action show border border-black px-2 py-1 m-2")%>
-            <%= link_to("Edit", edit_user_application_path(user_application), class: "action edit border border-black px-2 py-1 m-2")%>
-            <%= link_to("Delete", delete_user_application_path(user_application), class: "action delete border border-black px-2 py-1 m-2")%>
-          </td>
-        </tr>
-      <% end %>
-    </table>
     <br />
     <br />
   <% end %>
 
   <% if @user.officer_member? %>
-    <!-- Not Accepted User Applications -->
-    <div class="section-header bg-red-800 p-2">
-      <h3 class="text-white">Not Accepted</h3>
-    </div>
-    <div class="section-body bg-white p-2">
-      <table class="listing w-full">
-        <tr class="ml-0">
-          <th>Applicant Name</th>
-        </tr>
-        <% @not_accepted_user_applications.each do |user_application| %>
-          <tr>
-            <tr>
-            <td class="py-3">
-            <%= user_application.child_name %>
-            <%= link_to("View", user_application_path(user_application), method: :patch, class: "action show border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
-            <%= link_to("Accept", edit_user_application_path(user_application), method: :patch, class: "action accept border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
-            <%= link_to("Reject", edit_user_application_path(user_application), method: :patch, class: "action reject border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
-            </td>
-          </tr>
-        <% end %>
-      </table>
-    </div>
+    <%= render partial: 'user_applications_table', locals: { 
+      title: "Accepted", 
+      user_applications: @accepted_user_applications, 
+      view_link_class: "action show rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
+      reject_link_class: "action reject rounded-lg py-2 px-4 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
+      table_class: "accepted",
+      header_color: "green-800"
+    } %>
     <br />
-
-    <!-- Waitlist User Applications -->
-    <div class="section-header bg-gray-600 p-2">
-      <h3 class="text-white">Waitlist</h3>
-    </div>
-    <div class="section-body bg-white p-2">
-      <table class="listing w-full">
-        <tr class="header">
-          <th>Applicant Name</th>
-        </tr>
-        <% @waitlist_user_applications.each do |user_application| %>
-          <tr>
-            <td class="py-3">
-            <%= user_application.child_name %>
-            <%= link_to("View", user_application_path(user_application), method: :patch, class: "action show border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
-            <%= link_to("Accept", edit_user_application_path(user_application), method: :patch, class: "action accept border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
-            <%= link_to("Reject", edit_user_application_path(user_application), method: :patch, class: "action reject border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
-          </tr>
-        <% end %>
-      </table>
-    </div>
+    <%= render partial: 'user_applications_table', locals: { 
+      title: "Waitlisted", 
+      user_applications: @waitlist_user_applications,
+      view_link_class: "action show rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
+      accept_link_class: "action accept rounded-lg py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
+      reject_link_class: "action reject rounded-lg py-2 px-4 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
+      table_class: "waitlist",
+      header_color: "gray-500"
+    } %>
     <br />
-
-    <!-- Accepted User Applications -->
-    <div class="section-header bg-blue-500 p-2">
-      <h3 class="text-white">Accepted</h3>
-    </div>
-    <div class="section-body bg-white p-2">
-      <table class="listing w-full">
-        <tr class="header">
-          <th>Applicant Name</th>
-        </tr>
-        <% @accepted_user_applications.each do |user_application| %>
-          <tr>
-            <td class="py-3">
-            <%= user_application.child_name %>
-            <%= link_to("View", user_application_path(user_application), method: :patch, class: "action show border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
-            <%= link_to("Reject", edit_user_application_path(user_application), method: :patch, class: "action reject border border-black px-2 py-1 m-2 hover:bg-gray-200")%>
-            </td>
-          </tr>
-        <% end %>
-      </table>
-    </div>
+    <%= render partial: 'user_applications_table', locals: { 
+      title: "Not Accepted", 
+      user_applications: @not_accepted_user_applications,
+      view_link_class: "action show rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
+      accept_link_class: "action accept rounded-lg py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
+      reject_link_class: "action reject rounded-lg py-2 px-4 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
+      waitlist_link_class: "action waitlist rounded-lg py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
+      table_class: "not-accepted",
+      header_color: "red-800"
+    } %>
     <br />
   <% end %>
-
-  <%= link_to("New Application", new_user_application_path, class: "action show border border-black px-2 py-1 m-2 bg-white hover:bg-gray-200")%>
+  
+  <div class='text-center m-4'>
+        <%= link_to("New Application", new_user_application_path, class: "border border-black bg-white px-2 py-1 mt-2 rounded-lg")%>
+    </div>
   <br />
 </div>
