@@ -73,7 +73,7 @@
   <% end %>
   <h2 class="text-2xl font-bold ml-3"><%= @page_title %></h2>
   <br />
-  <% if @user.visitor? %>
+  <% if @user.applicant? %>
     <table class="listing w-full">
       <tr class="header">
         <th>Applicant Name</th>
@@ -97,7 +97,7 @@
     <%= render partial: 'user_applications_table', locals: { 
       title: "Accepted", 
       user_applications: @accepted_user_applications, 
-      view_link_class: "ction show rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
+      view_link_class: "action show rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
       reject_link_class: "action reject rounded-lg py-2 px-4 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
       table_class: "accepted",
       header_color: "green-800"

@@ -55,7 +55,7 @@ class UserApplicationsController < ApplicationController
   def create
     @user = User.find_by(admin_id: current_admin.id)
 
-    if @user.visitor?
+    if @user.visitor? || @user.applicant?
       #user from website submits application
       @user_application = UserApplication.new(user_params)
       flash[:notice] = "Application submitted successfully. We will reach out to you soon with our response."
@@ -69,6 +69,9 @@ class UserApplicationsController < ApplicationController
 
     @user_application.user_id = @user.id
     if @user_application.save
+      if @user.visitor?
+        @user.update(level: :applicant)
+      end
       redirect_to user_application_path(@user_application.id)
     else
       flash[:notice] = @user_application.errors.full_messages.join(", ")
