@@ -1,8 +1,12 @@
 <table summary="Task form fields">
-      <tr>
+      <%
+=begin%>
+ <tr>
         <th>UserID</th>
         <td><%= f.text_field :admin_id, readonly: true %></td>
-      </tr>
+      </tr> 
+<%
+=end%>
       <tr>
         <th>Email</th>
         <td><%= f.text_field :email, readonly: true %></td>

@@ -3,11 +3,7 @@
 <% if admin_signed_in? %>
   <%= link_to "Go to Dashboard", dashboard_path , class:'border border-black px-2 py-1 mx-4' %><br />
 
-    <% if @user.applicant? %>
-    <% elsif @user.staff_member? %>
-    <% elsif @user.officer_member? %>
-    <% elsif @user.admin? %>
-    <% end %>
+    
   
   </br></br></br>
   <%= link_to "Sign Out", destroy_admin_session_path, method: :delete, class: "border border-black px-2 py-1 mx-4" %>
