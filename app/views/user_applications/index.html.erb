@@ -1,0 +1,23 @@
+<%= link_to('Back to Dashboard', {controller: 'dashboards', action: 'show'}, class:'border border-black px-2 py-1') %><br />
+<div class="user_applications index">
+    <h2><span style="font-size: 24px; font-weight: bold;"><%= @page_title %></span></h2>
+    <br />
+    <table class="listing" summary="user_application List" style="width: 100%;">
+        <tr class="header">
+            <th>Child Name</th>
+        </tr>
+        <% @user_applications.each do |user_application| %>
+        <tr>
+            <td><%= user_application.child_name %></td>
+            <td class="actions">
+                <%= link_to("Show", user_application_path(user_application), class: "action show border border-black px-2 py-1 m-2")%>
+                <%= link_to("Edit", edit_user_application_path(user_application), class: "action edit border border-black px-2 py-1 m-2")%>
+                <%= link_to("Delete", delete_user_application_path(user_application), class: "action delete border border-black px-2 py-1 m-2")%>
+            </td>
+        </tr>
+        <% end %>
+    </table>
+    <br />
+    <br />
+    <%= link_to("New Application", new_user_application_path, class: "action show border border-black px-2 py-1 m-2")%>
+</div>

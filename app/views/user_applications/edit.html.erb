@@ -1,5 +1,6 @@
+<%= link_to("Back to applications", user_applications_path, class: "action show border border-black px-2 py-1 m-2") %>
 <div class="flex flex-col justify-center items-center">
-    <h1 class='p-4 text-xl font-bold'>Edit Application</h1>
+    <h1 class='p-4 text-xl font-bold'>Edit <%= @user_application.child_name%>'s Application</h1>
 
     <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, id: "flash_#{name}" %> <br />
@@ -9,7 +10,7 @@
 
         <%= render(partial: 'form', locals: {f: f}) %>
 
-        <button type="submit" class="border border-black py-1 px-2 m-2 rounded-lg">Submit Application</button>
+        <button type="submit" class="border border-black py-1 px-2 m-2 rounded-lg">Update Application</button>
 
     <% end %>
 </div>
