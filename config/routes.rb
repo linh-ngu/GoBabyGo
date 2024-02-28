@@ -18,6 +18,18 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :application_notes do
+    member do
+      get :delete
+    end
+  end
+
+  resources :application_notes do
+    member do
+      get :delete
+    end
+  end
+
   resources :cars
   resources :car_types
   resources :parts

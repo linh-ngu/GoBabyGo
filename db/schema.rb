@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_20_175213) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_27_194742) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_20_175213) do
     t.datetime "updated_at", null: false
     t.boolean "user_account_created", default: false
     t.index ["email"], name: "index_admins_on_email", unique: true
+  end
+
+  create_table "application_notes", force: :cascade do |t|
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "car_types", force: :cascade do |t|
@@ -88,6 +94,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_20_175213) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.text "adaptive_equipment"
+    t.boolean "waitlist", default: false
   end
 
   create_table "users", force: :cascade do |t|
