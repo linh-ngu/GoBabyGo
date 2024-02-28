@@ -4,6 +4,8 @@
 
 <h1>Member List</h1>
 <p> Your Role: <%= @user.level.capitalize %></p>
+<p> Your Email: <%= @user.email %></p>
+
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 
@@ -29,7 +31,14 @@
       <% end %>
     <% elsif @user.officer_member? %>
       <% @all_users.each do |user| %>
-        <% if user.admin? %>
+        <% if user.id == @user.id %>
+          <tr>
+          <td><%= user.email %></td>
+          <td><%= user.level.capitalize %></td>
+          <td>
+          </td>
+          </tr>
+        <% elsif user.admin? %>
           <tr>
           <td><%= user.email %></td>
           <td><%= user.level.capitalize %></td>
@@ -54,6 +63,14 @@
 
     <% elsif @user.admin? %>
       <% @all_users.each do |user| %>
+        <% if user.id == @user.id %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><%= user.level.capitalize %></td>
+          <td>
+          </td>
+          </tr>
+        <% else %>
         <tr>
           <td><%= user.email %></td>
           <td><%= user.level.capitalize %></td>
@@ -66,6 +83,7 @@
           <% end %>
           </td>
         </tr>
+        <% end %>
       <% end %>
 
     <% end %>
