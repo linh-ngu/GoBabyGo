@@ -9,7 +9,8 @@ class DashboardsController < ApplicationController
       @user = User.find_by(admin_id: current_admin.id)
       @users = User.where(level: User.levels[:visitor])
 
-      if @user.applicant?
+
+      if @user.applicant? || @user.visitor?
         render 'show_user'
         # executes for roles {applicant}
       else
