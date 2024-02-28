@@ -1,5 +1,6 @@
 class UserApplication < ApplicationRecord
     has_one :car
+    has_many :application_notes
     belongs_to :user, optional: true
     validates :child_name, presence: true, format: { without: /\d/, message: "cannot contain a number" }
     validates :child_birthdate, presence: true
