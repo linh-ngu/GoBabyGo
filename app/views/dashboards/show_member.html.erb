@@ -1,0 +1,23 @@
+<h1 class="m-4">Welcome to the <%= @user.level.capitalize %> Dashboard!</h1>
+<%= link_to('Back to Homepage', home_path, class:'border border-black px-2 py-1 m-3') %><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<% if @user.staff_member? %>
+    <%= link_to "View Member Table", table_users_view_path , class:'border border-black px-2 py-1 mx-4' %><br />
+
+  <% elsif @user.officer_member? %>
+    <%= link_to "View Member Table", table_users_view_path , class:'border border-black px-2 py-1 mx-4' %><br />
+
+  <% elsif @user.admin? %>
+    <%= link_to "View Member Table", table_users_view_path , class:'border border-black px-2 py-1 mx-4' %><br />
+  <% end %>
+<br />
+<br />
+<br />
+<%= link_to "View User Applications", user_applications_path, class:'border border-black px-2 py-1 m-3' %><br />
+<br />
+<br />
+<%= link_to "Sign Out", destroy_admin_session_path, class:'border border-black px-2 py-1 m-3' %>

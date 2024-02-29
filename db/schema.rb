@@ -14,6 +14,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_28_171741) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "abouts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "admins", force: :cascade do |t|
     t.string "email", null: false
     t.string "full_name"
@@ -59,6 +64,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_28_171741) do
     t.bigint "part_id"
     t.index ["car_id"], name: "index_cars_parts_on_car_id"
     t.index ["part_id"], name: "index_cars_parts_on_part_id"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "finances", force: :cascade do |t|

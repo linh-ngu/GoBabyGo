@@ -10,7 +10,25 @@ class UserApplicationsController < ApplicationController
       @not_accepted_user_applications = UserApplication.where(accepted: [nil, false], waitlist: false)
       @waitlist_user_applications = UserApplication.where(waitlist: true, accepted: false)
       @accepted_user_applications = UserApplication.where(accepted: true)
-  
+      
+      #different options for sorting applications
+      sorting_option = case params[:sort_option]
+      when "created_at_asc"
+        :asc
+      when "created_at_desc"
+        :desc
+      else
+        :asc # Default sorting option
+      end
+
+      # Apply sorting to user applications
+      @not_accepted_user_applications = @not_accepted_user_applications.order(created_at: sorting_option)
+      @waitlist_user_applications = @waitlist_user_applications.order(created_at: sorting_option)
+      @accepted_user_applications = @accepted_user_applications.order(created_at: sorting_option)
+
+
+
+
       # Additional filtering based on user selection
       if params[:accepted] == "1"
         @not_accepted_user_applications = []
@@ -22,23 +40,74 @@ class UserApplicationsController < ApplicationController
         @waitlist_user_applications = []
         @accepted_user_applications = []
       end
-      
+
       # Applying date range filter
-      if params[:start_date].present? && params[:end_date].present?
-        start_date = Date.parse(params[:start_date])
-        end_date = Date.parse(params[:end_date])
-        @not_accepted_user_applications = @not_accepted_user_applications.where(created_at: start_date.beginning_of_day..end_date.end_of_day)
-        @waitlist_user_applications = @waitlist_user_applications.where(created_at: start_date.beginning_of_day..end_date.end_of_day)
-        @accepted_user_applications = @accepted_user_applications.where(created_at: start_date.beginning_of_day..end_date.end_of_day)
+      if params[:start_date].present? || params[:end_date].present?
+        begin
+          start_date = params[:start_date].present? ? Date.parse(params[:start_date]).beginning_of_day : nil
+          end_date = params[:end_date].present? ? Date.parse(params[:end_date]).end_of_day : nil
+        rescue ArgumentError => e
+          flash[:error] = "Invalid date format (MM-DD-YYYY)."
+          redirect_to user_applications_path
+        end
+
+        if start_date.present? && end_date.present?
+          if start_date > end_date
+            @date_range_error = "Start date cannot be later than end date."
+            return
+          end
+        end
+        
+        if start_date && end_date
+          @not_accepted_user_applications = @not_accepted_user_applications.where(created_at: start_date..end_date)
+          @waitlist_user_applications = @waitlist_user_applications.where(created_at: start_date..end_date)
+          @accepted_user_applications = @accepted_user_applications.where(created_at: start_date..end_date)
+        elsif start_date
+          @not_accepted_user_applications = @not_accepted_user_applications.where("created_at >= ?", start_date)
+          @waitlist_user_applications = @waitlist_user_applications.where("created_at >= ?", start_date)
+          @accepted_user_applications = @accepted_user_applications.where("created_at >= ?", start_date)
+        elsif end_date
+          @not_accepted_user_applications = @not_accepted_user_applications.where("created_at <= ?", end_date)
+          @waitlist_user_applications = @waitlist_user_applications.where("created_at <= ?", end_date)
+          @accepted_user_applications = @accepted_user_applications.where("created_at <= ?", end_date)
+        end
       end
-      
+
       # Applying height range filter
-      if params[:min_height].present? && params[:max_height].present?
-        min_height = params[:min_height].to_i
-        max_height = params[:max_height].to_i
-        @not_accepted_user_applications = @not_accepted_user_applications.where(child_height: min_height..max_height)
-        @waitlist_user_applications = @waitlist_user_applications.where(child_height: min_height..max_height)
-        @accepted_user_applications = @accepted_user_applications.where(child_height: min_height..max_height)
+      if params[:min_height].present? || params[:max_height].present?
+        begin
+          min_height = params[:min_height].to_i
+          max_height = params[:max_height].to_i
+        rescue ArgumentError => e
+          flash[:error] = "Height must be a number."
+          return
+        end
+
+        if (min_height.present? && min_height < 0) || (max_height.present? && max_height < 0)
+          @height_value_error = "Height cannot be negative."
+          return
+        end
+
+        if min_height.present? && max_height.present?
+          if min_height > max_height
+            @height_range_error = "Minimum height cannot be greater than maximum height."
+            return
+          end
+        end
+      
+        if min_height && max_height
+          @not_accepted_user_applications = @not_accepted_user_applications.where(child_height: min_height..max_height)
+          @waitlist_user_applications = @waitlist_user_applications.where(child_height: min_height..max_height)
+          @accepted_user_applications = @accepted_user_applications.where(child_height: min_height..max_height)
+        elsif min_height
+          @not_accepted_user_applications = @not_accepted_user_applications.where("child_height >= ?", min_height)
+          @waitlist_user_applications = @waitlist_user_applications.where("child_height >= ?", min_height)
+          @accepted_user_applications = @accepted_user_applications.where("child_height >= ?", min_height)
+        elsif max_height
+          @not_accepted_user_applications = @not_accepted_user_applications.where("child_height <= ?", max_height)
+          @waitlist_user_applications = @waitlist_user_applications.where("child_height <= ?", max_height)
+          @accepted_user_applications = @accepted_user_applications.where("child_height <= ?", max_height)
+        end
       end
     end
   end
