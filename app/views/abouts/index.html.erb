@@ -1,0 +1,28 @@
+<style>
+h1 {text-align: center;}
+p {margin-left: 100px;
+  margin-right: 100px; }
+</style>
+
+<h1 class="text-5xl font-extrabold m-4 text-center">What is GoBabyGo?</h1>
+
+<div class='flex flex-col justify-center items-center border border-black bg-[#FFEFAD] rounded-lg min-w-2/3 w-2/3 mx-auto my-auto'>
+    <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
+
+    <br>
+    <p class="my-4 text-center">Go Baby Go was initiated by Professor Cole Galloway as part of a research endeavor at the University of Delaware. Since its inception, volunteers have been trained across more than 40 communities nationally and internationally, with satellite locations established worldwide to broaden accessibility.
+
+    These adapted toy vehicles offer children with mobility impairments an opportunity to engage in play and social interaction more effortlessly. Previous studies have highlighted the correlation between independent mobility and various developmental advantages such as cognitive, social, motor, and linguistic skills in young children. Unlike being pushed in a stroller or carried around, which lacks active participation, having control over their own exploration fosters developmental progress.
+    
+    In addition to enhancing mobility and social integration, our aspiration is for these ride-on cars to afford children with disabilities the simple joy of being a child.
+    
+    Currently, there are no commercially accessible devices tailored for children with mobility challenges to navigate independently. Traditional power wheelchairs are prohibitively expensive, often not viable until the children are older. Conversely, the modified cars grant them independence at a much younger age and a comparatively lower cost. These vehicles are priced at around $100, with additional modifications such as electric switches, seating support, and padding bringing the total cost to approximately $200. </p>
+
+  <div id="abouts" class="min-w-full">
+  
+    <%= render @abouts %>
+  </div>
+    
+</div>

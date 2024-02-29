@@ -1,0 +1,130 @@
+<!-- app/views/users/index.html.erb -->
+
+
+
+<p class="alert"><%= alert %></p>
+
+<div class='mt-8'><%= link_to "Go to Dashboard", dashboard_path , class:'border border-black bg-white rounded-lg px-2 py-1 m-4' %></div>
+
+<h1 class="text-5xl font-extrabold m-4 text-center">Members of GoBabyGo</h1>
+
+<div class='flex flex-col justify-center items-center border border-black bg-[#FFEFAD] rounded-lg min-w-2/3 w-2/3 mx-auto'>
+    <h1 class='text-4xl font-bold m-4'></h1>
+
+    <p class="m-2"> <strong>Your Role:</strong> <%= @user.level.capitalize %></p>
+    <p class="m-2"> <strong>Your Email:</strong> <%= @user.email %></p>
+
+    <div class='p-4 flex justify-center'>  
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Current Role</th>
+              <% if !@user.staff_member? %>
+              <th>Change Role</th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+          <% if @user.staff_member? %>
+            <% @all_users.each do |user| %>
+              <% if user.id == @user.id %>
+                  <tr>
+                  <td>You</td>
+                  <td><%= user.level.capitalize %></td>
+                  <td>
+                  </td>
+                  </tr>
+              <% else %>
+                <tr>
+                  <td><%= user.email %></td>
+                  <td><%= user.level.capitalize %></td>
+                  <td>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          <% elsif @user.officer_member? %>
+            <% @all_users.each do |user| %>
+              <% if user.id == @user.id %>
+                <tr>
+                <td>You</td>
+                <td><%= user.level.capitalize %></td>
+                <td>
+                </td>
+                </tr>
+              <% elsif user.admin? %>
+                <tr>
+                <td><%= user.email %></td>
+                <td><%= user.level.capitalize %></td>
+                <td>
+                </td>
+                </tr>
+              <% elsif user.officer_member? %>
+                <tr>
+                <td><%= user.email %></td>
+                <td><%= user.level.capitalize %></td>
+                <td>
+                </td>
+                </tr>
+              <% else %>
+                <tr>
+                  <td><%= user.email %></td>
+                  <td><%= user.level.capitalize %></td>
+                  <td>
+                  <%= form_with(model: user, url: update_role_user_path(user), local: true, method: :patch) do |form| %>
+                    <%# Ensure only visitor, member, and officer roles are selectable %>
+                    <% selectable_roles = User.levels.keys - ['admin'] %>
+                    <%= form.select :level, selectable_roles.map { |key| [key.humanize, key] }, {}, {class: "select"} %>
+                    <%= form.submit "Update Role", class: "btn btn-primary" %>
+                  <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+
+          <% elsif @user.admin? %>
+            <% @all_users.each do |user| %>
+              <% if user.id == @user.id %>
+              <tr>
+                <td>You</td>
+                <td><%= user.level.capitalize %></td>
+                <td>
+                </td>
+                </tr>
+              <% elsif user.admin? %>
+                <tr>
+                <td><%= user.email %></td>
+                <td><%= user.level.capitalize %></td>
+                <td>
+                </td>
+                </tr>
+              <% else %>
+              <tr>
+                <td><%= user.email %></td>
+                <td><%= user.level.capitalize %></td>
+                <td>
+                <%= form_with(model: user, url: update_role_user_path(user), local: true, method: :patch) do |form| %>
+                  <%# Ensure only visitor, member, and officer roles are selectable %>
+                  <% selectable_roles = User.levels.keys %>
+                  <%= form.select :level, selectable_roles.map { |key| [key.humanize, key] }, {}, {class: "select"} %>
+                  <%= form.submit "Update Role", class: "btn btn-primary" %>
+                <% end %>
+                </td>
+              </tr>
+              <% end %>
+            <% end %>
+
+          <% end %>
+          
+          </tbody>
+        </table>
+    </div>
+    <% if flash.any? %>
+      <% flash.each do |key, value| -%>
+        <section class="flash flash__<%= key %> my-4"><%= value.html_safe %></section>
+      <% end -%>
+    <% end %> 
+</div>
+
+

@@ -1,12 +1,26 @@
-<div class="users new">
-  <h2>Fill out these additional details.</h2>
+<div class="users new flex flex-col justify-center items-center border border-black bg-[#FFEFAD] rounded-lg min-w-2/3 w-2/3 mx-auto my-4">
+    <h1 class='text-4xl font-bold m-4 justify-center items-center text-center'>Finalize your Profile!</h1>
+    <div class='p-4 flex flex-wrap justify-center items-center'>
 
-  <%= form_for(@user) do |f| %>
-    <%= render(partial: 'form', locals: {f: f}) %>
+      <%= form_for(@user) do |f| %>
+      <%= render(partial: 'form', locals: {f: f}) %>
 
-    <div class="user-buttons">
-      <%= f.submit("Finish account set-up") %>
+        <div class="user-buttons border border-black bg-white rounded-lg px-2 py-1 ml-1 mt-2 text-center">
+          <%= f.submit("Submit!") %>
+        </div>
+
+      <% end %>
     </div>
 
-  <% end %>
+    <% if @user.errors.any? %>
+  <div id="error_explanation" class="text-center">
+    <h2 class="border border-black bg-white rounded-md mx-1 px-1 py-1 my-auto"><%= pluralize(@user.errors.count, "Error") %> </h2>
+    <ul>
+    <% @user.errors.full_messages.each do |message| %>
+      <li class="border border-black bg-white rounded-md px-3 py-1 mx-4 my-4"><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 </div>

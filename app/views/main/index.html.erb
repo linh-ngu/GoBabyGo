@@ -1,15 +1,26 @@
-<h1 class='text-7xl'>Welcome to GoBabyGo!</h1>
-</br>
-<% if admin_signed_in? %>
-  <%= link_to "Go to Dashboard", dashboard_path , class:'border border-black px-2 py-1 mx-4' %><br />
 
-  </br>
-  </br>
-  </br>
-  <%= link_to "Sign Out", destroy_admin_session_path, method: :delete, class: "border border-black px-2 py-1 mx-4" %>
 
-  </br>
 
-<% else %>
-    <%= button_to "Sign in with Google", admin_google_oauth2_omniauth_authorize_path, class: "border border-black px-2 py-1 mx-4" %>
-<% end %>
+
+<h1 class="text-5xl font-extrabold m-4 text-center">Welcome to GoBabyGo!</h1>
+
+<div class='flex flex-col justify-center items-center border border-black bg-[#FFEFAD] rounded-lg min-w-2/3 w-2/3 mx-auto'>
+  <h1 class='text-4xl font-bold m-4'></h1>
+  
+  <div class='p-4 flex flex-wrap justify-center'>
+    <% if admin_signed_in? %>
+      <%= link_to "Go to #{@user.level.capitalize} Dashboard", dashboard_path , class:'border border-black bg-white rounded-lg px-4 py-1 mr-4' %>
+      <%= link_to "Sign Out", destroy_admin_session_path, class:'border border-black bg-white rounded-lg px-4 py-1 my-1' %>
+    <% else %>
+      <%= button_to "Sign in with Google", admin_google_oauth2_omniauth_authorize_path, class: "border border-black bg-white rounded-lg px-4 py-1 my-1" %>
+    <% end %>
+  </div>
+
+      
+    <% flash.each do |type, message| %>
+    <%= message %>
+    <% end %>
+
+    
+
+</div>
