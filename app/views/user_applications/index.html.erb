@@ -1,6 +1,6 @@
 <div class='mt-8'><%= link_to('<- Back to Dashboard', dashboard_path, class:'rounded-lg ml-3 py-2 px-3 bg-gray-500 text-white inline-block font-medium cursor-pointer hover:bg-gray-600') %></div>
 
-
+<% # Handles applying filters # %>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const showFiltersBtn = document.getElementById("showFiltersBtn");
@@ -18,15 +18,41 @@
     });
 
     clearFiltersBtn.addEventListener("click", function() {
-      // Uncheck all filter checkboxes
+      // Clear all filter options
       document.querySelectorAll("input[type='checkbox']").forEach(function(checkbox) {
         checkbox.checked = false;
       });
+      document.querySelectorAll("input[type='text']").forEach(function(input) {
+        input.value = "";
+      });
+      
       // Submit the form to apply cleared filters
       filterOptions.querySelector("form").submit();
     });
   });
 </script>
+
+<% # Handles applying sorting options # %>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Your existing JavaScript code...
+
+    const sortOptionDropdown = document.getElementById("sortOption");
+
+    sortOptionDropdown.addEventListener("change", function() {
+      // Get the selected sorting option
+      const selectedSortOption = sortOptionDropdown.value;
+
+      // Update the URL with the selected sorting option
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set('sort_option', selectedSortOption);
+
+      // Redirect to the updated URL
+      window.location.href = currentUrl.href;
+    });
+  });
+</script>
+
 
 
 <div class="user_applications index py-10">
@@ -71,6 +97,15 @@
         <%= submit_tag "Apply Filters", class: "rounded-lg mt-5 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
       <% end %>
     </div>
+    <div>
+      <label class="ml-3 mt-3">
+      Sort By:
+      <select id="sortOption" class="rounded-lg mt-1 py-2 px-3 bg-white text-gray-900">
+      <option value="created_at_desc" <%= params[:sort_option] == "created_at_desc" ? "selected" : "" %>>Newest First</option>
+      <option value="created_at_asc" <%= params[:sort_option] == "created_at_asc" ? "selected" : "" %>>Oldest First</option>
+    </select>
+    </label>
+    </div>
   <% end %>
   <h2 class="text-2xl font-bold ml-3"><%= @page_title %></h2>
   <br />
@@ -104,7 +139,8 @@
       title: "Accepted", 
       user_applications: @accepted_user_applications, 
       view_link_class: "action show rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
-      reject_link_class: "action reject rounded-lg py-2 px-4 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
+      status_link_class: "action accept rounded-lg py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
+      delete_link_class: "rounded-lg py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer hover:bg-red-700",
       table_class: "accepted",
       header_color: "green-800"
     } %>
@@ -113,8 +149,8 @@
       title: "Waitlisted", 
       user_applications: @waitlist_user_applications,
       view_link_class: "action show rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
-      accept_link_class: "action accept rounded-lg py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
-      reject_link_class: "action reject rounded-lg py-2 px-4 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
+      status_link_class: "action accept rounded-lg py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
+      delete_link_class: "rounded-lg py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer hover:bg-red-700",
       table_class: "waitlist",
       header_color: "gray-500"
     } %>
@@ -123,9 +159,8 @@
       title: "Not Accepted", 
       user_applications: @not_accepted_user_applications,
       view_link_class: "action show rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
-      accept_link_class: "action accept rounded-lg py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
-      reject_link_class: "action reject rounded-lg py-2 px-4 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
-      waitlist_link_class: "action waitlist rounded-lg py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
+      status_link_class: "action accept rounded-lg py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
+      delete_link_class: "rounded-lg py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer hover:bg-red-700",
       table_class: "not-accepted",
       header_color: "red-800"
     } %>

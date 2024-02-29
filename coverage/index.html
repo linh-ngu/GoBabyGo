@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <script src='./assets/0.12.3/application.js' type='text/javascript'></script>
     <link href='./assets/0.12.3/application.css' media='screen, projection, print' rel='stylesheet' type='text/css' />
-    <link rel="shortcut icon" type="image/png" href="./assets/0.12.3/favicon_yellow.png" />
+    <link rel="shortcut icon" type="image/png" href="./assets/0.12.3/favicon_red.png" />
     <link rel="icon" type="image/png" href="./assets/0.12.3/favicon.png" />
   </head>
 
@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2024-02-28T03:06:05+00:00">2024-02-28T03:06:05+00:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2024-02-28T23:11:33+00:00">2024-02-28T23:11:33+00:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -22,15 +22,15 @@
   <h2>
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
-      <span class="yellow">
-  81.45%
+      <span class="red">
+  78.35%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.09
+         1.04
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>399</b> relevant lines,
-    <span class="green"><b>325</b> lines covered</span> and
-    <span class="red"><b>74</b> lines missed. </span>
-    (<span class="yellow">
-  81.45%
+    <b>425</b> relevant lines,
+    <span class="green"><b>333</b> lines covered</span> and
+    <span class="red"><b>92</b> lines missed. </span>
+    (<span class="red">
+  78.35%
 </span>
 )
   </div>
@@ -94,12 +94,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#beb2cd3d61acfff5feea18f2080f716f0767011b" class="src_link" title="app/controllers/user_applications_controller.rb">app/controllers/user_applications_controller.rb</a></td>
-            <td class="red strong cell--number t-file__coverage">55.13 %</td>
-            <td class="cell--number">159</td>
-            <td class="cell--number">78</td>
+            <td class="red strong cell--number t-file__coverage">44.79 %</td>
+            <td class="cell--number">181</td>
+            <td class="cell--number">96</td>
             <td class="cell--number">43</td>
-            <td class="cell--number">35</td>
-            <td class="cell--number">1.49</td>
+            <td class="cell--number">53</td>
+            <td class="cell--number">1.21</td>
             
           </tr>
         
@@ -402,10 +402,10 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#2b0d6b9d6a140fbf30a6e02f0455bdbb156e8951" class="src_link" title="spec/feature/user_application_integration_spec.rb">spec/feature/user_application_integration_spec.rb</a></td>
-            <td class="yellow strong cell--number t-file__coverage">82.61 %</td>
-            <td class="cell--number">151</td>
-            <td class="cell--number">115</td>
-            <td class="cell--number">95</td>
+            <td class="yellow strong cell--number t-file__coverage">83.74 %</td>
+            <td class="cell--number">164</td>
+            <td class="cell--number">123</td>
+            <td class="cell--number">103</td>
             <td class="cell--number">20</td>
             <td class="cell--number">0.94</td>
             
@@ -836,7 +836,7 @@
     <h3>app/controllers/user_applications_controller.rb</h3>
     <h4>
       <span class="red">
-  55.13%
+  44.79%
 </span>
 
       lines covered
@@ -845,9 +845,9 @@
     
 
     <div class="t-line-summary">
-      <b>78</b> relevant lines.
+      <b>96</b> relevant lines.
       <span class="green"><b>43</b> lines covered</span> and
-      <span class="red"><b>35</b> lines missed.</span>
+      <span class="red"><b>53</b> lines missed.</span>
     </div>
 
     
@@ -1150,7 +1150,7 @@
 
             
 
-            <code class="ruby">      if params[:start_date].present? &amp;&amp; params[:end_date].present?</code>
+            <code class="ruby">      if params[:start_date].present? || params[:end_date].present?</code>
           </li>
         </div>
       
@@ -1161,7 +1161,7 @@
 
             
 
-            <code class="ruby">        start_date = Date.parse(params[:start_date])</code>
+            <code class="ruby">        start_date = params[:start_date].present? ? Date.parse(params[:start_date]).beginning_of_day : nil</code>
           </li>
         </div>
       
@@ -1172,18 +1172,18 @@
 
             
 
-            <code class="ruby">        end_date = Date.parse(params[:end_date])</code>
+            <code class="ruby">        end_date = params[:end_date].present? ? Date.parse(params[:end_date]).end_of_day : nil</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="30">
+          <li class="never" data-hits="" data-linenumber="30">
             
             
 
             
 
-            <code class="ruby">        @not_accepted_user_applications = @not_accepted_user_applications.where(created_at: start_date.beginning_of_day..end_date.end_of_day)</code>
+            <code class="ruby">        </code>
           </li>
         </div>
       
@@ -1194,7 +1194,7 @@
 
             
 
-            <code class="ruby">        @waitlist_user_applications = @waitlist_user_applications.where(created_at: start_date.beginning_of_day..end_date.end_of_day)</code>
+            <code class="ruby">        if start_date &amp;&amp; end_date</code>
           </li>
         </div>
       
@@ -1205,51 +1205,51 @@
 
             
 
-            <code class="ruby">        @accepted_user_applications = @accepted_user_applications.where(created_at: start_date.beginning_of_day..end_date.end_of_day)</code>
+            <code class="ruby">          @not_accepted_user_applications = @not_accepted_user_applications.where(created_at: start_date..end_date)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="33">
+          <li class="missed" data-hits="0" data-linenumber="33">
             
             
 
             
 
-            <code class="ruby">      end</code>
+            <code class="ruby">          @waitlist_user_applications = @waitlist_user_applications.where(created_at: start_date..end_date)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="34">
+          <li class="missed" data-hits="0" data-linenumber="34">
             
             
 
             
 
-            <code class="ruby">      </code>
+            <code class="ruby">          @accepted_user_applications = @accepted_user_applications.where(created_at: start_date..end_date)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="35">
+          <li class="missed" data-hits="0" data-linenumber="35">
             
             
 
             
 
-            <code class="ruby">      # Applying height range filter</code>
+            <code class="ruby">        elsif start_date</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="36">
-            <span class="hits">2</span>
+          <li class="missed" data-hits="0" data-linenumber="36">
+            
             
 
             
 
-            <code class="ruby">      if params[:min_height].present? &amp;&amp; params[:max_height].present?</code>
+            <code class="ruby">          @not_accepted_user_applications = @not_accepted_user_applications.where(&quot;created_at &gt;= ?&quot;, start_date)</code>
           </li>
         </div>
       
@@ -1260,7 +1260,7 @@
 
             
 
-            <code class="ruby">        min_height = params[:min_height].to_i</code>
+            <code class="ruby">          @waitlist_user_applications = @waitlist_user_applications.where(&quot;created_at &gt;= ?&quot;, start_date)</code>
           </li>
         </div>
       
@@ -1271,7 +1271,7 @@
 
             
 
-            <code class="ruby">        max_height = params[:max_height].to_i</code>
+            <code class="ruby">          @accepted_user_applications = @accepted_user_applications.where(&quot;created_at &gt;= ?&quot;, start_date)</code>
           </li>
         </div>
       
@@ -1282,7 +1282,7 @@
 
             
 
-            <code class="ruby">        @not_accepted_user_applications = @not_accepted_user_applications.where(child_height: min_height..max_height)</code>
+            <code class="ruby">        elsif end_date</code>
           </li>
         </div>
       
@@ -1293,7 +1293,7 @@
 
             
 
-            <code class="ruby">        @waitlist_user_applications = @waitlist_user_applications.where(child_height: min_height..max_height)</code>
+            <code class="ruby">          @not_accepted_user_applications = @not_accepted_user_applications.where(&quot;created_at &lt;= ?&quot;, end_date)</code>
           </li>
         </div>
       
@@ -1304,18 +1304,18 @@
 
             
 
-            <code class="ruby">        @accepted_user_applications = @accepted_user_applications.where(child_height: min_height..max_height)</code>
+            <code class="ruby">          @waitlist_user_applications = @waitlist_user_applications.where(&quot;created_at &lt;= ?&quot;, end_date)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="42">
+          <li class="missed" data-hits="0" data-linenumber="42">
             
             
 
             
 
-            <code class="ruby">      end</code>
+            <code class="ruby">          @accepted_user_applications = @accepted_user_applications.where(&quot;created_at &lt;= ?&quot;, end_date)</code>
           </li>
         </div>
       
@@ -1326,7 +1326,7 @@
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">        end</code>
           </li>
         </div>
       
@@ -1337,7 +1337,7 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">      end</code>
           </li>
         </div>
       
@@ -1348,7 +1348,7 @@
 
             
 
-            <code class="ruby">  </code>
+            <code class="ruby">      </code>
           </li>
         </div>
       
@@ -1359,40 +1359,40 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">      # Applying height range filter</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="47">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def show</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="2" data-linenumber="48">
+          <li class="covered" data-hits="2" data-linenumber="47">
             <span class="hits">2</span>
             
 
             
 
-            <code class="ruby">    @user_application = UserApplication.find(params[:id])</code>
+            <code class="ruby">      if params[:min_height].present? || params[:max_height].present?</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="49">
+          <li class="missed" data-hits="0" data-linenumber="48">
             
             
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">        min_height = params[:min_height].present? ? params[:min_height].to_i : nil</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="49">
+            
+            
+
+            
+
+            <code class="ruby">        max_height = params[:max_height].present? ? params[:max_height].to_i : nil</code>
           </li>
         </div>
       
@@ -1403,128 +1403,128 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">        </code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="51">
-            <span class="hits">1</span>
+          <li class="missed" data-hits="0" data-linenumber="51">
+            
             
 
             
 
-            <code class="ruby">  def new</code>
+            <code class="ruby">        if min_height &amp;&amp; max_height</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="6" data-linenumber="52">
-            <span class="hits">6</span>
+          <li class="missed" data-hits="0" data-linenumber="52">
+            
             
 
             
 
-            <code class="ruby">    @user_application = UserApplication.new()</code>
+            <code class="ruby">          @not_accepted_user_applications = @not_accepted_user_applications.where(child_height: min_height..max_height)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="53">
+          <li class="missed" data-hits="0" data-linenumber="53">
             
             
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">          @waitlist_user_applications = @waitlist_user_applications.where(child_height: min_height..max_height)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="54">
+          <li class="missed" data-hits="0" data-linenumber="54">
             
             
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">          @accepted_user_applications = @accepted_user_applications.where(child_height: min_height..max_height)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="55">
-            <span class="hits">1</span>
+          <li class="missed" data-hits="0" data-linenumber="55">
+            
             
 
             
 
-            <code class="ruby">  def create</code>
+            <code class="ruby">        elsif min_height</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="56">
-            <span class="hits">4</span>
+          <li class="missed" data-hits="0" data-linenumber="56">
+            
             
 
             
 
-            <code class="ruby">    @user = User.find_by(admin_id: current_admin.id)</code>
+            <code class="ruby">          @not_accepted_user_applications = @not_accepted_user_applications.where(&quot;child_height &gt;= ?&quot;, min_height)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="57">
+          <li class="missed" data-hits="0" data-linenumber="57">
             
             
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">          @waitlist_user_applications = @waitlist_user_applications.where(&quot;child_height &gt;= ?&quot;, min_height)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="58">
-            <span class="hits">4</span>
+          <li class="missed" data-hits="0" data-linenumber="58">
+            
             
 
             
 
-            <code class="ruby">    if @user.visitor? || @user.applicant?</code>
+            <code class="ruby">          @accepted_user_applications = @accepted_user_applications.where(&quot;child_height &gt;= ?&quot;, min_height)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="59">
+          <li class="missed" data-hits="0" data-linenumber="59">
             
             
 
             
 
-            <code class="ruby">      #user from website submits application</code>
+            <code class="ruby">        elsif max_height</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="60">
-            <span class="hits">4</span>
+          <li class="missed" data-hits="0" data-linenumber="60">
+            
             
 
             
 
-            <code class="ruby">      @user_application = UserApplication.new(user_params)</code>
+            <code class="ruby">          @not_accepted_user_applications = @not_accepted_user_applications.where(&quot;child_height &lt;= ?&quot;, max_height)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="61">
-            <span class="hits">4</span>
+          <li class="missed" data-hits="0" data-linenumber="61">
+            
             
 
             
 
-            <code class="ruby">      flash[:notice] = &quot;Application submitted successfully. We will reach out to you soon with our response.&quot;</code>
+            <code class="ruby">          @waitlist_user_applications = @waitlist_user_applications.where(&quot;child_height &lt;= ?&quot;, max_height)</code>
           </li>
         </div>
       
@@ -1535,7 +1535,7 @@
 
             
 
-            <code class="ruby">    elsif @user.officer_member?</code>
+            <code class="ruby">          @accepted_user_applications = @accepted_user_applications.where(&quot;child_height &lt;= ?&quot;, max_height)</code>
           </li>
         </div>
       
@@ -1546,122 +1546,12 @@
 
             
 
-            <code class="ruby">      #officer submits application</code>
+            <code class="ruby">        end</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="64">
-            
-            
-
-            
-
-            <code class="ruby">      @user_application = UserApplication.new(officer_params)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="65">
-            
-            
-
-            
-
-            <code class="ruby">      flash[:notice] = &quot;Application submitted successfully.&quot;</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="66">
-            
-            
-
-            
-
-            <code class="ruby">    end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="67">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="4" data-linenumber="68">
-            <span class="hits">4</span>
-            
-
-            
-
-            <code class="ruby">    params[:user_application][:caregiver_phone].gsub!(/\D/, &#39;&#39;)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="69">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="4" data-linenumber="70">
-            <span class="hits">4</span>
-            
-
-            
-
-            <code class="ruby">    @user_application.user_id = @user.id</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="4" data-linenumber="71">
-            <span class="hits">4</span>
-            
-
-            
-
-            <code class="ruby">    if @user_application.save</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="2" data-linenumber="72">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">      if @user.visitor?</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="2" data-linenumber="73">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">        @user.update(level: :applicant)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="74">
+          <li class="never" data-hits="" data-linenumber="64">
             
             
 
@@ -1672,51 +1562,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="75">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">      redirect_to user_application_path(@user_application.id)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="76">
-            
-            
-
-            
-
-            <code class="ruby">    else</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="2" data-linenumber="77">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">      flash[:notice] = @user_application.errors.full_messages.join(&quot;, &quot;)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="2" data-linenumber="78">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">      redirect_to new_user_application_path</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="79">
+          <li class="never" data-hits="" data-linenumber="65">
             
             
 
@@ -1727,13 +1573,167 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="80">
+          <li class="never" data-hits="" data-linenumber="66">
             
             
 
             
 
             <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="67">
+            
+            
+
+            
+
+            <code class="ruby">  </code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="68">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="69">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def show</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="70">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @user_application = UserApplication.find(params[:id])</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="71">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="72">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="73">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def new</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="6" data-linenumber="74">
+            <span class="hits">6</span>
+            
+
+            
+
+            <code class="ruby">    @user_application = UserApplication.new()</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="75">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="76">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="77">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def create</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="4" data-linenumber="78">
+            <span class="hits">4</span>
+            
+
+            
+
+            <code class="ruby">    @user = User.find_by(admin_id: current_admin.id)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="79">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="4" data-linenumber="80">
+            <span class="hits">4</span>
+            
+
+            
+
+            <code class="ruby">    if @user.visitor? || @user.applicant?</code>
           </li>
         </div>
       
@@ -1744,40 +1744,40 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">      #user from website submits application</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="82">
-            <span class="hits">1</span>
+          <li class="covered" data-hits="4" data-linenumber="82">
+            <span class="hits">4</span>
             
 
             
 
-            <code class="ruby">  def edit</code>
+            <code class="ruby">      @user_application = UserApplication.new(user_params)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="83">
-            <span class="hits">2</span>
+          <li class="covered" data-hits="4" data-linenumber="83">
+            <span class="hits">4</span>
             
 
             
 
-            <code class="ruby">    @user_application = UserApplication.find(params[:id])</code>
+            <code class="ruby">      flash[:notice] = &quot;Application submitted successfully. We will reach out to you soon with our response.&quot;</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="84">
-            <span class="hits">2</span>
+          <li class="missed" data-hits="0" data-linenumber="84">
+            
             
 
             
 
-            <code class="ruby">    @user = User.find_by(admin_id: current_admin.id)</code>
+            <code class="ruby">    elsif @user.officer_member?</code>
           </li>
         </div>
       
@@ -1788,29 +1788,29 @@
 
             
 
-            <code class="ruby">    #if user is an officer, access to edit accepted</code>
+            <code class="ruby">      #officer submits application</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="86">
-            <span class="hits">2</span>
+          <li class="missed" data-hits="0" data-linenumber="86">
+            
             
 
             
 
-            <code class="ruby">    @access_accepted = @user.officer_member?</code>
+            <code class="ruby">      @user_application = UserApplication.new(officer_params)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="87">
+          <li class="missed" data-hits="0" data-linenumber="87">
             
             
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">      flash[:notice] = &quot;Application submitted successfully.&quot;</code>
           </li>
         </div>
       
@@ -1821,45 +1821,12 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="89">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def update</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="90">
-            
-            
-
-            
-
-            <code class="ruby">    @user_application = UserApplication.find(params[:id])</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="91">
-            
-            
-
-            
-
-            <code class="ruby">    @user = User.find_by(admin_id: current_admin.id)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="92">
+          <li class="never" data-hits="" data-linenumber="89">
             
             
 
@@ -1870,29 +1837,18 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="93">
-            
-            
-
+          <li class="covered" data-hits="4" data-linenumber="90">
+            <span class="hits">4</span>
             
 
-            <code class="ruby">    #app_params passed based on visitor/officer role status - not including application role</code>
+            
+
+            <code class="ruby">    params[:user_application][:caregiver_phone].gsub!(/\D/, &#39;&#39;)</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="94">
-            
-            
-
-            
-
-            <code class="ruby">    app_params = @user.visitor? ? user_params : officer_params</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="95">
+          <li class="never" data-hits="" data-linenumber="91">
             
             
 
@@ -1903,19 +1859,63 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="96">
-            
-            
-
+          <li class="covered" data-hits="4" data-linenumber="92">
+            <span class="hits">4</span>
             
 
-            <code class="ruby">    if @user_application.update(app_params)</code>
+            
+
+            <code class="ruby">    @user_application.user_id = @user.id</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="97">
+          <li class="covered" data-hits="4" data-linenumber="93">
+            <span class="hits">4</span>
             
+
+            
+
+            <code class="ruby">    if @user_application.save</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="94">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">      if @user.visitor?</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="95">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">        @user.update(level: :applicant)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="96">
+            
+            
+
+            
+
+            <code class="ruby">      end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="97">
+            <span class="hits">2</span>
             
 
             
@@ -1925,18 +1925,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="98">
-            
-            
-
-            
-
-            <code class="ruby">      flash[:notice] = &quot;Application updated successfully.&quot;</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="99">
+          <li class="never" data-hits="" data-linenumber="98">
             
             
 
@@ -1947,13 +1936,24 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="100">
+          <li class="covered" data-hits="2" data-linenumber="99">
+            <span class="hits">2</span>
             
+
+            
+
+            <code class="ruby">      flash[:notice] = @user_application.errors.full_messages.join(&quot;, &quot;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="100">
+            <span class="hits">2</span>
             
 
             
 
-            <code class="ruby">      redirect_to edit_user_application_path(@user_application)</code>
+            <code class="ruby">      redirect_to new_user_application_path</code>
           </li>
         </div>
       
@@ -1997,13 +1997,13 @@
 
             
 
-            <code class="ruby">  def delete</code>
+            <code class="ruby">  def edit</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="105">
-            
+          <li class="covered" data-hits="2" data-linenumber="105">
+            <span class="hits">2</span>
             
 
             
@@ -2013,13 +2013,13 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="106">
-            
-            
-
+          <li class="covered" data-hits="2" data-linenumber="106">
+            <span class="hits">2</span>
             
 
-            <code class="ruby">  end</code>
+            
+
+            <code class="ruby">    @user = User.find_by(admin_id: current_admin.id)</code>
           </li>
         </div>
       
@@ -2030,23 +2030,56 @@
 
             
 
+            <code class="ruby">    #if user is an officer, access to edit accepted</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="108">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @access_accepted = @user.officer_member?</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="109">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="110">
+            
+            
+
+            
+
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="108">
+          <li class="covered" data-hits="1" data-linenumber="111">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">  def destroy</code>
+            <code class="ruby">  def update</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="109">
+          <li class="missed" data-hits="0" data-linenumber="112">
             
             
 
@@ -2057,7 +2090,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="110">
+          <li class="missed" data-hits="0" data-linenumber="113">
             
             
 
@@ -2068,79 +2101,46 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="111">
+          <li class="never" data-hits="" data-linenumber="114">
             
             
 
             
 
-            <code class="ruby">    @user_application.destroy</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="112">
+          <li class="never" data-hits="" data-linenumber="115">
             
             
 
             
 
-            <code class="ruby">    # if @user.level == 0</code>
+            <code class="ruby">    #app_params passed based on visitor/officer role status - not including application role</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="113">
+          <li class="missed" data-hits="0" data-linenumber="116">
             
             
 
             
 
-            <code class="ruby">    # instead of above line, if user is visitor redirect_to</code>
+            <code class="ruby">    app_params = @user.visitor? ? user_params : officer_params</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="114">
+          <li class="never" data-hits="" data-linenumber="117">
             
             
 
             
 
-            <code class="ruby">    if @user.visitor?</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="115">
-            
-            
-
-            
-
-            <code class="ruby">      redirect_to user_application_path(@user_application.id)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="116">
-            
-            
-
-            
-
-            <code class="ruby">    # elsif @user.level == 1</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="117">
-            
-            
-
-            
-
-            <code class="ruby">    elsif @user.officer_member?</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -2151,29 +2151,29 @@
 
             
 
-            <code class="ruby">      redirect_to user_applications_path</code>
+            <code class="ruby">    if @user_application.update(app_params)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="119">
+          <li class="missed" data-hits="0" data-linenumber="119">
             
             
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">      redirect_to user_application_path(@user_application.id)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="120">
+          <li class="missed" data-hits="0" data-linenumber="120">
             
             
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">      flash[:notice] = &quot;Application updated successfully.&quot;</code>
           </li>
         </div>
       
@@ -2184,12 +2184,45 @@
 
             
 
+            <code class="ruby">    else</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="122">
+            
+            
+
+            
+
+            <code class="ruby">      redirect_to edit_user_application_path(@user_application)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="123">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="124">
+            
+            
+
+            
+
             <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="122">
+          <li class="never" data-hits="" data-linenumber="125">
             
             
 
@@ -2200,57 +2233,24 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="123">
+          <li class="covered" data-hits="1" data-linenumber="126">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">  private</code>
+            <code class="ruby">  def delete</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="124">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def user_params</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="4" data-linenumber="125">
-            <span class="hits">4</span>
-            
-
-            
-
-            <code class="ruby">    params.require(:user_application).permit(</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="126">
+          <li class="missed" data-hits="0" data-linenumber="127">
             
             
 
             
 
-            <code class="ruby">      :child_name,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="127">
-            
-            
-
-            
-
-            <code class="ruby">      :child_birthdate,</code>
+            <code class="ruby">    @user_application = UserApplication.find(params[:id])</code>
           </li>
         </div>
       
@@ -2261,7 +2261,7 @@
 
             
 
-            <code class="ruby">      :primary_diagnosis,</code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -2272,51 +2272,51 @@
 
             
 
-            <code class="ruby">      :secondary_diagnosis,</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="130">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="130">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">      :adaptive_equipment,</code>
+            
+
+            <code class="ruby">  def destroy</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="131">
+          <li class="missed" data-hits="0" data-linenumber="131">
             
             
 
             
 
-            <code class="ruby">      :child_height,</code>
+            <code class="ruby">    @user_application = UserApplication.find(params[:id])</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="132">
+          <li class="missed" data-hits="0" data-linenumber="132">
             
             
 
             
 
-            <code class="ruby">      :child_weight,</code>
+            <code class="ruby">    @user = User.find_by(admin_id: current_admin.id)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="133">
+          <li class="missed" data-hits="0" data-linenumber="133">
             
             
 
             
 
-            <code class="ruby">      :caregiver_name,</code>
+            <code class="ruby">    @user_application.destroy</code>
           </li>
         </div>
       
@@ -2327,7 +2327,7 @@
 
             
 
-            <code class="ruby">      :caregiver_email,</code>
+            <code class="ruby">    # if @user.level == 0</code>
           </li>
         </div>
       
@@ -2338,29 +2338,29 @@
 
             
 
-            <code class="ruby">      :caregiver_phone,</code>
+            <code class="ruby">    # instead of above line, if user is visitor redirect_to</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="136">
+          <li class="missed" data-hits="0" data-linenumber="136">
             
             
 
             
 
-            <code class="ruby">      :can_transport,</code>
+            <code class="ruby">    if @user.visitor?</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="137">
+          <li class="missed" data-hits="0" data-linenumber="137">
             
             
 
             
 
-            <code class="ruby">      :can_store,</code>
+            <code class="ruby">      redirect_to user_application_path(@user_application.id)</code>
           </li>
         </div>
       
@@ -2371,23 +2371,45 @@
 
             
 
-            <code class="ruby">      :notes)</code>
+            <code class="ruby">    # elsif @user.level == 1</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="139">
+          <li class="missed" data-hits="0" data-linenumber="139">
             
             
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">    elsif @user.officer_member?</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="140">
+          <li class="missed" data-hits="0" data-linenumber="140">
+            
+            
+
+            
+
+            <code class="ruby">      redirect_to user_applications_path</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="141">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="142">
             
             
 
@@ -2398,194 +2420,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="141">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def officer_params</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="142">
-            
-            
-
-            
-
-            <code class="ruby">    params.require(:user_application).permit(</code>
-          </li>
-        </div>
-      
-        <div>
           <li class="never" data-hits="" data-linenumber="143">
-            
-            
-
-            
-
-            <code class="ruby">      :child_name,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="144">
-            
-            
-
-            
-
-            <code class="ruby">      :child_birthdate,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="145">
-            
-            
-
-            
-
-            <code class="ruby">      :primary_diagnosis,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="146">
-            
-            
-
-            
-
-            <code class="ruby">      :secondary_diagnosis,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="147">
-            
-            
-
-            
-
-            <code class="ruby">      :adaptive_equipment,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="148">
-            
-            
-
-            
-
-            <code class="ruby">      :child_height,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="149">
-            
-            
-
-            
-
-            <code class="ruby">      :child_weight,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="150">
-            
-            
-
-            
-
-            <code class="ruby">      :caregiver_name,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="151">
-            
-            
-
-            
-
-            <code class="ruby">      :caregiver_email,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="152">
-            
-            
-
-            
-
-            <code class="ruby">      :caregiver_phone,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="153">
-            
-            
-
-            
-
-            <code class="ruby">      :can_transport,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="154">
-            
-            
-
-            
-
-            <code class="ruby">      :can_store,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="155">
-            
-            
-
-            
-
-            <code class="ruby">      :notes,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="156">
-            
-            
-
-            
-
-            <code class="ruby">      :accepted,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="157">
-            
-            
-
-            
-
-            <code class="ruby">      :waitlist)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="158">
             
             
 
@@ -2596,7 +2431,414 @@
         </div>
       
         <div>
+          <li class="never" data-hits="" data-linenumber="144">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="145">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  private</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="146">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def user_params</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="4" data-linenumber="147">
+            <span class="hits">4</span>
+            
+
+            
+
+            <code class="ruby">    params.require(:user_application).permit(</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="148">
+            
+            
+
+            
+
+            <code class="ruby">      :child_name,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="149">
+            
+            
+
+            
+
+            <code class="ruby">      :child_birthdate,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="150">
+            
+            
+
+            
+
+            <code class="ruby">      :primary_diagnosis,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="151">
+            
+            
+
+            
+
+            <code class="ruby">      :secondary_diagnosis,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="152">
+            
+            
+
+            
+
+            <code class="ruby">      :adaptive_equipment,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="153">
+            
+            
+
+            
+
+            <code class="ruby">      :child_height,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="154">
+            
+            
+
+            
+
+            <code class="ruby">      :child_weight,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="155">
+            
+            
+
+            
+
+            <code class="ruby">      :caregiver_name,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="156">
+            
+            
+
+            
+
+            <code class="ruby">      :caregiver_email,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="157">
+            
+            
+
+            
+
+            <code class="ruby">      :caregiver_phone,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="158">
+            
+            
+
+            
+
+            <code class="ruby">      :can_transport,</code>
+          </li>
+        </div>
+      
+        <div>
           <li class="never" data-hits="" data-linenumber="159">
+            
+            
+
+            
+
+            <code class="ruby">      :can_store,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="160">
+            
+            
+
+            
+
+            <code class="ruby">      :notes)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="161">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="162">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="163">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def officer_params</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="164">
+            
+            
+
+            
+
+            <code class="ruby">    params.require(:user_application).permit(</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="165">
+            
+            
+
+            
+
+            <code class="ruby">      :child_name,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="166">
+            
+            
+
+            
+
+            <code class="ruby">      :child_birthdate,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="167">
+            
+            
+
+            
+
+            <code class="ruby">      :primary_diagnosis,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="168">
+            
+            
+
+            
+
+            <code class="ruby">      :secondary_diagnosis,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="169">
+            
+            
+
+            
+
+            <code class="ruby">      :adaptive_equipment,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="170">
+            
+            
+
+            
+
+            <code class="ruby">      :child_height,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="171">
+            
+            
+
+            
+
+            <code class="ruby">      :child_weight,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="172">
+            
+            
+
+            
+
+            <code class="ruby">      :caregiver_name,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="173">
+            
+            
+
+            
+
+            <code class="ruby">      :caregiver_email,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="174">
+            
+            
+
+            
+
+            <code class="ruby">      :caregiver_phone,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="175">
+            
+            
+
+            
+
+            <code class="ruby">      :can_transport,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="176">
+            
+            
+
+            
+
+            <code class="ruby">      :can_store,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="177">
+            
+            
+
+            
+
+            <code class="ruby">      :notes,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="178">
+            
+            
+
+            
+
+            <code class="ruby">      :accepted,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="179">
+            
+            
+
+            
+
+            <code class="ruby">      :waitlist)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="180">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="181">
             
             
 
@@ -11615,7 +11857,7 @@
     <h3>spec/feature/user_application_integration_spec.rb</h3>
     <h4>
       <span class="yellow">
-  82.61%
+  83.74%
 </span>
 
       lines covered
@@ -11624,8 +11866,8 @@
     
 
     <div class="t-line-summary">
-      <b>115</b> relevant lines.
-      <span class="green"><b>95</b> lines covered</span> and
+      <b>123</b> relevant lines.
+      <span class="green"><b>103</b> lines covered</span> and
       <span class="red"><b>20</b> lines missed.</span>
     </div>
 
@@ -13288,6 +13530,149 @@
       
         <div>
           <li class="never" data-hits="" data-linenumber="151">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="152">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">RSpec.describe &#39;OFFICER: Applying/Clearing filters to user applications page&#39;, type: :feature do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="153">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    include Devise::Test::IntegrationHelpers</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="154">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    before do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="155">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">        @admin = Admin.create!(email: &#39;test@gmail.com&#39;, full_name: &#39;Test Admin&#39;, uid: &#39;123456&#39;, avatar_url: &#39;http://example.com/avatar&#39;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="156">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">        sign_in @admin</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="157">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">        @user = User.create!(email: &#39;test@gmail.com&#39;, phone: &#39;1234567890&#39;, admin_id: @admin.id, level: :officer_member)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="158">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">        @user_application = UserApplication.create(user_id: @user.id, child_name: &quot;test child&quot;, child_birthdate: &quot;2022-12-12&quot;, primary_diagnosis: &quot;Can&#39;t walk&quot;, secondary_diagnosis: &quot;N/A&quot;, child_height: 20, child_weight: 10, caregiver_email:&quot;test@gmail.com&quot;, caregiver_name:&quot;test&quot;, caregiver_phone:&quot;1234567890&quot;,can_transport:true, can_store:true) </code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="159">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="160">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="161">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    scenario &#39;SUNNY: Attempt to select both waitlist and accept.&#39; do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="162">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="163">
+            
+            
+
+            
+
+            <code class="ruby">end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="164">
             
             
 
