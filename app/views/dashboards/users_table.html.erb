@@ -2,7 +2,6 @@
 
 
 
-<p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 
 <div class='mt-8'><%= link_to "Go to Dashboard", dashboard_path , class:'border border-black bg-white rounded-lg px-2 py-1 m-4' %></div>
@@ -121,14 +120,11 @@
           </tbody>
         </table>
     </div>
-
-    <%
-=begin%>
- <div class='px-4 my-4'><%= link_to "Sign Out", destroy_admin_session_path, class:'border border-black bg-white rounded-lg px-2 py-1' %></div> 
-<%
-=end%>
-
-
+    <% if flash.any? %>
+      <% flash.each do |key, value| -%>
+        <section class="flash flash__<%= key %> my-4"><%= value.html_safe %></section>
+      <% end -%>
+    <% end %> 
 </div>
 
 
