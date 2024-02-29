@@ -140,6 +140,7 @@
             <p class='px-8'>Actions</p>
         </div>
         <div class='flex flex-col'>
+          <% if !@user_applications.nil? %>
             <% @user_applications.each do |user_application| %>
                 <div class='flex justify-between'>
                     <p><%= user_application.child_name %></p>
@@ -150,6 +151,7 @@
                     </div>
                 </div>
             <% end %>
+          <% end %>
         </div>
     </div>
 </div>

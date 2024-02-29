@@ -2,7 +2,7 @@ class UserApplicationsController < ApplicationController
   def index
     @user = User.find_by(admin_id: current_admin.id)
     @page_title = @user.visitor? ? "Your Applications" : "All User Applications"
-    
+
     # Filtering based on user role
     if @user.visitor? || @user.applicant?
       @user_applications = UserApplication.where(user_id: @user.id)
@@ -28,6 +28,7 @@ class UserApplicationsController < ApplicationController
 
 
 
+
       # Additional filtering based on user selection
       if params[:accepted] == "1"
         @not_accepted_user_applications = []
@@ -39,7 +40,7 @@ class UserApplicationsController < ApplicationController
         @waitlist_user_applications = []
         @accepted_user_applications = []
       end
-      
+
       # Applying date range filter
       if params[:start_date].present? || params[:end_date].present?
         begin
@@ -71,7 +72,7 @@ class UserApplicationsController < ApplicationController
           @accepted_user_applications = @accepted_user_applications.where("created_at <= ?", end_date)
         end
       end
-      
+
       # Applying height range filter
       if params[:min_height].present? || params[:max_height].present?
         begin
@@ -110,7 +111,7 @@ class UserApplicationsController < ApplicationController
       end
     end
   end
-  
+
 
   def show
     @user_application = UserApplication.find(params[:id])
