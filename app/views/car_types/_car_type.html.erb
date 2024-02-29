@@ -1,18 +1,15 @@
 <div id="<%= dom_id car_type %>">
-  <table class="border border-gray-900 bg-gray-300">
-    <tbody>
-      <tr>
-        <th class="p-2">Name:</th>
-        <td class="p-2"><%= car_type.name %></td>
-      </tr>
-      <tr>
-        <th class="p-2">Price:</th>
-        <td class="p-2">$<%= car_type.price %></td>
-      </tr>
-      <tr>
-        <th class="p-2">Height:</th>
-        <td class="p-2"><%= car_type.max_height %> in. - <%= car_type.min_height %> in.</td>
-      </tr>
-    </tbody>
-  </table>
+  <p>
+    <strong>Name:</strong>
+    <%= car_type.name %>
+  </p>
+  <p>
+    <strong>Price:</strong>
+    $<%= car_type.price %>
+  </p>
+  <p>
+      <strong>Height:</strong>
+      <%= car_type.max_height %> in. - <%= car_type.min_height %> in.
+  </p>
+
 </div>

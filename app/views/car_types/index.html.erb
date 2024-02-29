@@ -1,33 +1,14 @@
 <p style="color: green"><%= notice %></p>
 
-<h1 class="text-4xl font-bold mb-4">Car Types</h1>
-<table width="100%">
-  <thead>
-    <tr>
-      <th class="text-left">Name</th>
-      <th class="text-left">Price</th>
-      <th class="text-left">Min. Height</th>
-      <th class="text-left">Max. Height</th>
-      <th colspan="3" class="text-left">Actions</th>
-    </tr>
-  </thead>
+<h1>Car Types</h1>
 
-  <tbody>
-    <% @car_types.each do |car_type| %>
-      <tr>
-        <td><%= car_type.name %></td>
-        <td><%= car_type.price %></td>
-        <td><%= car_type.min_height %></td>
-        <td><%= car_type.max_height %></td>
-        <td><%= link_to 'Show', car_type, style: 'color: blue' %></td>
-        <td><%= link_to 'Edit', edit_car_type_path(car_type), style: 'color: blue' %></td>
-        <td><%= link_to 'Destroy', car_type, method: :delete, data: { confirm: 'Are you sure?' }, style: 'color: red' %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<br>
-<%= link_to "New Car Type", new_car_type_path, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde' %>
-<br>
-<br>
-<%= link_to "Main Inventory", inventory_path, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde' %>
+<div id="car_types">
+  <% @car_types.each do |car_type| %>
+    <%= render car_type %>
+    <p>
+      <%= link_to "Show this Car Type", car_type %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New Car Type", new_car_type_path %>

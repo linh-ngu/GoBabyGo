@@ -1,0 +1,75 @@
+<%= link_to("Back to List", officer_applications_path, class: 'back-link border border-black px-2 py-1') %>
+
+<div class="applications show">
+    <h2>User Application</h2>
+
+    <div class="actions">
+        <%= link_to('Edit', edit_officer_application_path(@user_application), class:'border border-black px-2 py-1') %>
+        <%= link_to("Delete", delete_officer_application_path(@user_application), class:'border border-black px-2 py-1') %>
+    </div>
+
+    <table summary="Officer Application fields">
+    <tr>
+      <th>Child Name</th>
+      <td><%= @user_application.child_name %></td>
+    </tr>
+    <tr>
+      <th>Child's Birthdate</th>
+      <td><%= @user_application.child_birthdate %></td>
+    </tr>
+    <tr>
+      <th>Child's Primary Diagnosis</th>
+      <td><%= @user_application.primary_diagnosis %></td>
+    </tr>
+    <tr>
+      <th>Child's Secondary Diagnosis (if applicable)</th>
+      <td><%= @user_application.secondary_diagnosis %></td>
+    </tr>
+    <tr>
+      <th>What adaptive equipment does your child use?</th>
+      <td><%= @user_application.adaptive_equipment %></td>
+    </tr>
+    <tr>
+      <th>Child's Height</th>
+      <td><%= @user_application.child_height %></td>
+    </tr>
+    <tr>
+      <th>Child's Weight</th>
+      <td><%= @user_application.child_weight  %></td>
+    </tr>
+    <tr>
+      <th>Caregiver's Name</th>
+      <td><%= @user_application.caregiver_name  %></td>
+    </tr>
+    <tr>
+      <th>Caregiver's Email</th>
+      <td><%= @user_application.caregiver_email  %></td>
+    </tr>
+    <tr>
+      <th>Caregiver's Phone</th>
+      <td><%= @user_application.caregiver_phone  %></td>
+    </tr>
+    <tr>
+      <th>Do you have the ability to transport the car on Build Day?</th>
+      <td><%= @user_application.can_transport %></td>
+    </tr>
+    <tr>
+      <th>Do you have the ability to store the car?</th>
+      <td><%= @user_application.can_store %></td>
+    </tr>
+    <tr>
+      <th>Additional Notes</th>
+      <td><%= @user_application.notes %></td>
+    </tr>
+    <tr>
+      <th>User ID</th>
+      <td><%= @user_application.user_id %></td>
+    </tr>
+    <tr>
+      <th>Application Status</th>
+      <td><%= @user_application.accepted.nil? ? 'Not Accepted' : 'Accepted' %></td>
+    </tr>
+
+    
+</table>
+</div>

@@ -1,79 +1,44 @@
 <table class="border border-black bg-gray-300" summary="Application form fields">
     <tbody>
-    <% if @access_accepted %>
-    <tr>
-        <th class=''>Accept User?</th>
-        <td class='p-1'>
-            <% if ['new', 'edit'].include?(action_name) %>
-                <div class="slider-container">
-                    <%= f.hidden_field(:accepted, value: 'false') %>
-                    <label class="switch">
-                        <%= f.check_box(:accepted, class: 'accept-slider') %>
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-            <% else %>
-                <%= "<div class='py-1 px-2 bg-white'>#{h(@user_application.accepted)}</div>" %>
-            <% end %>
-        </td>
-    </tr>
-    <tr>
-        <th class=''>Waitlist User?</th>
-        <td class='p-1'>
-            <% if ['new', 'edit'].include?(action_name) %>
-                <div class="slider-container">
-                    <%= f.hidden_field(:waitlist, value: 'false') %>
-                    <label class="switch">
-                        <%= f.check_box(:waitlist, class: 'waitlist-slider') %>
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-            <% else %>
-                <%= "<div class='py-1 px-2 bg-white'>#{h(@user_application.waitlist)}</div>" %>
-            <% end %>
-        </td>
-    </tr>
-    <% end %>
         <tr>
             <th class=''>Child's Name</th>
-            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:child_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_name)}</div>".html_safe %></td>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:child_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{@user_application.child_name}</div>".html_safe %></td>
         </tr>
         <tr>
             <th class=''>Child's Birthdate</th>
-            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.date_field(:child_birthdate, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_birthdate)}</div>".html_safe %></td>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.date_field(:child_birthdate, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{@user_application.child_birthdate}</div>".html_safe %></td>
         </tr>
         <tr>
             <th class=''>Child's Primary Diagnosis</th>
-            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:primary_diagnosis, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.primary_diagnosis)}</div>".html_safe %></td>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:primary_diagnosis, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{@user_application.primary_diagnosis}</div>".html_safe %></td>
         </tr>
         <tr>
             <th class=''>Child's Secondary Diagnosis (if applicable)</th>
-            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:secondary_diagnosis, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.secondary_diagnosis)}</div>".html_safe %></td>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:secondary_diagnosis, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{@user_application.secondary_diagnosis}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class=''>What adaptive equipment does your child use? (if applicable)</th>
-            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:adaptive_equipment, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.adaptive_equipment)}</div>".html_safe %></td>
+            <th class=''>What adaptive equipment does your child use?</th>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:adaptive_equipment, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{@user_application.adaptive_equipment}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class='p'>Child's Height (in inches)</th>
-            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.number_field(:child_height, class: 'py-1 px-2', min: 1) : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_height)}</div>".html_safe %></td>
+            <th class='p'>Child's Height</th>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.number_field(:child_height, class: 'py-1 px-2', min: 1) : "<div class='py-1 px-2 bg-white'>#{@user_application.child_height}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class=''>Child's Weight (in pounds)</th>
-            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.number_field(:child_weight, class: 'py-1 px-2', min: 1) : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_weight)}</div>".html_safe %></td>
-
+            <th class=''>Child's Weight</th>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.number_field(:child_weight, class: 'py-1 px-2', min: 1) : "<div class='py-1 px-2 bg-white'>#{@user_application.child_weight}</div>".html_safe %></td>
         </tr>
         <tr>
             <th class=''>Caregiver's Name</th>
-            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.caregiver_name)}</div>".html_safe %></td>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{@user_application.caregiver_name}</div>".html_safe %></td>
         </tr>
         <tr>
             <th class=''>Caregiver's Email</th>
-            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_email, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.caregiver_email)}</div>".html_safe %></td>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_email, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{@user_application.caregiver_email}</div>".html_safe %></td>
         </tr>
         <tr>
             <th class=''>Caregiver's Phone</th>
-            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_phone, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.caregiver_phone)}</div>".html_safe %></td>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_phone, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{@user_application.caregiver_phone}</div>".html_safe %></td>
         </tr>
         <tr>
             <th class='p-2'>Do you have the ability to transport the car on Build Day?</th>
@@ -82,7 +47,7 @@
                     <%= f.radio_button(:can_transport, true) %> Yes
                     <%= f.radio_button(:can_transport, false) %> No
                 <% else %>
-                    <%= "<div class='py-1 px-2 bg-white'>#{h(@user_application.can_transport)}</div>".html_safe %>
+                    <%= "<div class='py-1 px-2 bg-white'>#{@user_application.can_transport}</div>".html_safe %>
                 <% end %>
             </td>
         </tr>
@@ -93,47 +58,22 @@
                     <%= f.radio_button(:can_store, true) %> Yes
                     <%= f.radio_button(:can_store, false) %> No
                 <% else %>
-                    <%= "<div class='py-1 px-2 bg-white'>#{h(@user_application.can_store)}</div>".html_safe %>
+                    <%= "<div class='py-1 px-2 bg-white'>#{@user_application.can_store}</div>".html_safe %>
                 <% end %>
             </td>
         </tr>
         <tr>
             <th class=''>Additional Notes</th>
-            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_area(:notes, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.notes)}</div>".html_safe %></td>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:notes, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{@user_application.notes}</div>".html_safe %></td>
         </tr>
     </tbody>
-    
     <% if action_name == 'show' %>
         <tr>
+            <th class=''>User ID</th>
+            <td class='p-1'><%= "<div class='py-1 px-2 bg-white'>#{@user_application.user_id}</div>".html_safe %></td>
+        <tr>
             <th class=''>Application Status</th>
-            <td class='p-1'>
-            <% if @user_application.accepted.nil? %>
-                <%= "<div class='py-1 px-2 bg-white'>Pending</div>".html_safe %>
-            <% elsif @user_application.accepted %>
-                <%= "<div class='py-1 px-2 bg-white'>Accepted! You will be contacted shortly.</div>".html_safe %>
-            <% else %>
-                <%= "<div class='py-1 px-2 bg-white'>Denied.</div>".html_safe %>
-            </td>
-            <% end %>
+            <td class='p-1'><%= @user_application.accepted.nil? ? "<div class='py-1 px-2 bg-white'>Pending</div>".html_safe : "<div class='py-1 px-2 bg-white'>#{@user_application.accepted}</div>".html_safe %></td>
         </tr>
     <% end %>
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var acceptSlider = document.querySelector('.accept-slider');
-            var waitlistSlider = document.querySelector('.waitlist-slider');
-
-            acceptSlider.addEventListener('change', function() {
-                if (this.checked) {
-                    waitlistSlider.checked = false;
-                }
-            });
-
-            waitlistSlider.addEventListener('change', function() {
-                if (this.checked) {
-                    acceptSlider.checked = false;
-                }
-            });
-        });
-    </script>
 </table>
