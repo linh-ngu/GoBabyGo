@@ -17,6 +17,7 @@ RSpec.describe 'Edit Profile', type: :feature do
         click_on 'Update Profile'
         expect(page).to have_text('Profile was successfully updated.')
     end
+
     scenario 'blank inputs' do
         visit edit_user_path(@user)
         fill_in 'user_email', with: ''
@@ -24,6 +25,7 @@ RSpec.describe 'Edit Profile', type: :feature do
         click_on 'Update Profile'
         expect(page).to have_text("Email can't be blank, Phone can't be blank")
     end
+
     scenario 'invalid phone' do
         visit edit_user_path(@user)
         fill_in 'user_email', with: 'asdfadf@gmail.com'
@@ -31,6 +33,7 @@ RSpec.describe 'Edit Profile', type: :feature do
         click_on 'Update Profile'
         expect(page).to have_text('Phone is the wrong length (should be 10 characters)')
     end
+    
     scenario 'invalid email' do
         visit edit_user_path(@user)
         fill_in 'user_email', with: 'asdfadf'

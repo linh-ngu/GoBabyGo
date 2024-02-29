@@ -2,17 +2,47 @@ class UserApplicationsController < ApplicationController
   def index
     @user = User.find_by(admin_id: current_admin.id)
     @page_title = @user.visitor? ? "Your Applications" : "All User Applications"
-    # visitor user to their application
+
+    # Filtering based on user role
     if @user.visitor?
       @user_applications = UserApplication.where(user_id: @user.id)
-    # officer user to view of entire applications
     elsif @user.officer_member?
       @not_accepted_user_applications = UserApplication.where(accepted: [nil, false], waitlist: false)
       @waitlist_user_applications = UserApplication.where(waitlist: true, accepted: false)
       @accepted_user_applications = UserApplication.where(accepted: true)
-    end
 
+      # Additional filtering based on user selection
+      if params[:accepted] == "1"
+        @not_accepted_user_applications = []
+        @waitlist_user_applications = []
+      elsif params[:waitlist] == "1"
+        @not_accepted_user_applications = []
+        @accepted_user_applications = []
+      elsif params[:not_accepted] == "1"
+        @waitlist_user_applications = []
+        @accepted_user_applications = []
+      end
+
+      # Applying date range filter
+      if params[:start_date].present? && params[:end_date].present?
+        start_date = Date.parse(params[:start_date])
+        end_date = Date.parse(params[:end_date])
+        @not_accepted_user_applications = @not_accepted_user_applications.where(created_at: start_date.beginning_of_day..end_date.end_of_day)
+        @waitlist_user_applications = @waitlist_user_applications.where(created_at: start_date.beginning_of_day..end_date.end_of_day)
+        @accepted_user_applications = @accepted_user_applications.where(created_at: start_date.beginning_of_day..end_date.end_of_day)
+      end
+
+      # Applying height range filter
+      if params[:min_height].present? && params[:max_height].present?
+        min_height = params[:min_height].to_i
+        max_height = params[:max_height].to_i
+        @not_accepted_user_applications = @not_accepted_user_applications.where(child_height: min_height..max_height)
+        @waitlist_user_applications = @waitlist_user_applications.where(child_height: min_height..max_height)
+        @accepted_user_applications = @accepted_user_applications.where(child_height: min_height..max_height)
+      end
+    end
   end
+
 
   def show
     @user_application = UserApplication.find(params[:id])
@@ -25,20 +55,23 @@ class UserApplicationsController < ApplicationController
   def create
     @user = User.find_by(admin_id: current_admin.id)
 
-    if @user.visitor?
+    if @user.visitor? || @user.applicant?
       #user from website submits application
       @user_application = UserApplication.new(user_params)
       flash[:notice] = "Application submitted successfully. We will reach out to you soon with our response."
     elsif @user.officer_member?
       #officer submits application
       @user_application = UserApplication.new(officer_params)
-      "Application submitted successfully."
+      flash[:notice] = "Application submitted successfully."
     end
 
     params[:user_application][:caregiver_phone].gsub!(/\D/, '')
 
     @user_application.user_id = @user.id
     if @user_application.save
+      if @user.visitor?
+        @user.update(level: :applicant)
+      end
       redirect_to user_application_path(@user_application.id)
     else
       flash[:notice] = @user_application.errors.full_messages.join(", ")
@@ -62,10 +95,10 @@ class UserApplicationsController < ApplicationController
 
     if @user_application.update(app_params)
       redirect_to user_application_path(@user_application.id)
+      flash[:notice] = "Application updated successfully."
     else
       redirect_to edit_user_application_path(@user_application)
     end
-
   end
 
   def delete
