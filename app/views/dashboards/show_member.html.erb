@@ -11,6 +11,9 @@
     <div class='p-4 flex flex-wrap justify-center'>
         <%= link_to "Edit Your Profile", edit_user_path(@user), class:'border border-black bg-white rounded-lg px-2 py-1 mr-1'%>
     </div>
+    <% flash.each do |type, message| %>
+    <%= message %>
+<% end %>
 
     <div class='p-4 flex flex-wrap justify-center'>
       <%= link_to "View Member Table", table_users_view_path , class:'border border-black bg-white rounded-lg px-2 py-1 mr-4' %>

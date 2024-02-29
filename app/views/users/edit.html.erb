@@ -17,4 +17,17 @@
             <button type="submit" class="border border-black bg-white py-1 px-2 mt-2 rounded-lg">Update Profile</button>
         </div>
     <% end %>
+    
+    <% if @user.errors.any? %>
+        <div id="error_explanation" class="text-center">
+            <h2 class=""><%= pluralize(@user.errors.count, "Error") %> </h2>
+            <ul>
+            <% @user.errors.full_messages.each do |message| %>
+            <li class=""><%= message %></li>
+            <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+
 </div>
