@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   resources :user_applications do
+    resources :application_notes do
+      member do
+        get :delete
+      end
+    end
     member do
       get :delete
     end
@@ -17,11 +22,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :application_notes do
-    member do
-      get :delete
-    end
-  end
+  # resources :application_notes do
+  #   member do
+  #     get :delete
+  #   end
+  # end
 
   root to: 'main#index'
 
