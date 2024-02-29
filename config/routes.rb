@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :abouts 
+  resources :abouts
   resources :contacts
   resources :user_applications do
     resources :application_notes do
@@ -34,6 +34,9 @@ Rails.application.routes.draw do
   resources :cars
   resources :car_types
   resources :parts
+
+  get 'main/index', to:'main#index', as:'home'
+
   root to: 'main#index'
 
   # root to: 'dashboards#show'
@@ -46,6 +49,5 @@ Rails.application.routes.draw do
     get 'admins/sign_out', to: 'admins/sessions#destroy', as: :destroy_admin_session
   end
 
-  get 'main/index', to:'main#index', as:'home'
 
 end
