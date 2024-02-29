@@ -42,8 +42,20 @@ class UserApplicationsController < ApplicationController
       
       # Applying date range filter
       if params[:start_date].present? || params[:end_date].present?
-        start_date = params[:start_date].present? ? Date.parse(params[:start_date]).beginning_of_day : nil
-        end_date = params[:end_date].present? ? Date.parse(params[:end_date]).end_of_day : nil
+        begin
+          start_date = params[:start_date].present? ? Date.parse(params[:start_date]).beginning_of_day : nil
+          end_date = params[:end_date].present? ? Date.parse(params[:end_date]).end_of_day : nil
+        rescue ArgumentError => e
+          flash[:error] = "Invalid date format (MM-DD-YYYY)."
+          redirect_to user_applications_path
+        end
+
+        if start_date.present? && end_date.present?
+          if start_date > end_date
+            @date_range_error = "Start date cannot be later than end date."
+            return
+          end
+        end
         
         if start_date && end_date
           @not_accepted_user_applications = @not_accepted_user_applications.where(created_at: start_date..end_date)
@@ -62,9 +74,26 @@ class UserApplicationsController < ApplicationController
       
       # Applying height range filter
       if params[:min_height].present? || params[:max_height].present?
-        min_height = params[:min_height].present? ? params[:min_height].to_i : nil
-        max_height = params[:max_height].present? ? params[:max_height].to_i : nil
-        
+        begin
+          min_height = params[:min_height].to_i
+          max_height = params[:max_height].to_i
+        rescue ArgumentError => e
+          flash[:error] = "Height must be a number."
+          return
+        end
+
+        if (min_height.present? && min_height < 0) || (max_height.present? && max_height < 0)
+          @height_value_error = "Height cannot be negative."
+          return
+        end
+
+        if min_height.present? && max_height.present?
+          if min_height > max_height
+            @height_range_error = "Minimum height cannot be greater than maximum height."
+            return
+          end
+        end
+      
         if min_height && max_height
           @not_accepted_user_applications = @not_accepted_user_applications.where(child_height: min_height..max_height)
           @waitlist_user_applications = @waitlist_user_applications.where(child_height: min_height..max_height)
