@@ -9,9 +9,9 @@
 <table class="w-full">
   <thead>
     <tr>
-      <th class="text-left">Car Info</th>
       <% if @edit_access %>
-      <th class="text-left">Price</th>
+        <th class="text-left">Car Info</th>
+        <th class="text-left">Price</th>
       <% end %>
       <th class="text-left">Application</th>
       <th class="text-left">Modifications</th>
@@ -26,8 +26,8 @@
   <tbody>
     <% @cars.each do |car| %>
       <tr>
-        <td><%= link_to car.car_type.name, car_type_path(car.car_type), class: "text-blue-500 hover:underline" %></td>
         <% if @edit_access %>
+        <td><%= link_to car.car_type.name, car_type_path(car.car_type), class: "text-blue-500 hover:underline" %></td>
         <td><%= car.car_type.price %></td>
         <% end %>
         <td>

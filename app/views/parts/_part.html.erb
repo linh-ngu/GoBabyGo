@@ -1,22 +1,24 @@
 <div id="<%= dom_id part %>">
-  <p>
-    <strong>Name:</strong>
-    <%= part.part_name %>
-  </p>
-  <p>
-    <strong>Price:</strong>
-    $<%= part.part_price %>
-  </p>
-  <p>
-    <strong>Source:</strong>
-    <%= part.purchase_source %>
-  </p>
-  <p>
-    <strong>Quantity:</strong>
-    <%= part.quantity_purchased %>
-  </p>
-  <p>
-    <strong>Car:</strong>
-    <%= part.car_id %>
-  </p>
+  <table class="border border-black bg-gray-100 p-4 rounded-md">
+    <tr>
+      <td class="p-2"><strong>Name:</strong></td>
+      <td class="p-2"><%= part.part_name %></td>
+    </tr>
+    <tr>
+      <td class="p-2"><strong>Price:</strong></td>
+      <td class="p-2">$<%= part.part_price %></td>
+    </tr>
+    <tr>
+      <td class="p-2"><strong>Source:</strong></td>
+      <td class="p-2"><%= part.purchase_source %></td>
+    </tr>
+    <tr>
+      <td class="p-2"><strong>Quantity:</strong></td>
+      <td class="p-2"><%= part.quantity_purchased %></td>
+    </tr>
+    <tr>
+      <td class="p-2"><strong>Car:</strong></td>
+      <td class="p-2"><%= part.car_id %></td>
+    </tr>
+  </table>
 </div>

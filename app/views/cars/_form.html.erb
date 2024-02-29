@@ -1,7 +1,7 @@
 <%= form_with(model: car) do |form| %>
   <% if car.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(car.errors.count, "error") %> prohibited this car from being saved:</h2>
+    <div class="border border-red-400 bg-red-100 text-red-700 px-4 py-3 rounded relative" role="alert">
+      <h2 class="font-bold"><%= pluralize(car.errors.count, "error") %> prohibited this car from being saved:</h2>
 
       <ul>
         <% car.errors.each do |error| %>
@@ -11,24 +11,39 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :user_application_id, 'Link to Application', style: "display: block" %>
-    <%= form.collection_select :user_application_id, UserApplication.all, :id, :child_name, { prompt: 'Select Application' }, { class: 'form-control' } %>
-  </div>
-  <div>
-    <%= form.label :modification_details, style: "display: block" %>
-    <%= form.text_field :modification_details %>
-  </div>
-  <div>
-    <%= form.label :car_type_id, 'Car Type', style: "display: block" %>
-    <%= form.collection_select :car_type_id, CarType.all, :id, :name, { prompt: 'Select Car Type' }, { class: 'form-control' } %>
-    <%= link_to "New Car Type", new_car_type_path %>
-  </div>
-  <div>
-    <%= form.label :complete, 'Complete?' %>
-    <%= form.check_box :complete %>
-  </div>
-  <div>
-    <%= form.submit %>
-  </div>
+  <table class="border border-gray-900 bg-gray-300" summary="Car form fields">
+    <tbody>
+      <tr>
+        <th class="p-2">Link to Application</th>
+        <td class="p-2">
+          <%= form.collection_select :user_application_id, UserApplication.all, :id, :child_name, { prompt: 'Select Application' }, { class: 'form-select' } %>
+        </td>
+      </tr>
+      <tr>
+        <th class="p-2">Modification Details</th>
+        <td class="p-2">
+          <%= form.text_field :modification_details, class: "form-input" %>
+        </td>
+      </tr>
+      <tr>
+        <th class="p-2">Car Type</th>
+        <td class="p-2">
+          <%= form.collection_select :car_type_id, CarType.all, :id, :name, { prompt: 'Select Car Type' }, { class: 'form-select' } %>
+          <%= link_to "New Car Type", new_car_type_path, class: "text-blue-500 hover:underline ml-2" %>
+        </td>
+      </tr>
+      <tr>
+        <th class="p-2">Complete?</th>
+        <td class="p-2">
+          <%= form.check_box :complete, class: "form-checkbox" %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="p-2 text-center">
+          <%= form.submit class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 <% end %>
+
