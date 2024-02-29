@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :abouts 
+  resources :contacts
   resources :user_applications do
     member do
       get :delete
