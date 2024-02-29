@@ -5,11 +5,8 @@ class DashboardsController < ApplicationController
       # executes if user is visitor (if visitor, they havn't signed up yet)
       redirect_to new_user_path
     else
-
       @user = User.find_by(admin_id: current_admin.id)
       @users = User.where(level: User.levels[:visitor])
-
-
       if @user.applicant? || @user.visitor?
         render 'show_user'
         # executes for roles {applicant}

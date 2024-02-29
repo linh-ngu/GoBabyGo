@@ -8,15 +8,11 @@ class UsersController < ApplicationController
   end
 
   def new
-    @curr_user = User.find_by(admin_id: current_admin.id)
-    if @curr_user
-      redirect_to dashboard_path
-    end
+    # @curr_user = User.find_by(admin_id: current_admin.id)
+    # if @curr_user
+    #   redirect_to dashboard_path
+    # end
     @user = User.new(email: current_admin.email, admin_id: current_admin.id, level: :applicant)
-  end
-
-  def update
-
   end
 
   def update_role
