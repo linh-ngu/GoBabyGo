@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :abouts 
+  resources :contacts
   resources :user_applications do
     member do
       get :delete
@@ -13,12 +15,6 @@ Rails.application.routes.draw do
   end
 
   resources :officer_applications do
-    member do
-      get :delete
-    end
-  end
-
-  resources :application_notes do
     member do
       get :delete
     end
