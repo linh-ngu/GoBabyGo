@@ -77,6 +77,13 @@
           <td>
           </td>
           </tr>
+        <% elsif user.admin? %>
+          <tr>
+          <td><%= user.email %></td>
+          <td><%= user.level.capitalize %></td>
+          <td>
+          </td>
+          </tr>
         <% else %>
         <tr>
           <td><%= user.email %></td>
