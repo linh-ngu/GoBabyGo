@@ -1,14 +1,64 @@
 <p style="color: green"><%= notice %></p>
+<p class="text-green-500"><%= notice %></p>
 
-<h1>Cars</h1>
+<% if @edit_access %>
+<h1 class="text-3xl font-bold mb-4">Cars</h1>
+<% else %>
+<h1 class="text-3xl font-bold mb-4">My Cars</h1>
+<% end %>
+<table class="w-full">
+  <thead>
+    <tr>
+      <% if @edit_access %>
+        <th class="text-left">Car Info</th>
+        <th class="text-left">Price</th>
+      <% end %>
+      <th class="text-left">Application</th>
+      <th class="text-left">Modifications</th>
+      <th class="text-left">Complete</th>
+      <th colspan="1" class="text-left">Actions</th>
+      <% if @edit_access %>
+        <th colspan="2" class="text-left"></th>
+      <% end %>
+    </tr>
+  </thead>
 
-<div id="cars">
-  <% @cars.each do |car| %>
-    <%= render car %>
-    <p>
-      <%= link_to "Show this Car", car %>
-    </p>
-  <% end %>
-</div>
+  <tbody>
+    <% @cars.each do |car| %>
+      <tr>
+        <% if @edit_access %>
+        <td><%= link_to car.car_type.name, car_type_path(car.car_type), class: "text-blue-500 hover:underline" %></td>
+        <td><%= car.car_type.price %></td>
+        <% end %>
+        <td>
+          <% if car.user_application.nil? %>
+            None
+          <% else %>
+            <%= link_to car.user_application.child_name, user_application_path(car.user_application), class: "text-blue-500 hover:underline" %>
+          <% end %>
+        </td>
+        <td><%= car.modification_details %></td>
+        <td><%= car.complete ? "True" : "False" %></td>
+        <td><%= link_to 'Show', car, class: "text-blue-500 hover:underline" %></td>
+        <% if @edit_access %>
+          <td><%= link_to 'Show', car, class: "text-blue-500 hover:underline" %></td>
+          <td><%= link_to 'Edit', edit_car_path(car), class: "text-blue-500 hover:underline" %></td>
+          <td><%= link_to 'Delete', car, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<br>
 
-<%= link_to "New Car", new_car_path %>
+<% if @edit_access %>
+  <%= link_to "New Car", new_car_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  <br>
+  <br>
+  <%= link_to "Main Inventory", inventory_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+<% end %>
+
+<% unless @edit_access %>
+  <%= link_to "Back to Dashboard", dashboard_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"%>
+<% end %>

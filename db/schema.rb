@@ -10,9 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_12_233429) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_28_171741) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "abouts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "admins", force: :cascade do |t|
     t.string "email", null: false
@@ -23,6 +28,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_12_233429) do
     t.datetime "updated_at", null: false
     t.boolean "user_account_created", default: false
     t.index ["email"], name: "index_admins_on_email", unique: true
+  end
+
+  create_table "application_notes", force: :cascade do |t|
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_application_id", null: false
+    t.index ["user_application_id"], name: "index_application_notes_on_user_application_id"
   end
 
   create_table "car_types", force: :cascade do |t|
@@ -53,8 +66,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_12_233429) do
     t.index ["part_id"], name: "index_cars_parts_on_part_id"
   end
 
+  create_table "contacts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "finances", force: :cascade do |t|
     t.float "total_expense"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.string "content"
+    t.integer "user_id"
+    t.integer "car_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -88,6 +114,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_12_233429) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.text "adaptive_equipment"
+    t.boolean "waitlist", default: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -99,4 +126,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_12_233429) do
     t.integer "admin_id"
   end
 
+  add_foreign_key "application_notes", "user_applications"
 end

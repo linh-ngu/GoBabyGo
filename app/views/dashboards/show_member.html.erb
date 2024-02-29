@@ -1,0 +1,25 @@
+<div class='mt-8'><%= link_to('Back to Homepage', root_path, class:'border border-black bg-white rounded-lg px-2 py-1 m-4') %></div>
+
+<h1 class="text-5xl font-extrabold m-4 text-center">Welcome to the <%= @user.level.capitalize %> Dashboard!</h1>
+
+<div class='flex flex-col justify-center items-center border border-black bg-[#FFEFAD] rounded-lg min-w-2/3 w-2/3 mx-auto'>
+    <h1 class='text-4xl font-bold m-4'>My Profile</h1>
+
+    <p class="m-4">Email: <%= @user.email %></p>
+    <p class="m-4">Phone: <%= @user.phone %></p>
+
+    <div class='p-4 flex flex-wrap justify-center'>
+        <%= link_to "Edit Your Profile", edit_user_path(@user), class:'border border-black bg-white rounded-lg px-2 py-1 mr-1'%>
+    </div>
+    <% flash.each do |type, message| %>
+    <%= message %>
+    <% end %>
+
+    <div class='p-4 flex flex-wrap justify-center'>
+      <%= link_to "View Member Table", table_users_view_path , class:'border border-black bg-white rounded-lg px-2 py-1 mr-4' %>
+      <%= link_to "View User Applications", user_applications_path, class:'border border-black bg-white rounded-lg px-2 py-1' %>
+      <%= link_to "View Inventory", inventory_path, class:'border border-black bg-white rounded-lg px-2 py-1' %>
+    </div>
+
+    <div class='px-4 my-4'><%= link_to "Sign Out", destroy_admin_session_path, class:'border border-black bg-white rounded-lg px-2 py-1' %></div>
+</div>
