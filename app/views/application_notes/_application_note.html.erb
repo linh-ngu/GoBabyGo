@@ -1,0 +1,12 @@
+<div id="<%= dom_id application_note %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Content:</strong>
+    <%= application_note.content %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this application note", application_note, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this application note", edit_application_note_path(application_note), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
