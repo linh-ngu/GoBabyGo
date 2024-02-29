@@ -1,16 +1,12 @@
-<p style="color: green"><%= notice %></p>
-<div class="flex flex-col justify-center items-center">
-  <h1 class='p-4 text-xl font-bold'>Editing Car</h1>
-  <%= render "form", car: @car %>
+<h1>Editing Car</h1>
 
-  <br>
+<%= render "form", car: @car %>
 
-  <%= render partial: 'form_part', locals: { car: @car, part: @part } %>
+<br>
 
-  <br>
+<%= render partial: 'form_part', locals: { car: @car, part: @part } %>
 
-  <%= link_to "Show this Car", @car, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"%>
-  <br>
-  <%= link_to "Back to Cars", cars_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"%>
+<div>
+  <%= link_to "Show this Car", @car %> |
+  <%= link_to "Back to Cars", cars_path %>
 </div>
-```

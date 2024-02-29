@@ -1,7 +1,7 @@
 <%= form_with(model: car_type) do |form| %>
   <% if car_type.errors.any? %>
-    <div class="border border-red-400 bg-red-100 text-red-700 px-4 py-3 rounded relative" role="alert">
-      <h2 class="font-bold"><%= pluralize(car_type.errors.count, "error") %> prohibited this car_type from being saved:</h2>
+    <div style="color: red">
+      <h2><%= pluralize(car_type.errors.count, "error") %> prohibited this car_type from being saved:</h2>
 
       <ul>
         <% car_type.errors.each do |error| %>
@@ -11,27 +11,27 @@
     </div>
   <% end %>
 
-  <table class="border border-gray-900 bg-gray-300">
-    <tbody>
-      <tr>
-        <td class="p-2"><%= form.label :name %></td>
-        <td class="p-2"><%= form.text_field :name, class: "form-input" %></td>
-      </tr>
-      <tr>
-        <td class="p-2"><%= form.label :max_height %></td>
-        <td class="p-2"><%= form.number_field :max_height, class: "form-input" %></td>
-      </tr>
-      <tr>
-        <td class="p-2"><%= form.label :min_height %></td>
-        <td class="p-2"><%= form.number_field :min_height, class: "form-input" %></td>
-      </tr>
-      <tr>
-        <td class="p-2"><%= form.label :price %></td>
-        <td class="p-2"><%= form.number_field :price, step: '0.01', class: "form-input" %></td>
-      </tr>
-      <tr>
-        <td colspan="2" class="p-2 text-center"><%= form.submit class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %></td>
-      </tr>
-    </tbody>
-  </table>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :max_height %>
+    <%= form.number_field :max_height %>
+  </div>
+
+  <div>
+    <%= form.label :min_height %>
+    <%= form.number_field :min_height %>
+  </div>
+
+  <div>
+    <%= form.label :price %>
+    <%= form.number_field :price, step: '0.01' %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
 <% end %>
