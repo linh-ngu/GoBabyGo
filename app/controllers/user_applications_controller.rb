@@ -1,10 +1,10 @@
 class UserApplicationsController < ApplicationController
   def index
     @user = User.find_by(admin_id: current_admin.id)
-    @page_title = @user.visitor? ? "Your Applications" : "All User Applications"
+    @page_title = @user.visitor? || @user.applicant? ? "Your Applications" : "All User Applications"
     
     # Filtering based on user role
-    if @user.visitor?
+    if @user.visitor? || @user.applicant?
       @user_applications = UserApplication.where(user_id: @user.id)
     elsif @user.officer_member?
       @not_accepted_user_applications = UserApplication.where(accepted: [nil, false], waitlist: false)
@@ -43,8 +43,8 @@ class UserApplicationsController < ApplicationController
     end
   end
   
-
   def show
+    @user = User.find_by(admin_id: current_admin.id)
     @user_application = UserApplication.find(params[:id])
   end
 
@@ -106,12 +106,13 @@ class UserApplicationsController < ApplicationController
   end
 
   def destroy
-    @user_application = UserApplication.find(params[:id])
     @user = User.find_by(admin_id: current_admin.id)
+    @user_application = UserApplication.find(params[:id])
+    @user_application.application_notes.destroy_all
     @user_application.destroy
     # if @user.level == 0
     # instead of above line, if user is visitor redirect_to
-    if @user.visitor?
+    if @user.visitor? || @user.applicant?
       redirect_to user_application_path(@user_application.id)
     # elsif @user.level == 1
     elsif @user.officer_member?
