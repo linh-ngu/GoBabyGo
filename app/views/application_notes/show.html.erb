@@ -6,10 +6,11 @@
 
     <%= render @application_note %>
 
-    <%= link_to "Edit this application_note", edit_application_note_path(@application_note), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this application_note", application_note_path(@application_note), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    <div class="flex justify-center mt-4">
+      <%= link_to "Edit note", edit_user_application_application_note_path(@user_application, @application_note), class: "m-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <%= button_to "Delete note", user_application_application_note_path(@user_application, @application_note), method: :delete, class: "m-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <%= link_to "Back to notes", user_application_application_notes_path(@user_application), class: "m-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     </div>
-    <%= link_to "Back to application_notes", application_notes_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    
   </div>
 </div>
