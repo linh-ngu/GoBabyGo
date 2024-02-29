@@ -1,9 +1,7 @@
-<h1>New Part</h1>
+<div class="flex flex-col justify-center items-center">
+    <h1 class='p-4 text-xl font-bold'>New Part</h1>
+  <%= render "form", part: @part %>
+  <br>
+  <%= link_to "Back to Parts", parts_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"%>
 
-<%= render "form", part: @part %>
-
-<br>
-
-<div>
-  <%= link_to "Back to Parts", parts_path %>
 </div>
