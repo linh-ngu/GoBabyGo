@@ -181,8 +181,9 @@ class UserApplicationsController < ApplicationController
     @user_application.destroy
     # if @user.level == 0
     # instead of above line, if user is visitor redirect_to
+
     if @user.visitor? || @user.applicant?
-      redirect_to user_application_path(@user_application.id)
+      redirect_to user_application_path(@user)
     # elsif @user.level == 1
     elsif @user.officer_member?
       redirect_to user_applications_path
