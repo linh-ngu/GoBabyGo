@@ -3,13 +3,21 @@ class CarsController < ApplicationController
 
   # GET /cars or /cars.json
   def index
-    @cars = Car.all
+    @current_user = User.find_by(admin_id: current_admin.id)
+    if @current_user.admin?
+      @cars = Car.all
+      @edit_access = true
+    else
+      @cars = Car.joins(:user_application).where(user_applications: { user_id: @current_user.id })
+      @edit_access = false
+    end
   end
 
   # GET /cars/1 or /cars/1.json
   def show
+    @current_user = User.find_by(admin_id: current_admin.id)
+    @edit_access = @current_user.admin?
     @car = Car.includes(:parts).find(params[:id])
-    
   end
 
   # GET /cars/new
@@ -74,7 +82,7 @@ class CarsController < ApplicationController
       @car = Car.find(params[:id])
     end
     def car_params
-      params.require(:car).permit(:car_type_id, :modification_details, :complete)
+      params.require(:car).permit(:car_type_id, :modification_details, :complete, :user_application_id)
     end
 end
   

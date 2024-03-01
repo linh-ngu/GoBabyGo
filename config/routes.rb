@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
-  resources :abouts 
+  resources :abouts
   resources :contacts
   resources :user_applications do
+    resources :application_notes do
+      member do
+        get :delete
+      end
+    end
     member do
       get :delete
     end
@@ -20,15 +25,41 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :application_notes do
+  
+  resources :parts do
     member do
       get :delete
     end
   end
 
-  resources :cars
-  resources :car_types
-  resources :parts
+  
+  resources :cars do
+    member do
+      get :delete
+    end
+  end
+
+  resources :car_types do
+    member do
+      get :delete
+    end
+  end
+
+  resources :notes do
+    member do
+      get :delete
+    end
+  end
+  # resources :application_notes do
+  #   member do
+  #     get :delete
+  #   end
+  # end
+
+  get 'main/index', to:'main#index', as:'home'
+
+
+  get 'inventory', to: 'main#inventory', as: 'inventory'
   root to: 'main#index'
 
   # root to: 'dashboards#show'
@@ -41,6 +72,5 @@ Rails.application.routes.draw do
     get 'admins/sign_out', to: 'admins/sessions#destroy', as: :destroy_admin_session
   end
 
-  get 'main/index', to:'main#index', as:'home'
 
 end

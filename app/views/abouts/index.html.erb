@@ -3,14 +3,16 @@ h1 {text-align: center;}
 p {margin-left: 100px;
   margin-right: 100px; }
 </style>
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
 
-    <h1 class="text-7xl">About Us</h1>
+<h1 class="text-5xl font-extrabold m-4 text-center">What is GoBabyGo?</h1>
+
+<div class='flex flex-col justify-center items-center border border-black bg-[#FFEFAD] rounded-lg min-w-2/3 w-2/3 mx-auto my-auto'>
+    <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
+
     <br>
-    <p>Go Baby Go was initiated by Professor Cole Galloway as part of a research endeavor at the University of Delaware. Since its inception, volunteers have been trained across more than 40 communities nationally and internationally, with satellite locations established worldwide to broaden accessibility.
+    <p class="my-4 text-center">Go Baby Go was initiated by Professor Cole Galloway as part of a research endeavor at the University of Delaware. Since its inception, volunteers have been trained across more than 40 communities nationally and internationally, with satellite locations established worldwide to broaden accessibility.
 
     These adapted toy vehicles offer children with mobility impairments an opportunity to engage in play and social interaction more effortlessly. Previous studies have highlighted the correlation between independent mobility and various developmental advantages such as cognitive, social, motor, and linguistic skills in young children. Unlike being pushed in a stroller or carried around, which lacks active participation, having control over their own exploration fosters developmental progress.
     
@@ -22,4 +24,5 @@ p {margin-left: 100px;
   
     <%= render @abouts %>
   </div>
+    
 </div>

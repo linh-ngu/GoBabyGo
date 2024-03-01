@@ -16,7 +16,9 @@
 
 #page-container {
     background-color: #ffde57;
-
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
  #header {

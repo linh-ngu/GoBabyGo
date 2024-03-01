@@ -1,21 +1,78 @@
 <p style="color: green"><%= notice %></p>
-
-<%= render @car %>
-<% if @car.parts.any? %>
-  <h2>Parts:</h2>
-  <ul>
-    <% @car.parts.each do |part| %>
-      <li><%= part.part_name %> - <%= part.part_price %>
-      <%= button_to "Destroy", part, method: :delete %></li>
+<div class="flex flex-col justify-center items-center">
+    <h1 class='p-4 text-xl font-bold'>Car</h1>
+    <%= render @car %>
+    <%= form_with(model: Note.new, url: notes_path, local: true) do |form| %>
+      <%= form.hidden_field :car_id, value: @car.id %>
+      <%= form.hidden_field :user_id, value: @current_user.id %> <!-- Replace with your method of getting the current user -->
+      <div class="flex items-center" width = "100%">
+        <%= form.text_area :content, class: 'py-1 px-2 mr-2 w-full', placeholder: 'Enter your note here...' %>
+        <%= form.submit "Create Note", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+      </div>
     <% end %>
-  </ul>
-<% else %>
-  <p>No parts associated with this car.</p>
-<% end %>
 
-<div>
-  <%= link_to "Edit this Car", edit_car_path(@car) %> |
-  <%= link_to "Back to Cars", cars_path %>
+    <% if @car.notes.any? %>
+      <table width = "100%">
+        <thead>
+          <tr>
+            <td class='p-4 text-xl font-bold'>User</td>
+            <td class='p-4 text-xl font-bold'>Note Info</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @car.notes.each do |note| %>
+            <tr>
+              <td><%= User.find(note.user_id).email %></td>
+              <td><%= note.content %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+    
+    <br>
+    <% if @edit_access %>
+      <% if @car.parts.any? %><table width="100%">
+        <table width = "100%">
+          <thead>
+            <tr>
+              <th class="text-left">Part Name</th>
+              <th class="text-left">Quantity</th>
+              <th class="text-left">Source</th>
+              <th class="text-left">Price</th>
+              <th class="text-left">Car</th>
+              <th colspan="3" class="text-left">Actions</th>
+            </tr>
+          </thead>
 
-  <%= button_to "Destroy this Car", @car, method: :delete %>
+          <tbody>
+            <% @car.parts.each do |part| %>
+              <tr>
+                <td><%= part.part_name %></td>
+                <td><%= part.quantity_purchased %></td>
+                <td><%= part.purchase_source %></td>
+                <td><%= part.part_price %></td>
+                <td><%= link_to Car.find(part.car_id).car_type.name, car_path(part.car_id) %></td>
+                <td><%= link_to 'Show', part %></td>
+                <td><%= link_to 'Edit', edit_part_path(part) %></td>
+                <td><%= link_to 'Destroy', part, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p>No parts associated with this car.</p>
+      <% end %>
+
+      <div>
+        <%= link_to "Edit this Car", edit_car_path(@car), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
+        <br><br>
+        <%= link_to "Back to Cars", cars_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
+        <br><br>
+        <%= button_to "Destroy this Car", @car, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger text-black-500 bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
+      </div>
+    <% else %>
+      <%= link_to "Back to Cars", cars_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"%> 
+    <% end %>
 </div>
+
