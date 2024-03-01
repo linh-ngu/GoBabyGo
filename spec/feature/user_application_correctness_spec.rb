@@ -94,62 +94,53 @@ RSpec.describe 'APPLICANT: Creation of a user application', type: :feature do
     end
 end
 
-=begin
-NOT PASSING FOR NOW
+
 RSpec.describe 'OFFICER: Changing status of a user application', type: :feature do
     include Devise::Test::IntegrationHelpers
     before do
         @admin = Admin.create!(email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
         sign_in @admin
         @user = User.create!(email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :officer_member)
-        @user_application = UserApplication.create(user_id: @user.id, child_name: "test child", child_birthdate: "2022-12-12", primary_diagnosis: "Can't walk", secondary_diagnosis: "N/A", child_height: 20, child_weight: 10, caregiver_email:"test@gmail.com", caregiver_name:"test", caregiver_phone:"1234567890",can_transport:true, can_store:true) 
+        @user_application = UserApplication.create(child_name: "test child", child_birthdate: "2022-12-12", primary_diagnosis: "Can't walk", secondary_diagnosis: "N/A", child_height: 20, child_weight: 10, caregiver_email:"test@gmail.com", caregiver_name:"test", caregiver_phone:"1234567890",can_transport:true, can_store:true) 
     end
     
-    scenario 'SUNNY: View and waitlist an application. Then, go back and accept it.' do
-        visit user_applications_path(@user)
-        expect(page).to have_text('test child')
-
-        # Waitlist user
-        click_on 'Change Status'
-        expect(page).to have_text("Waitlist User?")
-        choose 'user_application_waitlist_true'
-        click_on 'Update Application'
-        expect(page).to have_content("Applicated updated successfully.")
-        user_application = UserApplication.last
-        expect(user_application.accepted).to eq(false)
-        expect(user_application.waitlist).to eq(true)
-
-        # Go to index and change the status of the application to waitlist
+    scenario 'SUNNY: View and waitlist an application.' do
+        visit user_applications_path
+        expect(page).to have_content("test child (Pending)")
+        click_on "Change Status"
+        expect(page).to have_content("Edit test child's Application")
+        expect(page).to have_selector('.waitlist-slider')
+        expect(page).to have_unchecked_field('user_application_waitlist')
+        check('user_application_waitlist')
+        expect(page).to have_checked_field('user_application_waitlist')
+        click_on "Update Application"
+        expect(page).to have_content("Application updated successfully.")
         click_on "Back to Applications"
-        click_on 'Change Status'
-        expect(page).to have_text("Accept User?")
-        choose 'user_application_accepted_true'
-        click_on 'Update Application'
-        expect(page).to have_content("Applicated updated successfully.")
-        user_application = UserApplication.last
-        expect(user_application.waitlist).to eq(false)
-        expect(user_application.accepted).to eq(true)
+        expect(page).to have_content("test child (Waitlist)")
+        expect(@user_application.accepted).to eq(nil)
+
     end
 
     scenario 'RAINY: Attempt to select both waitlist and accept.' do
-        visit user_applications_path(@user)
+        visit user_applications_path
         expect(page).to have_text('test child')
 
-        # Waitlist user
-        click_on 'Change Status'
-        expect(page).to have_text("Waitlist User?")
-        expect(page).to have_text("Accept User?")
-        check 'Waitlist User?'
-        check 'Accept User?'
-        click_on 'Update Application'
-        expect(page).to have_content("Applicated updated successfully.")
-        user_application = UserApplication.last
-        expect(user_application.accepted).to eq(false)
-        expect(user_application.waitlist).to eq(true)
+        visit user_applications_path
+        expect(page).to have_content("test child (Pending)")
+        click_on "Change Status"
+        expect(page).to have_content("Edit test child's Application")
+        expect(@user_application.accepted).to eq(nil)
         
+        expect(page).to have_selector('.accept-slider')
+        expect(page).to have_unchecked_field('user_application_accepted')
+        expect(page).to have_unchecked_field('user_application_waitlist')
+        check('user_application_waitlist')
+        check('user_application_accepted')
+        expect(page).to have_checked_field('user_application_accepted')
+        click_on "Back to Applications"
     end
 end
-=end
+
 
 RSpec.describe 'OFFICER: Applying filters to user applications page', type: :feature do
     include Devise::Test::IntegrationHelpers
