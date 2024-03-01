@@ -46,20 +46,24 @@
                       <div class="flex justify-between">
 
                           <div id="nav-title" class="py-3 flex items-center">
-                              <a href="#" class="text-3xl font-bold" style="color:maroon; text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF; ">GoBabyGo x TAMU</a>
+                              <a href="/main/index#" class="text-3xl font-bold" style="color:maroon; text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF; ">GoBabyGo x TAMU</a>
                           </div>
 
                           <div id="nav-buttons" class="hidden md:flex space-x-4 items-center text-xl font-semibold">
-                              <a href="/main/index#" class="py-4 px-2 hover:text-gray-400 transition duration-300 ">Home</a>
+                              <a href="<%= root_path %>" class="py-4 px-2 hover:text-gray-400 transition duration-300 ">Home</a>
                               <a href="/abouts" class="py-4 px-2 hover:text-gray-400 transition duration-300">About</a>
-                              <div class="relative" id="dropdownMenuButton" data-dropdown-toggle="dropdown">
+                              <%
+=begin%>
+ <div class="relative" id="dropdownMenuButton" data-dropdown-toggle="dropdown">
                                   <button class="py-4 px-2 hover transition duration-300 flex items-center" style="color:maroon; text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF; " onclick="toggleDropdown()">Services <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
                                   <div id="dropdown" class="hidden absolute left-0 mt-1 w-48" >
                                       <a href="#" class="block px-4 py-2 hover">Web Design</a>
                                       <a href="#" class="block px-4 py-2 hover">Development</a>
                                       <a href="#" class="block px-4 py-2 hover">SEO</a>
                                   </div>
-                              </div>
+                              </div> 
+<%
+=end%>
                               <a href="/contacts" class="py-4 px-2 hover:text-gray-400 transition duration-300">Contact</a>
                           </div>
 
@@ -70,7 +74,7 @@
           </div>
       </div>
 
-      <div id="content" style="background-color:transparent;height:70vh;">
+      <div id="content" style="background-color:transparent;">
         <div id="content-box">
         <%= yield %>
         </div>
@@ -86,11 +90,12 @@
 
 
 
-    <% if flash.any? %>
+ <% if flash.any? %>
       <% flash.each do |key, value| -%>
         <section class="flash flash__<%= key %>"><%= value.html_safe %></section>
       <% end -%>
-    <% end %>
+  <% end %> 
+
     
     
   </body>

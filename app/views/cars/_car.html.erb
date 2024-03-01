@@ -1,23 +1,26 @@
 <div id="<%= dom_id car %>">
-  <p>
-    <strong>Name:</strong>
-    <%= car.car_type.name %>
-  </p>
-  <p>
-    <strong>Price:</strong>
-    $<%= car.car_type.price %>
-  </p>
-  <p>
-      <strong>Height:</strong>
-      <%= car.car_type.max_height %> in. - <%= car.car_type.min_height %> in.
-  </p>
-  <p>
-    <strong>Modifications:</strong>
-    <%= car.modification_details %>
-  </p>
-  <p>
-    <strong>Complete?:</strong>
-    <%= car.complete ? "True" : "False" %>
-  </p>
-
+  <table class="border border-gray-900 bg-gray-300">
+    <tbody>
+      <tr>
+        <th class="p-2">Name:</th>
+        <td class="p-2"><%= car.car_type.name %></td>
+      </tr>
+      <tr>
+        <th class="p-2">Price:</th>
+        <td class="p-2">$<%= car.car_type.price %></td>
+      </tr>
+      <tr>
+        <th class="p-2">Application:</th>
+        <td class="p-2"><%= car.user_application.nil? ? "None" : car.user_application.child_name %></td>
+      </tr>
+      <tr>
+        <th class="p-2">Modifications:</th>
+        <td class="p-2"><%= car.modification_details %></td>
+      </tr>
+      <tr>
+        <th class="p-2">Complete?:</th>
+        <td class="p-2"><%= car.complete ? "True" : "False" %></td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -1,4 +1,4 @@
-<div class='mt-8'><%= link_to('Back to Homepage', home_path, class:'border border-black bg-white rounded-lg px-2 py-1 m-4') %></div>
+<div class='mt-8'><%= link_to('Back to Homepage', root_path, class:'border border-black bg-white rounded-lg px-2 py-1 m-4') %></div>
 
 <h1 class="text-5xl font-extrabold m-4 text-center">Welcome to the User Dashboard!</h1>
 
@@ -11,6 +11,7 @@
     <div class='p-4 flex flex-wrap justify-center'>
         <%= link_to "Edit Your Profile", edit_user_path(@user), class:'border border-black bg-white rounded-lg px-2 py-1 mr-1'%>
         <%= link_to "View Your Applications", user_applications_path, class:'border border-black bg-white rounded-lg px-2 py-1 ml-1' %>
+        <%= link_to "View Your Cars", cars_path, class:'border border-black bg-white rounded-lg px-2 py-1 ml-1' %>
     </div>
 
     <div class='px-4 my-4'><%= link_to "Sign Out", destroy_admin_session_path, class:'border border-black bg-white rounded-lg px-2 py-1' %></div>
