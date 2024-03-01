@@ -183,7 +183,7 @@ class UserApplicationsController < ApplicationController
     # instead of above line, if user is visitor redirect_to
 
     if @user.visitor? || @user.applicant?
-      redirect_to user_application_path(@user)
+      redirect_to user_applications_path(@user)
     # elsif @user.level == 1
     elsif @user.officer_member?
       redirect_to user_applications_path
