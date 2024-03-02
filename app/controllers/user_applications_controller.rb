@@ -1,4 +1,13 @@
 class UserApplicationsController < ApplicationController
+  before_action :require_admin
+
+  def require_admin
+    unless admin_signed_in?
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
+  end
+
   def index
     @user = User.find_by(admin_id: current_admin.id)
     @page_title = @user.visitor? || @user.applicant? ? "Your Applications" : "All User Applications"
@@ -115,6 +124,13 @@ class UserApplicationsController < ApplicationController
   def show
     @user = User.find_by(admin_id: current_admin.id)
     @user_application = UserApplication.find(params[:id])
+    
+    if @user.applicant? || @user.visitor?  
+      if @user.id != @user_application.user_id
+        redirect_to root_path
+        flash[:notice] = "You do not have permission to view that page!"
+      end
+    end
   end
 
   def new
@@ -151,6 +167,12 @@ class UserApplicationsController < ApplicationController
   def edit
     @user_application = UserApplication.find(params[:id])
     @user = User.find_by(admin_id: current_admin.id)
+    if @user.applicant? || @user.visitor? || @user == nil
+      if @user.id != @user_application.user_id || @user == nil
+        redirect_to root_path
+        flash[:notice] = "You do not have permission to view that page!"
+      end
+    end
     #if user is an officer, access to edit accepted
     @access_accepted = @user.officer_member?
   end
@@ -172,7 +194,14 @@ class UserApplicationsController < ApplicationController
   end
 
   def delete
+    @user = User.find_by(admin_id: current_admin.id)
     @user_application = UserApplication.find(params[:id])
+    if @user.applicant? || @user.visitor? || @user == nil
+      if @user.id != @user_application.user_id || @user == nil
+        redirect_to root_path
+        flash[:notice] = "You do not have permission to view that page!"
+      end
+    end
   end
 
   def destroy
