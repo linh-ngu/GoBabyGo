@@ -167,6 +167,7 @@ class UserApplicationsController < ApplicationController
       flash[:notice] = "Application updated successfully."
     else
       redirect_to edit_user_application_path(@user_application)
+      flash[:notice] = "There was an error when updating the application."
     end
   end
 
@@ -179,16 +180,7 @@ class UserApplicationsController < ApplicationController
     @user_application = UserApplication.find(params[:id])
     @user_application.application_notes.destroy_all
     @user_application.destroy
-    # if @user.level == 0
-    # instead of above line, if user is visitor redirect_to
-
-    if @user.visitor? || @user.applicant?
-      redirect_to user_applications_path(@user)
-    # elsif @user.level == 1
-    elsif @user.officer_member?
-      redirect_to user_applications_path
-    end
-
+    redirect_to user_applications_path(@user)
   end
 
   private
