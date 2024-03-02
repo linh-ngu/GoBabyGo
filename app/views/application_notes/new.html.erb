@@ -3,5 +3,5 @@
 
   <%= render "form", application_note: @application_note, user_application: @user_application %>
 
-  <%= link_to "Back to application notes", new_user_application_application_note_path(@user_application), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= link_to "Back to application notes", user_application_application_notes_path(@user_application), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>

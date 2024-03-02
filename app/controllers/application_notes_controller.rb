@@ -1,6 +1,6 @@
 class ApplicationNotesController < ApplicationController
   before_action :set_user_application
-  before_action :set_application_note, only: %i[ show edit update destroy ]
+  before_action :set_application_note, only: %i[ show edit update delete destroy ]
 
   # GET /application_notes or /application_notes.json
   def index
@@ -53,6 +53,9 @@ class ApplicationNotesController < ApplicationController
         format.json { render json: @application_note.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def delete
   end
 
   # DELETE /application_notes/1 or /application_notes/1.json
