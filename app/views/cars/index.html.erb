@@ -7,7 +7,7 @@
 <h1 class="text-3xl font-bold mb-4">My Cars</h1>
 <% end %>
 <div class="overflow-x-auto">
-<table class="w-full mx-auto overflow-hidden bg-white divide-y divide-gray-300 rounded-lg">
+<table class="w-full max-w-7xl mx-auto overflow-hidden bg-white divide-y divide-gray-300 rounded-lg">
   <thead>
     <tr>
       <% if @edit_access %>
@@ -44,7 +44,7 @@
         <% if @edit_access %>
           <td class = "px-3 py-4 break-all"><%= link_to 'Show', car, class: "text-blue-500 hover:underline" %></td>
           <td class = "px-3 py-4 break-all"><%= link_to 'Edit', edit_car_path(car), class: "text-blue-500 hover:underline" %></td>
-          <td class = "px-3 py-4 break-all"><%= link_to 'Delete', car, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %></td>
+          <td><%= link_to 'Delete', car, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %></td>
         <% end %>
       </tr>
     <% end %>
