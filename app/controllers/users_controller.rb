@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     # if @curr_user
     #   redirect_to dashboard_path
     # end
-    @user = User.new(email: current_admin.email, admin_id: current_admin.id, level: :applicant)
+    @user = User.new(email: current_admin.email, admin_id: current_admin.id)
   end
 
   def update_role
@@ -27,6 +27,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @admin = Admin.find_by(id: current_admin.id)
     if @user.save
+      @user.update(admin_id: current_admin.id)
       @admin.save
       @admin.update(user_account_created: true)
       redirect_to root_path, :action => 'show'
