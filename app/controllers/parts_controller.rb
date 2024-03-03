@@ -55,10 +55,11 @@ class PartsController < ApplicationController
   
     # DELETE /parts/1 or /parts/1.json
     def destroy
+      c = @part.car_id
       @part.destroy
   
       respond_to do |format|
-        # format.html { redirect_to parts_url, notice: "part was successfully destroyed." }
+        format.html { redirect_to car_url(c), notice: "part was successfully destroyed." }
         format.json { head :no_content }
       end
     end
