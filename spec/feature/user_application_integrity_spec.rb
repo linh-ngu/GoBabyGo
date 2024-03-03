@@ -26,7 +26,7 @@ RSpec.describe 'NO ACCOUNT: Attempt to access all user application pages', type:
     end
 end
 
-RSpec.describe 'VISITOR: Attempt to access usre application pages that do not belong to the user.', type: :feature do
+RSpec.describe 'VISITOR: Attempt to access user application pages that do not belong to the user.', type: :feature do
     include Devise::Test::IntegrationHelpers
     before do
         @admin = Admin.create!(email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
