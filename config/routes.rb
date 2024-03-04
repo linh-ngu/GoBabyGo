@@ -45,7 +45,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :notes do
+  resources :notes, except: [:index, :show] do
     member do
       get :delete
     end

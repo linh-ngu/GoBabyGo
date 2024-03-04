@@ -4,7 +4,8 @@
     <%= render @car %>
     <%= form_with(model: Note.new, url: notes_path, local: true) do |form| %>
       <%= form.hidden_field :car_id, value: @car.id %>
-      <%= form.hidden_field :user_id, value: @current_user.id %> <!-- Replace with your method of getting the current user -->
+      <%= form.hidden_field :user_id, value: @current_user.id %>
+      <br>
       <div class="flex items-center" width = "100%">
         <%= form.text_area :content, class: 'py-1 px-2 mr-2 w-full', placeholder: 'Enter your note here...' %>
         <%= form.submit "Create Note", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
@@ -12,22 +13,34 @@
     <% end %>
 
     <% if @car.notes.any? %>
-      <table width = "100%">
-        <thead>
-          <tr>
-            <td class='p-4 text-xl font-bold'>User</td>
-            <td class='p-4 text-xl font-bold'>Note Info</td>
-          </tr>
-        </thead>
-        <tbody>
-          <% @car.notes.each do |note| %>
+      <br>
+      <div class="overflow-x-auto">
+        <table class="w-full max-w-6xl mx-auto overflow-hidden bg-white divide-y divide-gray-300 rounded-lg">
+          <thead>
             <tr>
-              <td><%= User.find(note.user_id).email %></td>
-              <td><%= note.content %></td>
+              <td class='p-4 text-xl font-bold'>User</td>
+              <td class='p-4 text-xl font-bold'>Note Info</td>
+              <% if @current_user.present? %>
+                <td class='p-4 text-xl font-bold'>Actions</td>
+              <% end %>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% @car.notes.each do |note| %>
+              <tr>
+                <td class="px-3 py-4"><%= User.find(note.user_id).email %></td>
+                <td class="px-3 py-4 break-all"><%= note.content %></td>
+                <% if @current_user.present? && note.user_id == @current_user.id %>
+                  <td class="px-3 py-4">
+                    <%= link_to "Edit", edit_note_path(note), class: "text-blue-500 hover:underline mr-2" %>
+                    <%= button_to 'Destroy', note_path(note), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     <% end %>
     
     <br>
