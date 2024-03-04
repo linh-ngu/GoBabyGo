@@ -25,20 +25,20 @@ class NotesController < ApplicationController
 
     respond_to do |format|
       if @note.save
-        if @note.car_id
-          format.html { redirect_to car_url(@note.car_id), notice: "Note was successfully created." }
-        else
-          format.html { redirect_to note_url(@note), notice: "Note was successfully created." }
-        end
+        format.html { redirect_to car_url(@note.car_id), notice: "Note was successfully created." }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @note.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PATCH/PUT /notes/1 or /notes/1.json
   def update
+    car_id = @note.car_id
     respond_to do |format|
       if @note.update(note_params)
-        format.html { redirect_to note_url(@note), notice: "Note was successfully updated." }
+        format.html { redirect_to car_url(car_id), notice: "Note was successfully updated." }
         format.json { render :show, status: :ok, location: @note }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,10 +49,11 @@ class NotesController < ApplicationController
 
   # DELETE /notes/1 or /notes/1.json
   def destroy
+    car_id = @note.car_id
     @note.destroy
 
     respond_to do |format|
-      format.html { redirect_to notes_url, notice: "Note was successfully destroyed." }
+      format.html { redirect_to car_path(car_id), notice: "Note was successfully destroyed." }
       format.json { head :no_content }
     end
   end
