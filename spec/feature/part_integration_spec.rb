@@ -73,3 +73,22 @@ RSpec.describe 'Part management as admin', type: :feature do
     expect(page).to have_content('part was successfully destroyed.')
   end
 end
+RSpec.describe 'Part management Integrity', type: :feature do
+  include Devise::Test::IntegrationHelpers
+  before do
+    @admin = Admin.create!(email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
+    sign_in @admin
+    @user = User.create!(email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :visitor)
+    @car_type = CarType.create!(name: 'SUV', max_height: 200, min_height: 150, price: 25000)
+    @car = Car.create!(car_type_id: @car_type.id)
+  end
+  scenario 'RAINY: try to do CRUD operations as non admin' do
+    visit new_part_path
+    expect(page).to have_content('You do not have permission to view that page!')
+    part = Part.create(part_name: "Engine", part_price: 25, quantity_purchased: 12, purchase_source: "http://example.com/purchase", car_id: @car.id)
+    visit edit_part_path(part)
+    expect(page).to have_content('You do not have permission to view that page!')
+    visit part_path(part)
+    expect(page).to have_content('You do not have permission to view that page!')
+  end
+end

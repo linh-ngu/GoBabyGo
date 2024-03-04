@@ -96,5 +96,13 @@ RSpec.describe 'Applicant Car management', type: :feature do
     visit cars_path
     expect(page).to have_no_content("accepted child")
   end
+  scenario 'RAINY: try CRUD operations as non admin' do
+    visit new_car_path
+    expect(page).to have_content("You do not have permission to view that page!")
+    @car = Car.create!(car_type_id: car_type.id, complete: true, modification_details: 'Some modification details')
+    visit edit_car_path(@car)
+    expect(page).to have_content("You do not have permission to view that page!")
+    visit car_path(@car)
+    expect(page).to have_content("You do not have permission to view that page!")
+  end
 end
-    

@@ -18,20 +18,46 @@ class CarsController < ApplicationController
     @current_user = User.find_by(admin_id: current_admin.id)
     @edit_access = @current_user.admin? || @current_user.officer_member?
     @car = Car.includes(:parts).find(params[:id])
+    if @car.user_application_id.present?
+      unless @current_user.admin? || @current_user.officer_member? || @car.user_application.user_id == @current_user.id
+        redirect_to root_path
+        flash[:notice] = "You do not have permission to view that page!"
+      end
+    else
+      unless @current_user.admin? || @current_user.officer_member?
+        redirect_to root_path
+        flash[:notice] = "You do not have permission to view that page!"
+      end
+    end
   end
 
   # GET /cars/new
   def new
+    @current_user = User.find_by(admin_id: current_admin.id)
+    unless @current_user.admin? || @current_user.officer_member?
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
     @car = Car.new
   end
 
   # GET /cars/1/edit
   def edit
+    @current_user = User.find_by(admin_id: current_admin.id)
+    unless @current_user.admin? || @current_user.officer_member?
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
     @part = Part.new
   end
 
   # POST /cars or /cars.json
   def create
+    @current_user = User.find_by(admin_id: current_admin.id)
+    unless @current_user.admin? || @current_user.officer_member?
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
     
     # Associate finance with the car
     @car = Car.new(car_params)
@@ -56,6 +82,11 @@ class CarsController < ApplicationController
 
   # PATCH/PUT /cars/1 or /cars/1.json
   def update
+    @current_user = User.find_by(admin_id: current_admin.id)
+    unless @current_user.admin? || @current_user.officer_member?
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
     respond_to do |format|
       if @car.update(car_params)
         format.html { redirect_to car_url(@car), notice: "car was successfully updated." }
@@ -69,6 +100,11 @@ class CarsController < ApplicationController
 
   # DELETE /cars/1 or /cars/1.json
   def destroy
+    @current_user = User.find_by(admin_id: current_admin.id)
+    unless @current_user.admin? || @current_user.officer_member?
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
     @car.destroy
 
     respond_to do |format|

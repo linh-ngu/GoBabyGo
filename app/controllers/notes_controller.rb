@@ -25,11 +25,10 @@ class NotesController < ApplicationController
 
     respond_to do |format|
       if @note.save
-        if @note.car_id
-          format.html { redirect_to car_url(@note.car_id), notice: "Note was successfully created." }
-        else
-          format.html { redirect_to note_url(@note), notice: "Note was successfully created." }
-        end
+        format.html { redirect_to car_url(@note.car_id), notice: "Note was successfully created." }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @note.errors, status: :unprocessable_entity }
       end
     end
   end

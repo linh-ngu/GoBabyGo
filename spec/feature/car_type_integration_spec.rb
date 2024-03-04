@@ -79,3 +79,20 @@ RSpec.describe 'Car Type Management', type: :feature do
     expect(page).to have_content('car_type was successfully destroyed.')
   end
 end
+RSpec.describe 'Car Type Integrity', type: :feature do
+  include Devise::Test::IntegrationHelpers
+  before do
+      @admin = Admin.create!(email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
+      sign_in @admin
+      @user = User.create!(email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :visitor)
+  end
+  scenario 'RAINY: try to do CRUD operations as non admin' do
+    visit new_car_type_path
+    expect(page).to have_content("You do not have permission to view that page!")
+    car_type = CarType.create(name: "SUV", max_height: 200, min_height: 180, price: 30000)
+    visit edit_car_type_path(car_type)
+    expect(page).to have_content("You do not have permission to view that page!")
+    visit car_type_path(car_type)
+    expect(page).to have_content("You do not have permission to view that page!")
+  end
+end
