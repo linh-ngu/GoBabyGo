@@ -125,6 +125,16 @@
         <section class="flash flash__<%= key %> my-4"><%= value.html_safe %></section>
       <% end -%>
     <% end %> 
+    <% if @user.errors.any? %>
+        <div id="error_explanation" class="text-center">
+            <h2 class=""><%= pluralize(@user.errors.count, "Error") %> </h2>
+            <ul>
+            <% @user.errors.full_messages.each do |message| %>
+            <li class=""><%= message %></li>
+            <% end %>
+            </ul>
+        </div>
+    <% end %>
 </div>
 
 

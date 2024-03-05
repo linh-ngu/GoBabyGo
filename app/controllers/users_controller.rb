@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to request.referer , notice: "User role for <strong>#{@user.email}</strong> was <strong>successfully</strong> updated to <strong>#{user_params[:level]}</strong>"
     else
-      redirect_to request.referer, alert: "<strong>Unable</strong> to update user role for <strong>#{@user.email}</strong> to <strong>#{user_params[:level]}</strong>}"
+      redirect_to request.referer, alert: "<strong>Unable</strong> to update user role for <strong>#{@user.email}</strong> to <strong>#{user_params[:level]}</strong>"
     end
   end
 
