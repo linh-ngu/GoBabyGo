@@ -72,8 +72,8 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   # ADDED ENV var for oAuth
-  ENV['GOOGLE_OAUTH_CLIENT_ID'] = "312431978197-t5lf9bhukh9ktburphiot67fanh570o3.apps.googleusercontent.com"
-  ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = "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"
+  ENV['GOOGLE_OAUTH_CLIENT_ID'] = "312431978197-30vcpanlnqtn9qh2o1m9e5qlkuhvg1i0.apps.googleusercontent.com"
+  ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = "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"
 
 
 end
