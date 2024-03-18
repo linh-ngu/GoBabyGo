@@ -54,7 +54,11 @@
                               <a href="/abouts" class="py-4 px-2 hover:text-gray-400 transition duration-300">About</a>
                               <a href="/contacts" class="py-4 px-2 hover:text-gray-400 transition duration-300">Contact</a>
                               <%= link_to 'Help', help_path, class: 'py-4 px-2 hover:text-gray-400 transition duration-300'  %>
-
+                            <% if admin_signed_in? %>
+                                 <%= link_to "Sign Out", destroy_admin_session_path, class:'border border-black bg-white rounded-lg px-2 py-1 m-1' %>
+                              <% else %>
+                                <%= button_to "Sign in", admin_google_oauth2_omniauth_authorize_path, class: "border border-black bg-white rounded-lg px-2 py-1 my-1", style: "" %>
+                              <% end %>
                           </div>
 
 
