@@ -58,7 +58,7 @@ class CarsController < ApplicationController
       redirect_to root_path
       flash[:notice] = "You do not have permission to view that page!"
     end
-    
+
     # Associate finance with the car
     @car = Car.new(car_params)
 
@@ -66,9 +66,9 @@ class CarsController < ApplicationController
       if @car.save
         # car_type = CarType.find(params[:car][:car_type_id])
         # total_expense = car_type.price
-        
+
         # @car.finance = @finance
-    
+
         # Create Finance object first
         # @finance = Finance.new(total_expense: total_expense)
         format.html { redirect_to car_url(@car), notice: "car was successfully created." }
@@ -122,4 +122,3 @@ class CarsController < ApplicationController
       params.require(:car).permit(:modification_details, :complete, :user_application_id, :car_type_id)
     end
 end
-  
