@@ -25,13 +25,13 @@ Rails.application.routes.draw do
     end
   end
 
-  
+
   resources :parts do
     member do
       get :delete
     end
   end
- 
+
   resources :cars do
     member do
       get :delete
@@ -54,6 +54,8 @@ Rails.application.routes.draw do
 
 
   get 'inventory', to: 'main#inventory', as: 'inventory'
+  get 'help', to: 'main#help', as: 'help'
+
   root to: 'main#index'
 
   # root to: 'dashboards#show'
