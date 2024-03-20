@@ -1,16 +1,25 @@
 class UserApplicationsController < ApplicationController
+  before_action :require_admin
+
+  def require_admin
+    unless admin_signed_in?
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
+  end
+
   def index
     @user = User.find_by(admin_id: current_admin.id)
     @page_title = @user.visitor? || @user.applicant? ? "Your Applications" : "All User Applications"
-    
+
     # Filtering based on user role
     if @user.visitor? || @user.applicant?
       @user_applications = UserApplication.where(user_id: @user.id)
-    elsif @user.officer_member?
+    elsif @user.officer_member? || @user.admin? || @user.staff_member?
       @not_accepted_user_applications = UserApplication.where(accepted: [nil, false], waitlist: false)
       @waitlist_user_applications = UserApplication.where(waitlist: true, accepted: false)
       @accepted_user_applications = UserApplication.where(accepted: true)
-      
+
       #different options for sorting applications
       sorting_option = case params[:sort_option]
       when "created_at_asc"
@@ -57,7 +66,7 @@ class UserApplicationsController < ApplicationController
             return
           end
         end
-        
+
         if start_date && end_date
           @not_accepted_user_applications = @not_accepted_user_applications.where(created_at: start_date..end_date)
           @waitlist_user_applications = @waitlist_user_applications.where(created_at: start_date..end_date)
@@ -94,7 +103,7 @@ class UserApplicationsController < ApplicationController
             return
           end
         end
-      
+
         if min_height && max_height
           @not_accepted_user_applications = @not_accepted_user_applications.where(child_height: min_height..max_height)
           @waitlist_user_applications = @waitlist_user_applications.where(child_height: min_height..max_height)
@@ -111,10 +120,17 @@ class UserApplicationsController < ApplicationController
       end
     end
   end
-  
+
   def show
     @user = User.find_by(admin_id: current_admin.id)
     @user_application = UserApplication.find(params[:id])
+
+    if @user.applicant? || @user.visitor?
+      if @user.id != @user_application.user_id
+        redirect_to root_path
+        flash[:notice] = "You do not have permission to view that page!"
+      end
+    end
   end
 
   def new
@@ -128,7 +144,7 @@ class UserApplicationsController < ApplicationController
       #user from website submits application
       @user_application = UserApplication.new(user_params)
       flash[:notice] = "Application submitted successfully. We will reach out to you soon with our response."
-    elsif @user.officer_member?
+    elsif @user.officer_member? || @user.admin? || @user.staff_member?
       #officer submits application
       @user_application = UserApplication.new(officer_params)
       flash[:notice] = "Application submitted successfully."
@@ -151,6 +167,12 @@ class UserApplicationsController < ApplicationController
   def edit
     @user_application = UserApplication.find(params[:id])
     @user = User.find_by(admin_id: current_admin.id)
+    if @user.applicant? || @user.visitor? || @user == nil
+      if @user.id != @user_application.user_id || @user == nil
+        redirect_to root_path
+        flash[:notice] = "You do not have permission to view that page!"
+      end
+    end
     #if user is an officer, access to edit accepted
     @access_accepted = @user.officer_member?
   end
@@ -167,11 +189,19 @@ class UserApplicationsController < ApplicationController
       flash[:notice] = "Application updated successfully."
     else
       redirect_to edit_user_application_path(@user_application)
+      flash[:notice] = "There was an error when updating the application."
     end
   end
 
   def delete
+    @user = User.find_by(admin_id: current_admin.id)
     @user_application = UserApplication.find(params[:id])
+    if @user.applicant? || @user.visitor? || @user == nil
+      if @user.id != @user_application.user_id || @user == nil
+        redirect_to root_path
+        flash[:notice] = "You do not have permission to view that page!"
+      end
+    end
   end
 
   def destroy
@@ -179,15 +209,7 @@ class UserApplicationsController < ApplicationController
     @user_application = UserApplication.find(params[:id])
     @user_application.application_notes.destroy_all
     @user_application.destroy
-    # if @user.level == 0
-    # instead of above line, if user is visitor redirect_to
-    if @user.visitor? || @user.applicant?
-      redirect_to user_application_path(@user_application.id)
-    # elsif @user.level == 1
-    elsif @user.officer_member?
-      redirect_to user_applications_path
-    end
-
+    redirect_to user_applications_path(@user)
   end
 
   private

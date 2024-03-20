@@ -4,7 +4,7 @@ class CarsController < ApplicationController
   # GET /cars or /cars.json
   def index
     @current_user = User.find_by(admin_id: current_admin.id)
-    if @current_user.admin?
+    if @current_user.admin? || @current_user.officer_member?
       @cars = Car.all
       @edit_access = true
     else
@@ -16,34 +16,61 @@ class CarsController < ApplicationController
   # GET /cars/1 or /cars/1.json
   def show
     @current_user = User.find_by(admin_id: current_admin.id)
-    @edit_access = @current_user.admin?
+    @edit_access = @current_user.admin? || @current_user.officer_member?
     @car = Car.includes(:parts).find(params[:id])
+    if @car.user_application_id.present?
+      unless @current_user.admin? || @current_user.officer_member? || @car.user_application.user_id == @current_user.id
+        redirect_to root_path
+        flash[:notice] = "You do not have permission to view that page!"
+      end
+    else
+      unless @current_user.admin? || @current_user.officer_member?
+        redirect_to root_path
+        flash[:notice] = "You do not have permission to view that page!"
+      end
+    end
   end
 
   # GET /cars/new
   def new
+    @current_user = User.find_by(admin_id: current_admin.id)
+    unless @current_user.admin? || @current_user.officer_member?
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
     @car = Car.new
   end
 
   # GET /cars/1/edit
   def edit
+    @current_user = User.find_by(admin_id: current_admin.id)
+    unless @current_user.admin? || @current_user.officer_member?
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
     @part = Part.new
   end
 
   # POST /cars or /cars.json
   def create
-    car_type = CarType.find(params[:car][:car_type_id])
-    total_expense = car_type.price
+    @current_user = User.find_by(admin_id: current_admin.id)
+    unless @current_user.admin? || @current_user.officer_member?
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
 
-    # Create Finance object first
-    @finance = Finance.new(total_expense: total_expense)
-    
     # Associate finance with the car
     @car = Car.new(car_params)
-    @car.finance = @finance
 
     respond_to do |format|
       if @car.save
+        # car_type = CarType.find(params[:car][:car_type_id])
+        # total_expense = car_type.price
+
+        # @car.finance = @finance
+
+        # Create Finance object first
+        # @finance = Finance.new(total_expense: total_expense)
         format.html { redirect_to car_url(@car), notice: "car was successfully created." }
         format.json { render :show, status: :created, location: @car }
       else
@@ -55,6 +82,11 @@ class CarsController < ApplicationController
 
   # PATCH/PUT /cars/1 or /cars/1.json
   def update
+    @current_user = User.find_by(admin_id: current_admin.id)
+    unless @current_user.admin? || @current_user.officer_member?
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
     respond_to do |format|
       if @car.update(car_params)
         format.html { redirect_to car_url(@car), notice: "car was successfully updated." }
@@ -68,6 +100,11 @@ class CarsController < ApplicationController
 
   # DELETE /cars/1 or /cars/1.json
   def destroy
+    @current_user = User.find_by(admin_id: current_admin.id)
+    unless @current_user.admin? || @current_user.officer_member?
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
     @car.destroy
 
     respond_to do |format|
@@ -82,7 +119,6 @@ class CarsController < ApplicationController
       @car = Car.find(params[:id])
     end
     def car_params
-      params.require(:car).permit(:car_type_id, :modification_details, :complete, :user_application_id)
+      params.require(:car).permit(:modification_details, :complete, :user_application_id, :car_type_id)
     end
 end
-  

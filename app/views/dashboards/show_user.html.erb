@@ -8,10 +8,10 @@
     <p class="m-4">Email: <%= @user.email %></p>
     <p class="m-4">Phone: <%= @user.phone %></p>
 
-    <div class='p-4 flex flex-wrap justify-center'>
-        <%= link_to "Edit Your Profile", edit_user_path(@user), class:'border border-black bg-white rounded-lg px-2 py-1 mr-1'%>
-        <%= link_to "View Your Applications", user_applications_path, class:'border border-black bg-white rounded-lg px-2 py-1 ml-1' %>
-        <%= link_to "View Your Cars", cars_path, class:'border border-black bg-white rounded-lg px-2 py-1 ml-1' %>
+    <div class='p-4 flex flex-wrap'>
+        <%= link_to "Edit Your Profile", edit_user_path(@user), class:'border border-black bg-white rounded-lg px-2 py-1 m-1'%>
+        <%= link_to "View Your Applications", user_applications_path, class:'border border-black bg-white rounded-lg px-2 py-1 m-1' %>
+        <%= link_to "View Your Cars", cars_path, class:'border border-black bg-white rounded-lg px-2 py-1 m-1' %>
     </div>
 
     <div class='px-4 my-4'><%= link_to "Sign Out", destroy_admin_session_path, class:'border border-black bg-white rounded-lg px-2 py-1' %></div>

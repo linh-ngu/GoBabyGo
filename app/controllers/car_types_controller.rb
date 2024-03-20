@@ -1,26 +1,63 @@
 class CarTypesController < ApplicationController
   before_action :set_car_type, only: %i[ show edit update destroy ]
 
+  before_action :check_role
+
+  def check_role
+    @current_user = User.find_by(admin_id: current_admin.id)
+
+    unless @current_user.admin? || @current_user.officer_member? || @current_user.staff_member?
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
+  end
+
   # GET /car_types or /car_types.json
   def index
+
+    @current_user = User.find_by(admin_id: current_admin.id)
+    # unless @current_user.admin? || @current_user.officer_member?
+    #   redirect_to root_path
+    #   flash[:notice] = "You do not have permission to view that page!"
+    # end
     @car_types = CarType.all
   end
 
   # GET /car_types/1 or /car_types/1.json
   def show
+    @current_user = User.find_by(admin_id: current_admin.id)
+    # unless @current_user.admin? || @current_user.officer_member?
+    #   redirect_to root_path
+    #   flash[:notice] = "You do not have permission to view that page!"
+    # end
   end
 
   # GET /car_types/new
   def new
+    @current_user = User.find_by(admin_id: current_admin.id)
+    # unless @current_user.admin? || @current_user.officer_member?
+    #   redirect_to root_path
+    #   flash[:notice] = "You do not have permission to view that page!"
+    # end
     @car_type = CarType.new
   end
 
   # GET /car_types/1/edit
   def edit
+    @current_user = User.find_by(admin_id: current_admin.id)
+    # unless @current_user.admin? || @current_user.officer_member?
+    #   redirect_to root_path
+    #   flash[:notice] = "You do not have permission to view that page!"
+    # end
   end
 
   # POST /car_types or /car_types.json
   def create
+    @current_user = User.find_by(admin_id: current_admin.id)
+    # unless @current_user.admin? || @current_user.officer_member?
+    #   redirect_to root_path
+    #   flash[:notice] = "You do not have permission to view that page!"
+    # end
     @car_type = CarType.new(car_type_params)
 
     respond_to do |format|
@@ -36,6 +73,11 @@ class CarTypesController < ApplicationController
 
   # PATCH/PUT /car_types/1 or /car_types/1.json
   def update
+    @current_user = User.find_by(admin_id: current_admin.id)
+    # unless @current_user.admin? || @current_user.officer_member?
+    #   redirect_to root_path
+    #   flash[:notice] = "You do not have permission to view that page!"
+    # end
     respond_to do |format|
       if @car_type.update(car_type_params)
         format.html { redirect_to car_type_url(@car_type), notice: "car_type was successfully updated." }
@@ -49,6 +91,11 @@ class CarTypesController < ApplicationController
 
   # DELETE /car_types/1 or /car_types/1.json
   def destroy
+    @current_user = User.find_by(admin_id: current_admin.id)
+    # unless @current_user.admin? || @current_user.officer_member?
+    #   redirect_to root_path
+    #   flash[:notice] = "You do not have permission to view that page!"
+    # end
     @car_type.destroy
 
     respond_to do |format|
@@ -66,4 +113,3 @@ class CarTypesController < ApplicationController
       params.require(:car_type).permit(:name, :max_height, :min_height, :price)
     end
 end
-    

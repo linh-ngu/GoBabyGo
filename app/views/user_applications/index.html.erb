@@ -68,7 +68,7 @@
 
 
 <div class="user_applications index py-10">
-  <% if @user.officer_member? %>
+  <% if @user.officer_member? || @user.admin? || @user.staff_member? %>
     <div class="filter-toggle mb-5">
       <button id="showFiltersBtn" class="ml-3 py-1 px-2 bg-gray-500 text-white inline-block cursor-pointer rounded-md shadow-xl hover:bg-gray-600">Show Filters</button>
       <% if @date_range_error.present? %>
@@ -158,7 +158,7 @@
     </div>
   <% end %>
 
-  <% if @user.officer_member? %>
+  <% if @user.officer_member? || @user.admin? || @user.staff_member? %>
     <%= render partial: 'user_applications_table', locals: { 
       title: "Accepted", 
       user_applications: @accepted_user_applications, 

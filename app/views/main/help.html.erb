@@ -1,0 +1,36 @@
+<div style="max-width: 800px; margin: auto; padding: 20px;">
+  <!-- General Help Tips Section -->
+  <section style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <h2 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem; text-align: center;">General Help Tips</h2>
+    <h4 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem; text-align: center;">*visitor role* + common features</h4>
+    <p style="margin-bottom: 0.5rem;">Here are some general tips to help you navigate through the application:</p>
+    <%
+=begin%>
+ <ul style="list-style-type: disc; list-style-position: inside; margin-bottom: 1rem;">
+      <li>Navigating to your profile: Click on your name at the top right corner to access your profile settings.</li>
+      <li>Dashboard overview: The dashboard provides a quick overview of your activities and updates.</li>
+      <li>Using search: Utilize the search bar at the top to quickly find specific items or pages.</li>
+    </ul> 
+<%
+=end%>
+    <%= render 'main/roles/general' %>
+    
+  </section>
+
+  <!-- Role-Specific Help Section -->
+  <section style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <h2 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem; text-align: center;">Role-Specific Help</h2>
+    <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">Applicant</h3>
+    <%= render 'main/roles/applicant' %>
+    <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">Staff Member</h3>
+    <%= render 'main/roles/staff' %>
+    <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">Officer</h3>
+    <%= render 'main/roles/officer' %>
+    <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">Admin</h3>
+    <%= render 'main/roles/admin' %>
+
+
+
+
+
+

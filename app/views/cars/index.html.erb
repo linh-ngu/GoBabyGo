@@ -1,24 +1,26 @@
 <p style="color: green"><%= notice %></p>
 <p class="text-green-500"><%= notice %></p>
+<div class='mt-8'><%= link_to "Go to Inventory", inventory_path , class:'border border-black bg-white rounded-lg px-2 py-1 m-4' %></div>
 
 <% if @edit_access %>
 <h1 class="text-3xl font-bold mb-4">Cars</h1>
 <% else %>
 <h1 class="text-3xl font-bold mb-4">My Cars</h1>
 <% end %>
-<table class="w-full">
+<div class="overflow-x-auto">
+<table class="w-full max-w-7xl mx-auto overflow-hidden bg-white divide-y divide-gray-300 rounded-lg">
   <thead>
     <tr>
       <% if @edit_access %>
-        <th class="text-left">Car Info</th>
-        <th class="text-left">Price</th>
+        <th class='p-4 text-xl font-bold'>Car Info</th>
+        <th class='p-4 text-xl font-bold'>Price</th>
       <% end %>
-      <th class="text-left">Application</th>
-      <th class="text-left">Modifications</th>
-      <th class="text-left">Complete</th>
-      <th colspan="1" class="text-left">Actions</th>
+      <th class='p-4 text-xl font-bold'>Application</th>
+      <th class='p-4 text-xl font-bold'>Modifications</th>
+      <th class='p-4 text-xl font-bold'>Complete</th>
+      <th colspan="1" class='p-4 text-xl font-bold'>Actions</th>
       <% if @edit_access %>
-        <th colspan="2" class="text-left"></th>
+        <th colspan="2" class='p-4 text-xl font-bold'></th>
       <% end %>
     </tr>
   </thead>
@@ -27,22 +29,22 @@
     <% @cars.each do |car| %>
       <tr>
         <% if @edit_access %>
-        <td><%= link_to car.car_type.name, car_type_path(car.car_type), class: "text-blue-500 hover:underline" %></td>
-        <td><%= car.car_type.price %></td>
+        <td class = "px-3 py-4 break-all"><%= link_to car.car_type.name, car_type_path(car.car_type), class: "text-blue-500 hover:underline" %></td>
+        <td class = "px-3 py-4 break-all"><%= car.car_type.price %></td>
         <% end %>
-        <td>
+        <td class = "px-3 py-4 break-all">
           <% if car.user_application.nil? %>
             None
           <% else %>
             <%= link_to car.user_application.child_name, user_application_path(car.user_application), class: "text-blue-500 hover:underline" %>
           <% end %>
         </td>
-        <td><%= car.modification_details %></td>
-        <td><%= car.complete ? "True" : "False" %></td>
-        <td><%= link_to 'Show', car, class: "text-blue-500 hover:underline" %></td>
+        <td class = "px-3 py-4 break-all"><%= car.modification_details %></td>
+        <td class = "px-3 py-4 break-all"><%= car.complete ? "True" : "False" %></td>
+        <td class = "px-3 py-4 break-all"><%= link_to 'Show', car, class: "text-blue-500 hover:underline" %></td>
         <% if @edit_access %>
-          <td><%= link_to 'Show', car, class: "text-blue-500 hover:underline" %></td>
-          <td><%= link_to 'Edit', edit_car_path(car), class: "text-blue-500 hover:underline" %></td>
+          <td class = "px-3 py-4 break-all"><%= link_to 'Show', car, class: "text-blue-500 hover:underline" %></td>
+          <td class = "px-3 py-4 break-all"><%= link_to 'Edit', edit_car_path(car), class: "text-blue-500 hover:underline" %></td>
           <td><%= link_to 'Delete', car, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %></td>
         <% end %>
       </tr>
