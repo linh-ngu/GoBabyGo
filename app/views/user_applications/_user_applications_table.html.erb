@@ -9,7 +9,7 @@
       <tr>
         <td class="py-3">
           <div class="text-lg font-semibold">
-          <%= user_application.child_name %>
+          <%= user_application.child_first_name + " " + user_application.child_last_name %>
           <% if user_application.accepted == nil %>
             (Pending)
           <% elsif user_application.accepted == false && user_application.waitlist == false %>

@@ -3,6 +3,8 @@ class User < ApplicationRecord
     belongs_to :admin, optional: true
     has_many :notes
     has_many :cars
+    validates :first_name, presence: true, length: { minimum: 2}
+    validates :last_name, presence: true, length: { minimum: 2}
     validates :email, presence: true, uniqueness: true , format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i, allow_blank: true }
     validates :phone, presence: true, length: { is: 10, allow_blank: true }
 

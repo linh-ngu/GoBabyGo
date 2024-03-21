@@ -87,17 +87,21 @@
 
     <div class="filter-options hidden ml-3 ">
       <h3 class="text-lg font-semibold mb-3">Filter Options:</h3>
-      <%= form_tag(user_applications_path, method: :get) do %>
+      <%= form_tag(user_applications_path, method: :get, id: 'filter_form') do %>
         <label>
-          <%= check_box_tag :accepted, 1, params[:accepted] == "1" %>
+          <%= check_box_tag :my_applications, 1, params[:my_applications] == "1", onchange: submit_tag %>
+          My Applications
+        </label>
+        <label>
+          <%= check_box_tag :accepted, 1, params[:accepted] == "1", onchange: 'submitForm()' %>
           Accepted
         </label>
         <label>
-          <%= check_box_tag :waitlist, 1, params[:waitlist] == "1" %>
+          <%= check_box_tag :waitlist, 1, params[:waitlist] == "1", onchange: 'submitForm()' %>
           Waitlist
         </label>
         <label >
-          <%= check_box_tag :not_accepted, 1, params[:not_accepted] == "1" %>
+          <%= check_box_tag :not_accepted, 1, params[:not_accepted] == "1", onchange: 'submitForm()' %>
           Not Accepted
         </label>
         <br />
@@ -144,7 +148,7 @@
           <% if @user_applications.any? %>
             <% @user_applications.each do |user_application| %>
               <div class='flex justify-between'>
-                <p><%= user_application.child_name %></p>
+                <p><%= user_application.child_first_name + " " + user_application.child_last_name %></p>
                 <div class='py-2'>
                   <%= link_to("Show", user_application_path(user_application), class: "action show border border-black rounded-lg bg-white px-2 py-1 m-1")%>
                   <%= link_to("Edit", edit_user_application_path(user_application), class: "action edit border border-black rounded-lg bg-white px-2 py-1 m-1")%>
@@ -193,4 +197,22 @@
 
   <div class='text-center m-4'><%= link_to("New Application", new_user_application_path, class: "border border-black rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium")%></div>
   
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const checkboxes = document.querySelectorAll("input[type='checkbox']");
+      checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener("change", function() {
+          if (this.checked) {
+            checkboxes.forEach(function(otherCheckbox) {
+              if (otherCheckbox !== checkbox) {
+                otherCheckbox.checked = false;
+              }
+            });
+            document.getElementById('filter_form').submit();
+          }
+        });
+      });
+    });
+  </script>
+
 </div>

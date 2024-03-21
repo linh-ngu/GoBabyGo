@@ -35,11 +35,12 @@ class UserApplicationsController < ApplicationController
       @waitlist_user_applications = @waitlist_user_applications.order(created_at: sorting_option)
       @accepted_user_applications = @accepted_user_applications.order(created_at: sorting_option)
 
-
-
-
       # Additional filtering based on user selection
-      if params[:accepted] == "1"
+      if params[:my_applications] == "1"
+        @not_accepted_user_applications = @not_accepted_user_applications.where(user_id: @user.id)
+        @waitlist_user_applications = @waitlist_user_applications.where(user_id: @user.id)
+        @accepted_user_applications = @accepted_user_applications.where(user_id: @user.id)
+      elsif params[:accepted] == "1"
         @not_accepted_user_applications = []
         @waitlist_user_applications = []
       elsif params[:waitlist] == "1"
@@ -215,14 +216,16 @@ class UserApplicationsController < ApplicationController
   private
   def user_params
     params.require(:user_application).permit(
-      :child_name,
+      :child_first_name,
+      :child_last_name,
       :child_birthdate,
       :primary_diagnosis,
       :secondary_diagnosis,
       :adaptive_equipment,
       :child_height,
       :child_weight,
-      :caregiver_name,
+      :caregiver_first_name,
+      :caregiver_last_name,
       :caregiver_email,
       :caregiver_phone,
       :can_transport,
@@ -232,14 +235,16 @@ class UserApplicationsController < ApplicationController
 
   def officer_params
     params.require(:user_application).permit(
-      :child_name,
+      :child_first_name,
+      :child_last_name,
       :child_birthdate,
       :primary_diagnosis,
       :secondary_diagnosis,
       :adaptive_equipment,
       :child_height,
       :child_weight,
-      :caregiver_name,
+      :caregiver_first_name,
+      :caregiver_last_name,
       :caregiver_email,
       :caregiver_phone,
       :can_transport,

@@ -27,7 +27,6 @@ class DashboardsController < ApplicationController
   end
 
   def show_table_users
-
     if current_admin.user_account_created == false
       redirect_to new_user_path
     else
