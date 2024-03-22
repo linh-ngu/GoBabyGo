@@ -71,6 +71,11 @@
       }
       });
 
+      function logoClickHandler() {
+        // Navigate to the root path or any other URL
+        window.location.href = "https://www.yourcpf.org/cpproduct/go-baby-go-the-ultimate-toy-hack/";
+      }
+
     </script>
   
     <script src="https://cdn.tailwindcss.com"></script>
@@ -78,30 +83,36 @@
 
   <body>
     <div id="page-container">
+      <div id="mediaSide1">
+      </div>
+      <div id="mediaSide2" style="right:0;">
+      </div>
+
 
       <div id="header" class="" style="">
             <div id="header-box" class="inset-x-0 bottom-0">
-                <div id="img-slider">
-                    <div class="slider">
-                      <img
-                        id="img-1"
-                        src= <%= asset_path('gobabygo_logo.png') %>
-                        alt="Image 1"
-                        style="opacity:1"
-                      />
-                      <img
-                        id="img-2"
-                        src = <%= asset_path('Portfolio.png') %>
-                        alt="Image 2"
-                        style="opacity:0"
-                      />
-                      <img
-                        id="img-3"
-                        src = <%= asset_path('gobabygo_logo.png') %>
-                        alt="Image 3"
-                        style="opacity:0"
+          
+                    <div id="img-slider">
+                                        <div class="slider">
+                                          <img
+                                            id="img-1"
+                                            src= <%= asset_path('gobabygo_logo.png') %>
+                                            alt="Image 1"
+                                            style="opacity:1"
+                                          />
+                                          <img
+                                            id="img-2"
+                                            src = <%= asset_path('Portfolio.png') %>
+                                            alt="Image 2"
+                                            style="opacity:0"
+                                          />
+                                          <img
+                                            id="img-3"
+                                            src = <%= asset_path('gobabygo_logo.png') %>
+                                            alt="Image 3"
+                                            style="opacity:0"
 
-                      />
+                                          />
                     </div>
                     
                     <div class="navigation-button">
@@ -109,14 +120,17 @@
                       <span class="dot" onclick="changeSlide(1)"></span>
                       <span class="dot" onclick="changeSlide(2)"></span>
                     </div>
-                </div>
+            </div> 
+
 
                 <nav id="nav-wrapper" class="mx-auto px-4">
+                
                   <img
                     id="img-1"
                     src= <%= asset_path('gobabygo_logo.png') %>
                     alt="Image 1"
-                    style="height:10%; width:10%"
+                    style="height:10%; width:10%; cursor:pointer;"
+                    onclick = "logoClickHandler()"
                   />
                   
                   <div id="button-wrapper">
@@ -135,7 +149,7 @@
                   </div>
                   
                   <div id="nav-title" class="py-3 flex items-center">
-                      <a href="<%= root_path %>" class="text-3xl font-bold" style="text-align:center;color:maroon; text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF; ">Texas A&M<br>University</br></a>
+                      <a href="https://www.tamu.edu" target="_blank" rel="noopener noreferrer" class="text-3xl font-bold" style="text-align:center;color:maroon; text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF; ">Texas A&M<br>University</br></a>
                   </div>
 
 
@@ -151,10 +165,13 @@
     
 
       <div id="content" style="background-color:transparent;">
-        <div id="content-box">
+        <div id="content-box" class="z-20">
         <%= yield %>
+        
         </div>
       </div>
+
+      
       
       </div>
 
