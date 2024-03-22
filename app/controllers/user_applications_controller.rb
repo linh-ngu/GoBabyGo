@@ -19,7 +19,7 @@ class UserApplicationsController < ApplicationController
       @not_accepted_user_applications = UserApplication.where(accepted: [nil, false], waitlist: false)
       @waitlist_user_applications = UserApplication.where(waitlist: true, accepted: false)
       @accepted_user_applications = UserApplication.where(accepted: true)
-
+      @officer_user_applications = UserApplication.order(created_at: :desc)
       #different options for sorting applications
       sorting_option = case params[:sort_option]
       when "created_at_asc"
@@ -30,25 +30,18 @@ class UserApplicationsController < ApplicationController
         :asc # Default sorting option
       end
 
-      # Apply sorting to user applications
-      @not_accepted_user_applications = @not_accepted_user_applications.order(created_at: sorting_option)
-      @waitlist_user_applications = @waitlist_user_applications.order(created_at: sorting_option)
-      @accepted_user_applications = @accepted_user_applications.order(created_at: sorting_option)
-
-
-
-
       # Additional filtering based on user selection
       if params[:accepted] == "1"
-        @not_accepted_user_applications = []
-        @waitlist_user_applications = []
+        @officer_user_applications = @accepted_user_applications
       elsif params[:waitlist] == "1"
-        @not_accepted_user_applications = []
-        @accepted_user_applications = []
+        @officer_user_applications = @waitlist_user_applications
       elsif params[:not_accepted] == "1"
-        @waitlist_user_applications = []
-        @accepted_user_applications = []
+        @officer_user_applications = @not_accepted_user_applications
       end
+
+      # Apply sorting to user applications
+      @officer_user_applications = @officer_user_applications.order(created_at: sorting_option)     
+
 
       # Applying date range filter
       if params[:start_date].present? || params[:end_date].present?
@@ -68,17 +61,12 @@ class UserApplicationsController < ApplicationController
         end
 
         if start_date && end_date
-          @not_accepted_user_applications = @not_accepted_user_applications.where(created_at: start_date..end_date)
-          @waitlist_user_applications = @waitlist_user_applications.where(created_at: start_date..end_date)
-          @accepted_user_applications = @accepted_user_applications.where(created_at: start_date..end_date)
+          @officer_user_applications =@officer_user_applications.where(created_at: start_date..end_date)
         elsif start_date
-          @not_accepted_user_applications = @not_accepted_user_applications.where("created_at >= ?", start_date)
-          @waitlist_user_applications = @waitlist_user_applications.where("created_at >= ?", start_date)
-          @accepted_user_applications = @accepted_user_applications.where("created_at >= ?", start_date)
+          @officer_user_applications = @officer_user_applications.where("created_at >= ?", start_date)
         elsif end_date
-          @not_accepted_user_applications = @not_accepted_user_applications.where("created_at <= ?", end_date)
-          @waitlist_user_applications = @waitlist_user_applications.where("created_at <= ?", end_date)
-          @accepted_user_applications = @accepted_user_applications.where("created_at <= ?", end_date)
+          @officer_user_applications = @officer_user_applications.where("created_at <= ?", end_date)
+ 
         end
       end
 
@@ -105,17 +93,11 @@ class UserApplicationsController < ApplicationController
         end
 
         if min_height && max_height
-          @not_accepted_user_applications = @not_accepted_user_applications.where(child_height: min_height..max_height)
-          @waitlist_user_applications = @waitlist_user_applications.where(child_height: min_height..max_height)
-          @accepted_user_applications = @accepted_user_applications.where(child_height: min_height..max_height)
+          @officer_user_applications = @officer_user_applications.where(child_height: min_height..max_height)
         elsif min_height
-          @not_accepted_user_applications = @not_accepted_user_applications.where("child_height >= ?", min_height)
-          @waitlist_user_applications = @waitlist_user_applications.where("child_height >= ?", min_height)
-          @accepted_user_applications = @accepted_user_applications.where("child_height >= ?", min_height)
+          @officer_user_applications = @officer_user_applications.where("child_height >= ?", min_height)
         elsif max_height
-          @not_accepted_user_applications = @not_accepted_user_applications.where("child_height <= ?", max_height)
-          @waitlist_user_applications = @waitlist_user_applications.where("child_height <= ?", max_height)
-          @accepted_user_applications = @accepted_user_applications.where("child_height <= ?", max_height)
+          @officer_user_applications = @officer_user_applications.where("child_height <= ?", max_height)
         end
       end
     end
