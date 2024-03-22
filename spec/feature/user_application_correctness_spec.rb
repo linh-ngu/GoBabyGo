@@ -106,7 +106,7 @@ RSpec.describe 'OFFICER: Changing status of a user application', type: :feature 
     
     scenario 'SUNNY: View and waitlist an application.' do
         visit user_applications_path
-        expect(page).to have_content("test child (Pending)")
+        expect(page).to have_content("Pending")
         click_on "Change Status"
         expect(page).to have_content("Edit test child's Application")
         expect(page).to have_selector('.waitlist-slider')
@@ -116,7 +116,7 @@ RSpec.describe 'OFFICER: Changing status of a user application', type: :feature 
         click_on "Update Application"
         expect(page).to have_content("Application updated successfully.")
         click_on "Back to Applications"
-        expect(page).to have_content("test child (Waitlist)")
+        expect(page).to have_content("Waitlist")
         expect(@user_application.accepted).to eq(nil)
 
     end
@@ -126,7 +126,7 @@ RSpec.describe 'OFFICER: Changing status of a user application', type: :feature 
         expect(page).to have_text('test child')
 
         visit user_applications_path
-        expect(page).to have_content("test child (Pending)")
+        expect(page).to have_content("Pending")
         click_on "Change Status"
         expect(page).to have_content("Edit test child's Application")
         expect(@user_application.accepted).to eq(nil)
@@ -155,16 +155,16 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
 
     scenario 'SUNNY: Check all types of applicants are shown. Then, fliter by accepted applicants.' do
         visit user_applications_path
-        expect(page).to have_content("(Accepted)")
-        expect(page).to have_content("(Waitlist)")
-        expect(page).to have_content("(Denied)")
+        expect(page).to have_content("Accepted")
+        expect(page).to have_content("Waitlist")
+        expect(page).to have_content("Denied")
 
         click_on "Show Filters"
         check "Accepted"
         click_on "Apply Filters"
-        expect(page).to have_content("(Accepted)")
-        expect(page).not_to have_content("(Waitlist)")
-        expect(page).not_to have_content("(Denied)")
+        expect(page).to have_content("Accepted")
+        expect(page).not_to have_content("Waitlist")
+        expect(page).not_to have_content("Denied")
         expect(page).to have_content("Clear Filters")
     end
 
@@ -174,9 +174,9 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
         click_on "Show Filters"
         check "Waitlist"
         click_on "Apply Filters"
-        expect(page).not_to have_content("(Accepted)")
-        expect(page).to have_content("(Waitlist)")
-        expect(page).not_to have_content("(Denied)")
+        expect(page).not_to have_content("Accepted")
+        expect(page).to have_content("Waitlist")
+        expect(page).not_to have_content("Denied")
         expect(page).to have_content("Clear Filters")
     end
 
@@ -186,9 +186,9 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
         click_on "Show Filters"
         check "Not Accepted"
         click_on "Apply Filters"
-        expect(page).not_to have_content("(Accepted)")
-        expect(page).not_to have_content("(Waitlist)")
-        expect(page).to have_content("(Denied)")
+        expect(page).not_to have_content("Accepted")
+        expect(page).not_to have_content("Waitlist")
+        expect(page).to have_content("Denied")
         expect(page).to have_content("Clear Filters")
     end
 
@@ -198,32 +198,32 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
         click_on "Show Filters"
         fill_in "start_date", with: "2024-01-01"
         click_on "Apply Filters"
-        expect(page).to have_content("(Accepted)")
-        expect(page).to have_content("(Waitlist)")
-        expect(page).to have_content("(Denied)")
+        expect(page).to have_content("Accepted")
+        expect(page).to have_content("Waitlist")
+        expect(page).to have_content("Denied")
         expect(page).to have_content("Clear Filters")
 
 
         click_on "Show Filters"
         fill_in "start_date", with: "2024-01-02"
         click_on "Apply Filters"
-        expect(page).not_to have_content("(Accepted)")
-        expect(page).to have_content("(Waitlist)")
-        expect(page).to have_content("(Denied)")
+        expect(page).not_to have_content("Accepted")
+        expect(page).to have_content("Waitlist")
+        expect(page).to have_content("Denied")
 
         click_on "Show Filters"
         fill_in "start_date", with: "2024-02-02"
         click_on "Apply Filters"
-        expect(page).not_to have_content("(Accepted)")
-        expect(page).not_to have_content("(Waitlist)")
-        expect(page).to have_content("(Denied)")
+        expect(page).not_to have_content("Accepted")
+        expect(page).not_to have_content("Waitlist")
+        expect(page).to have_content("Denied")
 
         click_on "Show Filters"
         fill_in "start_date", with: "2024-03-02"
         click_on "Apply Filters"
-        expect(page).not_to have_content("(Accepted)")
-        expect(page).not_to have_content("(Waitlist)")
-        expect(page).not_to have_content("(Denied)")
+        expect(page).not_to have_content("Accepted")
+        expect(page).not_to have_content("Waitlist")
+        expect(page).not_to have_content("Denied")
     end
 
     scenario 'SUNNY: Filter applicants before a specific date' do
@@ -232,32 +232,32 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
         click_on "Show Filters"
         fill_in "end_date", with: "2024-03-01"
         click_on "Apply Filters"
-        expect(page).to have_content("(Accepted)")
-        expect(page).to have_content("(Waitlist)")
-        expect(page).to have_content("(Denied)")
+        expect(page).to have_content("Accepted")
+        expect(page).to have_content("Waitlist")
+        expect(page).to have_content("Denied")
         expect(page).to have_content("Clear Filters")
 
 
         click_on "Show Filters"
         fill_in "end_date", with: "2024-02-01"
         click_on "Apply Filters"
-        expect(page).to have_content("(Accepted)")
-        expect(page).to have_content("(Waitlist)")
-        expect(page).not_to have_content("(Denied)")
+        expect(page).to have_content("Accepted")
+        expect(page).to have_content("Waitlist")
+        expect(page).not_to have_content("Denied")
 
         click_on "Show Filters"
         fill_in "end_date", with: "2024-01-01"
         click_on "Apply Filters"
-        expect(page).to have_content("(Accepted)")
-        expect(page).not_to have_content("(Waitlist)")
-        expect(page).not_to have_content("(Denied)")
+        expect(page).to have_content("Accepted")
+        expect(page).not_to have_content("Waitlist")
+        expect(page).not_to have_content("Denied")
 
         click_on "Show Filters"
         fill_in "end_date", with: "2023-12-30"
         click_on "Apply Filters"
-        expect(page).not_to have_content("(Accepted)")
-        expect(page).not_to have_content("(Waitlist)")
-        expect(page).not_to have_content("(Denied)")
+        expect(page).not_to have_content("Accepted")
+        expect(page).not_to have_content("Waitlist")
+        expect(page).not_to have_content("Denied")
     end
 
     scenario 'SUNNY: Filter applicants between a specific date range' do
@@ -267,9 +267,9 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
         fill_in "start_date", with: "2024-01-01"
         fill_in "end_date", with: "2024-03-01"
         click_on "Apply Filters"
-        expect(page).to have_content("(Accepted)")
-        expect(page).to have_content("(Waitlist)")
-        expect(page).to have_content("(Denied)")
+        expect(page).to have_content("Accepted")
+        expect(page).to have_content("Waitlist")
+        expect(page).to have_content("Denied")
         expect(page).to have_content("Clear Filters")
 
 
@@ -277,25 +277,25 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
         fill_in "start_date", with: "2024-01-01"
         fill_in "end_date", with: "2024-02-01"
         click_on "Apply Filters"
-        expect(page).to have_content("(Accepted)")
-        expect(page).to have_content("(Waitlist)")
-        expect(page).not_to have_content("(Denied)")
+        expect(page).to have_content("Accepted")
+        expect(page).to have_content("Waitlist")
+        expect(page).not_to have_content("Denied")
 
         click_on "Show Filters"
         fill_in "start_date", with: "2024-01-01"
         fill_in "end_date", with: "2024-01-01"
         click_on "Apply Filters"
-        expect(page).to have_content("(Accepted)")
-        expect(page).not_to have_content("(Waitlist)")
-        expect(page).not_to have_content("(Denied)")
+        expect(page).to have_content("Accepted")
+        expect(page).not_to have_content("Waitlist")
+        expect(page).not_to have_content("Denied")
 
         click_on "Show Filters"
         fill_in "start_date", with: "2023-01-01"
         fill_in "end_date", with: "2023-12-30"
         click_on "Apply Filters"
-        expect(page).not_to have_content("(Accepted)")
-        expect(page).not_to have_content("(Waitlist)")
-        expect(page).not_to have_content("(Denied)")
+        expect(page).not_to have_content("Accepted")
+        expect(page).not_to have_content("Waitlist")
+        expect(page).not_to have_content("Denied")
     end
 
     scenario 'SUNNY: Check default is sort by newest to oldest applications' do

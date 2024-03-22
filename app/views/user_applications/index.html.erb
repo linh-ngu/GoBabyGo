@@ -1,4 +1,4 @@
-<div class='mt-8'><%= link_to('<- Back to Dashboard', dashboard_path, class:'rounded-lg ml-3 py-2 px-3 bg-gray-500 text-white inline-block font-medium cursor-pointer hover:bg-gray-600') %></div>
+<div class='mt-8'><%= link_to('Back to Dashboard', dashboard_path, class:'rounded-lg ml-3 py-2 px-3 bg-blue-500 text-white inline-block font-medium cursor-pointer hover:bg-blue-600') %></div>
 
 <% # Handles applying filters # %>
 <script>
@@ -70,7 +70,7 @@
 <div class="user_applications index py-10">
   <% if @user.officer_member? || @user.admin? || @user.staff_member? %>
     <div class="filter-toggle mb-5">
-      <button id="showFiltersBtn" class="ml-3 py-1 px-2 bg-gray-500 text-white inline-block cursor-pointer rounded-md shadow-xl hover:bg-gray-600">Show Filters</button>
+      <button id="showFiltersBtn" class="ml-3 py-1 px-2 bg-gray-500 text-white inline-block cursor-pointer rounded-md hover:bg-gray-600">Show Filters</button>
       <% if @date_range_error.present? %>
         <div class="text-red-600 text-bold ml-3"><%= @date_range_error %></div>
       <% end %>
@@ -121,7 +121,7 @@
       <% end %>
     </div>
     <div>
-      <label class="ml-3 mt-3">
+      <label class="float-right mr-3 mb-2">
       Sort By:
       <select id="sortOption" class="rounded-lg mt-1 py-2 px-3 bg-white text-gray-900">
         <option value="created_at_desc" <%= params[:sort_option] == "created_at_desc" ? "selected" : "" %>>Newest to oldest</option>
@@ -132,7 +132,6 @@
   <% end %>
 
   <h2 class="text-2xl font-bold ml-3"><%= @page_title %></h2>
-  
   <% if @user.applicant? %>
     <div class='flex flex-col justify-center items-center border border-black bg-[#FFEFAD] rounded-lg lg:w-2/3 w-[500px] mx-auto my-4'>
     <div class='w-3/4'>
@@ -159,34 +158,14 @@
   <% end %>
 
   <% if @user.officer_member? || @user.admin? || @user.staff_member? %>
-    <%= render partial: 'user_applications_table', locals: { 
-      title: "Accepted", 
-      user_applications: @accepted_user_applications, 
-      view_link_class: "action show rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
-      status_link_class: "action accept rounded-lg py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
-      delete_link_class: "rounded-lg py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer hover:bg-red-700",
+  
+    <%= render partial: 'user_applications_table', locals: {  
+      user_applications: @officer_user_applications, 
+      view_link_class: "action show rounded-md py-2 px-8 my-1 bg-gray-300 text-black inline-block font-small cursor-pointer hover:bg-gray-400",
+      status_link_class: "action accept rounded-md mx-2 my-1 py-2 px-3 bg-gray-300 text-black inline-block font-medium cursor-pointer hover:bg-gray-400",
+      delete_link_class: "rounded-md py-2 px-3 bg-red-600 my-1 text-white inline-block font-medium cursor-pointer hover:bg-red-700",
       table_class: "accepted",
       header_color: "green-800"
-    } %>
-    <br />
-    <%= render partial: 'user_applications_table', locals: { 
-      title: "Waitlisted", 
-      user_applications: @waitlist_user_applications,
-      view_link_class: "action show rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
-      status_link_class: "action accept rounded-lg py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
-      delete_link_class: "rounded-lg py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer hover:bg-red-700",
-      table_class: "waitlist",
-      header_color: "gray-500"
-    } %>
-    <br />
-    <%= render partial: 'user_applications_table', locals: { 
-      title: "Not Accepted", 
-      user_applications: @not_accepted_user_applications,
-      view_link_class: "action show rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
-      status_link_class: "action accept rounded-lg py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700",
-      delete_link_class: "rounded-lg py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer hover:bg-red-700",
-      table_class: "not-accepted",
-      header_color: "red-800"
     } %>
     <br />
   <% end %>
