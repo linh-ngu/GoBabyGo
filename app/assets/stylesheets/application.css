@@ -22,16 +22,48 @@
 }
 
  #header {
-    background-image: image-url('gobabygo_logo.png'); /* Add your image URL here */
+    position: relative;
+    z-index: 100;
+    top: 0;
+    width: 100%;
+    height: 40vh;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat; /* Prevents the image from repeating */
-    height: 20vh; /* Adjust if you want a different height */
+    /* background-image: url('<%= asset_path('gobabygo_logo.png') %>');  */
 }
 
-/* Ensure the navbar is visible on the background */
-    #header-box .bg-gray-800 {
-     background-color: rgba(31, 41, 55, 0.8); /*Slightly transparent bg-gray-800 */
+#header-box {
+    position: relative;
+}
+
+#img-slider{
+    position: absolute;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    height: 35vh;
+    margin-top: 5vh;
+}
+
+#nav-wrapper {
+    position: absolute;
+    width: 100%;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+
+}
+
+#button-wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+    margin-left: 2rem;
+    text-align: center;
+    align-items: center;
+    
 }
 
 #nav-title {
@@ -39,7 +71,13 @@
 }
 
 #nav-buttons {
-    color:maroon; text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+    color:white; text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+    background-color: maroon;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    border-radius: 10px;
+    color: black;
+
 }
 
 #dropdown {
@@ -48,3 +86,49 @@
     text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF; 
     border-radius: 20px;
 }
+
+
+.slider {
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .slider img {
+    width: 100%;
+    height: 35vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .slider img:first-child {
+    z-index: 1;
+  }
+
+  .slider img:nth-child(2) {
+    z-index: 0;
+  }
+
+  .navigation-button {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .active,
+  .dot:hover {
+    background-color: #717171;
+  }
