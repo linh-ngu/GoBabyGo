@@ -72,8 +72,10 @@ class ApplicationNotesController < ApplicationController
         @user = User.find_by(admin_id: current_admin.id)
         @user_application = UserApplication.find(params[:user_application_id])
       
-        if @user.nil? || @user.id != @user_application.user_id
-          redirect_to root_path, notice: "You do not have permission to view that page!"
+        if @user.visitor? || @user.applicant?
+          if @user.nil? || @user.id != @user_application.user_id
+            redirect_to root_path, notice: "You do not have permission to view that page!"
+          end
         end
       end
     end
