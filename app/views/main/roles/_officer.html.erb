@@ -14,7 +14,37 @@
 
 <div style="margin-bottom: 10px; user-select: none;">
   <span onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';" style="cursor: pointer; color: #007bff; padding: 1px 0; display: inline-block; margin-top: 10px;">
-    2. Change the status of an applicant
+    2. Sort applications by the creation date
+  </span>
+  <div style="display: none; padding: 10px; margin-top: 5px; border: 1px solid #ddd; background-color: #f9f9f9;">
+    <p><strong>Purpose:</strong> The purpose of this feature is to provide GoBabyGo Officers with an easy way to view the newest or oldest applications easily.</p>
+    <p><strong>How to Achieve It:</strong> Navigate to the User Applications page (see 1.). 
+    Then, select the dropdown menu above the table to the right. 
+    Select whether you want to see newer applications first ('Newest to oldest' option) or older applications first ('Oldest to newest').
+    </p>
+  </div>
+</div>
+
+<div style="margin-bottom: 10px; user-select: none;">
+  <span onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';" style="cursor: pointer; color: #007bff; padding: 1px 0; display: inline-block; margin-top: 10px;">
+    3. Filter applications by status, applicant height, and/or date created.
+  </span>
+  <div style="display: none; padding: 10px; margin-top: 5px; border: 1px solid #ddd; background-color: #f9f9f9;">
+    <p><strong>Purpose:</strong> The purpose of this feature is to provide GoBabyGo Officers with an easy way to view applications based on common parameters.</p>
+    <p><strong>How to Achieve It:</strong> Navigate to the User Applications page (see 1.). 
+    Then, select 'Show Filters'. The filter options will then appear underneath. <br />
+    - To filter by status, select the checkbox for each application with the specified status that you would like to see. <br />
+    - To filter by the child height, enter a minimum and/or maximum height in inches, and only applicants within those ranges will be shown. <br />
+    - To filter by the date created, enter a start and/or end date, and only applications created within that range will be shown. <br />
+    After you have select any combination of the above options, select 'Apply Filters.' The page will then be reloaded according to your specifications.
+    You may also select 'Clear Filters' after you have applied them to see all user applications once again. <br />
+    </p>
+  </div>
+</div>
+
+<div style="margin-bottom: 10px; user-select: none;">
+  <span onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';" style="cursor: pointer; color: #007bff; padding: 1px 0; display: inline-block; margin-top: 10px;">
+    4. Change the status of an applicant
   </span>
   <div style="display: none; padding: 10px; margin-top: 5px; border: 1px solid #ddd; background-color: #f9f9f9;">
     <p><strong>Purpose:</strong> The purpose of this feature is to provide GoBabyGo Officers with a simple way to accept, reject, and waitlist applications.</p>
@@ -28,7 +58,30 @@
 
 <div style="margin-bottom: 10px; user-select: none;">
   <span onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';" style="cursor: pointer; color: #007bff; padding: 1px 0; display: inline-block; margin-top: 10px;">
-    3. View all members
+    6. Create an application
+  </span>
+  <div style="display: none; padding: 10px; margin-top: 5px; border: 1px solid #ddd; background-color: #f9f9f9;">
+    <p><strong>Purpose:</strong> The purpose of this feature is to provide GoBabyGo Officers with a way to create applications on behalf of an applicant.</p>
+    <p><strong>How to Achieve It:</strong> Navigate to the User Applications page (see 1.). Then, select "New Application" underneath the table of user applications. You will be taken to a new page with a form for user applications.
+    Once you have entered at least all required details, select 'Submit Application' at the end of the form to create the application.
+    </p>
+  </div>
+</div>
+
+<div style="margin-bottom: 10px; user-select: none;">
+  <span onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';" style="cursor: pointer; color: #007bff; padding: 1px 0; display: inline-block; margin-top: 10px;">
+  7. Delete an application
+  </span>
+  <div style="display: none; padding: 10px; margin-top: 5px; border: 1px solid #ddd; background-color: #f9f9f9;">
+    <p><strong>Purpose:</strong> The purpose of this feature is to provide GoBabyGo Officers with a simple way to delete unneeded user applications.</p>
+    <p><strong>How to Achieve It:</strong> Navigate to the User Applications page (see 1.). Then, select "Delete" next to an application. You will be taken to a new page. To confirm the deletion, select 'Delete Application'. <br/>
+    </p>
+  </div>
+</div>
+
+<div style="margin-bottom: 10px; user-select: none;">
+  <span onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';" style="cursor: pointer; color: #007bff; padding: 1px 0; display: inline-block; margin-top: 10px;">
+  8. View all members
   </span>
   <div style="display: none; padding: 10px; margin-top: 5px; border: 1px solid #ddd; background-color: #f9f9f9;">
     <p><strong>Purpose:</strong> The purpose of this feature is to provide GoBabyGo Officers with a streamlined way to view all users along with their emails and current role.</p>
@@ -38,10 +91,21 @@
 
 <div style="margin-bottom: 10px; user-select: none;">
   <span onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';" style="cursor: pointer; color: #007bff; padding: 1px 0; display: inline-block; margin-top: 10px;">
-    3. Change the role of a member
+  9. Change the role of a member
   </span>
   <div style="display: none; padding: 10px; margin-top: 5px; border: 1px solid #ddd; background-color: #f9f9f9;">
     <p><strong>Purpose:</strong> The purpose of this feature is to provide GoBabyGo Officers with a quick way to update role permissions.</p>
-    <p><strong>How to Achieve It:</strong> Navigate to the Member Table page (see 3.). Select the dropdown next to a member's email, and then choose the role you want to update that member to. Then, select 'Update Role'.</p>
+    <p><strong>How to Achieve It:</strong> Navigate to the Member Table page (see 8.). Select the dropdown next to a member email, and then choose the role you want to update that member to. Then, select 'Update Role'.</p>
+  </div>
+</div>
+
+<div style="margin-bottom: 10px; user-select: none;">
+  <span onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';" style="cursor: pointer; color: #007bff; padding: 1px 0; display: inline-block; margin-top: 10px;">
+  10. View/Change your email or phone number.
+  </span>
+  <div style="display: none; padding: 10px; margin-top: 5px; border: 1px solid #ddd; background-color: #f9f9f9;">
+    <p><strong>Purpose:</strong> The purpose of this feature is to provide GoBabyGo Officers with a quick way to view or update their own contact information.</p>
+    <p><strong>How to Achieve It:</strong> Navigate to the Dashboard. Then, select 'Edit Profile'. You will then be presented with your current email and phone contacts.
+    To update either, simply directly change the form within the text box, and click update profile once you have made the changes. You will then be routed back to the dashboard.</p>
   </div>
 </div>
