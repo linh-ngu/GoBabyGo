@@ -348,3 +348,31 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
     end
 end
 
+RSpec.describe "Sort user applications", type: :request do
+    include Devise::Test::IntegrationHelpers
+    before do
+        @admin = Admin.create!(email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
+        sign_in @admin
+        @user = User.create!(email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :officer_member)
+        @accepted_user_application = UserApplication.create(user_id: @user.id, child_name: "accepted child", child_birthdate: "2022-12-12", primary_diagnosis: "Can't walk", secondary_diagnosis: "N/A", child_height: 20, child_weight: 10, caregiver_email:"test@gmail.com", caregiver_name:"test", caregiver_phone:"1234567890",can_transport:true, can_store:true, accepted: true, waitlist: false, created_at: "2024-01-01")
+        @waitlisted_user_application = UserApplication.create(user_id: @user.id, child_name: "waitlisted child", child_birthdate: "2022-12-12", primary_diagnosis: "Can't walk", secondary_diagnosis: "N/A", child_height: 20, child_weight: 10, caregiver_email:"test@gmail.com", caregiver_name:"test", caregiver_phone:"1234567890",can_transport:true, can_store:true, accepted: false, waitlist: true, created_at: "2024-02-01")
+        @not_accepted_user_application = UserApplication.create(user_id: @user.id, child_name: "not acc child", child_birthdate: "2022-12-12", primary_diagnosis: "Can't walk", secondary_diagnosis: "N/A", child_height: 20, child_weight: 10, caregiver_email:"test@gmail.com", caregiver_name:"test", caregiver_phone:"1234567890",can_transport:true, can_store:true, accepted: false, waitlist: false, created_at: "2024-03-01") 
+    end
+
+    describe "GET /user_applications" do
+        it "SUNNY: Sort by newest to oldest" do
+          get user_applications_path, params: { sort_option: "created_at_desc" }
+          expect(response.body.index(@accepted_user_application.child_name)).to be > response.body.index(@waitlisted_user_application.child_name)
+          expect(response.body.index(@waitlisted_user_application.child_name)).to be > response.body.index(@not_accepted_user_application.child_name)        
+        end
+      end
+
+    describe "GET /user_applications" do
+      it "SUNNY: Sort by oldest to newest" do
+        get user_applications_path, params: { sort_option: "created_at_asc" }
+        expect(response.body.index(@accepted_user_application.child_name)).to be < response.body.index(@waitlisted_user_application.child_name)
+        expect(response.body.index(@waitlisted_user_application.child_name)).to be < response.body.index(@not_accepted_user_application.child_name)        
+      end
+    end
+end
+
