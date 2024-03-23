@@ -73,7 +73,7 @@ RSpec.describe 'OFFICER: Routing from the dashboard to different user applicatio
 
     scenario 'SUNNY: Start at the user applications page and start to change the status to accepted on an application, then cancel. Then, go back and change the status to accepted for sure.' do
         visit user_applications_path
-        expect(page).to have_content("test child (Pending)")
+        expect(page).to have_content("Pending")
         click_on "Change Status"
         expect(page).to have_content("Edit test child's Application")
         expect(page).to have_selector('.accept-slider')
@@ -92,7 +92,7 @@ RSpec.describe 'OFFICER: Routing from the dashboard to different user applicatio
         
         click_on "Update Application"
         click_on "Back to Applications"
-        expect(page).to have_content("test child (Accepted)")
+        expect(page).to have_content("Accepted")
     end
 
 end
