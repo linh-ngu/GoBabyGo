@@ -37,7 +37,9 @@ class UserApplicationsController < ApplicationController
       #different options for sorting applications
 
       # Additional filtering based on user selection
-      if params[:accepted] == "1"
+      if params[:my_applications] == "1"
+        @officer_user_applications = @officer_user_applications.where(user_id: @user.id)
+      elsif params[:accepted] == "1"
         @officer_user_applications = @accepted_user_applications
       elsif params[:waitlist] == "1"
         @officer_user_applications = @waitlist_user_applications

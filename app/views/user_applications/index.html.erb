@@ -179,17 +179,25 @@
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       const checkboxes = document.querySelectorAll("input[type='checkbox']");
+      const filterForm = document.getElementById('filter_form');
+
       checkboxes.forEach(function(checkbox) {
         checkbox.addEventListener("change", function() {
-          if (this.checked) {
-            checkboxes.forEach(function(otherCheckbox) {
-              if (otherCheckbox !== checkbox) {
-                otherCheckbox.checked = false;
-              }
-            });
-            document.getElementById('filter_form').submit();
-          }
+          checkboxes.forEach(function(otherCheckbox) {
+            if (otherCheckbox !== checkbox) {
+              otherCheckbox.checked = false;
+            }
+          });
+          filterForm.submit(); // This line submits the form whenever a checkbox is checked or unchecked
         });
+      });
+
+      filterForm.addEventListener("submit", function(event) {
+        const checkedCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+        if (checkedCheckboxes.length === 0) {
+          event.preventDefault();
+          window.location.href = '/user_applications';
+        }
       });
     });
   </script>
