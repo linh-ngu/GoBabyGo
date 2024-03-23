@@ -35,8 +35,12 @@
     </tr>
     <% end %>
         <tr>
-            <th class=''>Child's Name</th>
-            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:child_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_name)}</div>".html_safe %></td>
+            <th class=''>Child's First Name</th>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:child_first_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_first_name)}</div>".html_safe %></td>
+        </tr>
+        <tr>
+            <th class=''>Child's Last Name</th>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:child_last_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_last_name)}</div>".html_safe %></td>
         </tr>
         <tr>
             <th class=''>Child's Birthdate</th>
@@ -64,8 +68,12 @@
 
         </tr>
         <tr>
-            <th class=''>Caregiver's Name</th>
-            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.caregiver_name)}</div>".html_safe %></td>
+            <th class=''>Caregiver's First Name</th>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_first_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.caregiver_first_name)}</div>".html_safe %></td>
+        </tr>
+        <tr>
+            <th class=''>Caregiver's Last Name</th>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_last_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.caregiver_last_name)}</div>".html_safe %></td>
         </tr>
         <tr>
             <th class=''>Caregiver's Email</th>

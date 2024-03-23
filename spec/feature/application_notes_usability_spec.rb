@@ -7,16 +7,18 @@ RSpec.describe 'APPLICANT: Routing from the dashboard to different application n
     before do
         @admin = Admin.create!(email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar', user_account_created: true)
         sign_in @admin
-        @user = User.create!(email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :officer_member)
+        @user = User.create!(first_name: "test", last_name: "name", email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :officer_member)
         @user_application = UserApplication.create(
             user_id: @user.id, 
-            child_name: "test child", 
+            child_first_name: "test",
+            child_last_name: "child",
             child_birthdate: "2024-02-08", 
             primary_diagnosis: "Can't walk", 
             secondary_diagnosis: "N/A", 
             child_height: 20, 
             child_weight: 10, 
-            caregiver_name: "test caregiver",
+            caregiver_first_name: "test",
+            caregiver_last_name: "caregiver",
             caregiver_email: "test@gmail.com", 
             caregiver_phone: 1234567890,
             can_transport: true,

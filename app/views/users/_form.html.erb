@@ -1,10 +1,17 @@
 <table summary="Task form fields">
   <tr>
+    <th>First name</th>
+    <td><%= f.text_field :first_name %></td>
+  </tr>
+  <tr>
+    <th>Last name</th>
+    <td><%= f.text_field :last_name %></td>
+  <tr>
     <th>Email</th>
     <td><%= f.text_field :email, readonly: true %></td>
   </tr>
   <tr>
     <th>Phone</th>
-    <td><%= f.text_field(:phone) %></td>
+    <td><%= f.text_field :phone %></td>
   </tr>
 </table>
