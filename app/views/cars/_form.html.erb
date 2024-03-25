@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <table class="border border-gray-900 bg-gray-300" summary="Car form fields">
+  <table class="max-w-full border border-gray-900 bg-gray-300" summary="Car form fields">
     <tbody>
       <tr>
         <th class="p-2">Link to Application</th>
@@ -22,14 +22,14 @@
       <tr>
         <th class="p-2">Modification Details</th>
         <td class="p-2">
-          <%= form.text_field :modification_details, class: "form-input" %>
+          <%= form.text_area :modification_details, class: "form-textarea resize-y w-full h-32", cols: 100, rows: 5 %>
         </td>
       </tr>
       <tr>
         <th class="p-2">Car Type</th>
         <td class="p-2">
           <%= form.collection_select :car_type_id, CarType.all, :id, :name, { prompt: 'Select Car Type' }, { class: 'form-select' } %>
-          <%= link_to "New Car Type", new_car_type_path, class: "text-blue-500 hover:underline ml-2" %>
+          <%= link_to "New Car Type", new_car_type_path, class: "text-blue-1000 hover:underline ml-2" %>
         </td>
       </tr>
       <tr>
