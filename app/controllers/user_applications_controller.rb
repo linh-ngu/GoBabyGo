@@ -16,11 +16,6 @@ class UserApplicationsController < ApplicationController
     if @user.visitor? || @user.applicant?
       @user_applications = UserApplication.where(user_id: @user.id)
     elsif @user.officer_member? || @user.admin? || @user.staff_member?
-      @not_accepted_user_applications = UserApplication.where(accepted: [nil, false], waitlist: false)
-      @waitlist_user_applications = UserApplication.where(waitlist: true, accepted: false)
-      @accepted_user_applications = UserApplication.where(accepted: true)
-      @officer_user_applications = UserApplication.order(created_at: :desc)
-      #different options for sorting applications
       sorting_option = case params[:sort_option]
       when "created_at_asc"
         :asc
@@ -29,6 +24,17 @@ class UserApplicationsController < ApplicationController
       else
         :asc # Default sorting option
       end
+      @not_accepted_user_applications = UserApplication.where(accepted: [nil, false], waitlist: false)
+                                                .order(created_at: sorting_option)
+
+      @waitlist_user_applications = UserApplication.where(waitlist: true, accepted: false)
+                                             .order(created_at: sorting_option)
+
+      @accepted_user_applications = UserApplication.where(accepted: true)
+                                              .order(created_at: sorting_option)
+
+      @officer_user_applications = UserApplication.order(created_at: sorting_option)
+      #different options for sorting applications
 
       # Additional filtering based on user selection
       if params[:accepted] == "1"
@@ -38,10 +44,7 @@ class UserApplicationsController < ApplicationController
       elsif params[:not_accepted] == "1"
         @officer_user_applications = @not_accepted_user_applications
       end
-
-      # Apply sorting to user applications
-      @officer_user_applications = @officer_user_applications.order(created_at: sorting_option)     
-
+    
 
       # Applying date range filter
       if params[:start_date].present? || params[:end_date].present?
@@ -69,6 +72,7 @@ class UserApplicationsController < ApplicationController
  
         end
       end
+
 
       # Applying height range filter
       if params[:min_height].present? || params[:max_height].present?
