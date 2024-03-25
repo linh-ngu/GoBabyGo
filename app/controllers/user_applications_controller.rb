@@ -156,7 +156,7 @@ class UserApplicationsController < ApplicationController
       end
     end
     #if user is an officer, access to edit accepted
-    @access_accepted = @user.officer_member?
+    @access_accepted = @user.officer_member? || @user.staff_member? || @user.admin?
   end
 
   def update
