@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_21_181158) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_25_204335) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_21_181158) do
 
   create_table "car_types", force: :cascade do |t|
     t.integer "max_height"
-    t.integer "min_height"
+    t.integer "max_weight"
     t.string "name"
     t.float "price"
     t.integer "quantity_purchased"
