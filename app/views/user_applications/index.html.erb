@@ -87,21 +87,21 @@
 
     <div class="filter-options hidden ml-3 ">
       <h3 class="text-lg font-semibold mb-3">Filter Options:</h3>
-      <%= form_tag(user_applications_path, method: :get, id: 'filter_form') do %>
+      <%= form_tag(user_applications_path, method: :get) do %>
         <label>
-          <%= check_box_tag :my_applications, 1, params[:my_applications] == "1", onchange: submit_tag %>
+          <%= check_box_tag :my_applications, 1, params[:my_applications] == "1"%>
           My Applications
         </label>
         <label>
-          <%= check_box_tag :accepted, 1, params[:accepted] == "1", onchange: 'submitForm()' %>
+          <%= check_box_tag :accepted, 1, params[:accepted] == "1" %>
           Accepted
         </label>
         <label>
-          <%= check_box_tag :waitlist, 1, params[:waitlist] == "1", onchange: 'submitForm()' %>
+          <%= check_box_tag :waitlist, 1, params[:waitlist] == "1" %>
           Waitlist
         </label>
         <label >
-          <%= check_box_tag :not_accepted, 1, params[:not_accepted] == "1", onchange: 'submitForm()' %>
+          <%= check_box_tag :not_accepted, 1, params[:not_accepted] == "1" %>
           Not Accepted
         </label>
         <br />
