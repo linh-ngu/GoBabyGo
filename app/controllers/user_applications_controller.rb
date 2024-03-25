@@ -112,6 +112,14 @@ class UserApplicationsController < ApplicationController
   def show
     @user = User.find_by(admin_id: current_admin.id)
     @user_application = UserApplication.find(params[:id])
+    
+    if @user_application.car.present?
+      @has_car = true
+      @car = @user_application.car
+    else
+      @has_car = false
+      @car = nil
+    end
 
     if @user.applicant? || @user.visitor?
       if @user.id != @user_application.user_id

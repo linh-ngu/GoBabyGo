@@ -77,15 +77,13 @@
         <p>No parts associated with this car.</p>
       <% end %>
 
-      <div>
-        <%= link_to "Edit this Car", edit_car_path(@car), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
-        <br><br>
-        <%= link_to "Back to Cars", cars_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
-        <br><br>
-        <%= button_to "Destroy this Car", @car, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger text-black-500 bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
+      <div class="flex justify-between">
+        <%= link_to "Edit this Car", edit_car_path(@car), class: 'rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2' %>
+        <%= link_to "Back to Cars", cars_path, class: 'rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2' %>
+        <%= button_to "Destroy this Car", @car, method: :delete, data: { confirm: 'Are you sure?' }, class: 'rounded-lg py-3 px-5 bg-red-500 inline-block font-medium m-2' %>
       </div>
     <% else %>
-      <%= link_to "Back to Cars", cars_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"%> 
+      <%= link_to "Back to Cars", cars_path, class: 'rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2'%> 
     <% end %>
 </div>
 

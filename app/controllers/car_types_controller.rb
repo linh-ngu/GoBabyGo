@@ -110,6 +110,6 @@ class CarTypesController < ApplicationController
       @car_type = CarType.find(params[:id])
     end
     def car_type_params
-      params.require(:car_type).permit(:name, :max_height, :min_height, :price)
+      params.require(:car_type).permit(:name, :max_height, :max_weight, :price)
     end
 end
