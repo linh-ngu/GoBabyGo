@@ -10,8 +10,12 @@
         <td class="p-2">$<%= car.car_type.price %></td>
       </tr>
       <tr>
-        <th class="p-2">Application:</th>
-        <td class="p-2"><%= car.user_application.nil? ? "None" : car.user_application.child_name %></td>
+        <th class="p-2">First Name:</th>
+        <td class="p-2"><%= car.user_application.nil? ? "None" : car.user_application.child_first_name %></td>
+      </tr>
+      <tr>
+        <th class="p-2">Last Name:</th>
+        <td class="p-2"><%= car.user_application.nil? ? "None" : car.user_application.child_last_name %></td>
       </tr>
       <tr>
         <th class="p-2">Modifications:</th>

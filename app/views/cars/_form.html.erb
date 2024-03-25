@@ -16,7 +16,7 @@
       <tr>
         <th class="p-2">Link to Application</th>
         <td class="p-2">
-          <%= form.collection_select :user_application_id, UserApplication.all, :id, :child_name, { prompt: 'Select Application' }, { class: 'form-select' } %>
+          <%= form.collection_select :user_application_id, UserApplication.all, :id, :child_last_name, { prompt: 'Select Application' }, { class: 'form-select' } %>
         </td>
       </tr>
       <tr>
