@@ -91,22 +91,24 @@
           }
 
           #button-wrapper {
-              display: flex;
-              align-items: center;
+              
               margin-right: 0;
               margin-left: 0;
               text-align: center;
-              justify-content: center;
-              align-items: center;
-              /* width: 100%; */
+              width: 60%;
               padding-top: 1rem;
               padding-bottom: 1rem;
-              margin-right: 5%;
-              margin-left: 5%;
+              margin-right: 2%;
+              margin-left: 2%;
+              
               
           }
 
           #nav-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
             color:white; text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
             background-color: maroon;
             padding-right: 1rem;
@@ -115,10 +117,32 @@
             color: black;
             display: flex;
             height: 100%;
-            /* width: 100%; */
-            
-
+            width: 100%;
         }
+
+        #nav-buttons a {
+          padding-left: 3%;
+          padding-right: 3%;
+          margin-top: 2%;
+          margin-bottom: 2%;
+          border-left: 1px solid #ccc; /* Left border */
+          border-right: 1px solid #ccc; /* Right border */
+        }
+
+        #nav-buttons #signIn, #nav-buttons #signOut {
+          border-left: 1px solid black; /* Left border */
+          border-right: 1px solid black; /* Right border */
+          
+          /* width: 100%; */
+          /* margin-left: 1%; */
+        
+        }
+
+        #nav-button form {
+          /* margin-left: 1%; */
+        }
+
+    
 
           #nav-title {
               text-align:center;
