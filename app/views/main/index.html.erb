@@ -21,8 +21,6 @@
     </style>
     <script>
 
-      
-      
       function toggleDropdown() {
           var dropdown = document.getElementById("dropdown");
           dropdown.classList.toggle("hidden");
@@ -32,48 +30,48 @@
 
       document.addEventListener('DOMContentLoaded', function() {
 
+        var currentImg = 0;
+        var imgs = document.querySelectorAll('.slider img');
+        let dots = document.querySelectorAll('.dot');
+        var interval = 5000;
+      
+        var secondImageUrl = "<%= asset_path('2ndHero.jpg') %>";
+        var thirdImageUrl = "<%= asset_path('3rdHero.jpg') %>";
 
-      var currentImg = 0;
-      var imgs = document.querySelectorAll('.slider img');
-      let dots = document.querySelectorAll('.dot');
-      var interval = 5000;
-    
-      var secondImageUrl = "<%= asset_path('Portfolio.png') %>";
-      var thirdImageUrl = "<%= asset_path('gobabygo_logo.png') %>";
+        document.getElementById('img-2').src = secondImageUrl;
+        document.getElementById('img-3').src = thirdImageUrl;
 
-      document.getElementById('img-2').src = secondImageUrl;
-      document.getElementById('img-3').src = thirdImageUrl;
+        var timer = setInterval(changeSlide, interval);
+        function changeSlide(n) {
+          for (var i = 0; i < imgs.length; i++) {
+            imgs[i].style.opacity = 0;
+            dots[i].className = dots[i].className.replace(' active', '');
+          }
 
-      var timer = setInterval(changeSlide, interval);
-      function changeSlide(n) {
-        for (var i = 0; i < imgs.length; i++) {
-          imgs[i].style.opacity = 0;
-          dots[i].className = dots[i].className.replace(' active', '');
+          currentImg = (currentImg + 1) % imgs.length;
+
+          if (n != undefined) {
+            clearInterval(timer);
+            timer = setInterval(changeSlide, interval);
+            currentImg = n;
+          }
+
+          imgs[currentImg].style.opacity = 1;
+          dots[currentImg].className += ' active';
         }
 
-        currentImg = (currentImg + 1) % imgs.length;
+        function calculateDays(today, eventDate) {
+          const difference = eventDate.getTime() - today.getTime();
 
-        if (n != undefined) {
-          clearInterval(timer);
-          timer = setInterval(changeSlide, interval);
-          currentImg = n;
+          return Math.ceil(difference / (1000 * 3600 * 24)); // convert to days
+        }
+        function logoClickHandler() {
+          // Navigate to the root path or any other URL
+          window.location.href = "https://www.yourcpf.org/cpproduct/go-baby-go-the-ultimate-toy-hack/";
         }
 
-        imgs[currentImg].style.opacity = 1;
-        dots[currentImg].className += ' active';
-      }
-
-      function calculateDays(today, eventDate) {
-        const difference = eventDate.getTime() - today.getTime();
-
-        return Math.ceil(difference / (1000 * 3600 * 24)); // convert to days
-      }
       });
 
-      function logoClickHandler() {
-        // Navigate to the root path or any other URL
-        window.location.href = "https://www.yourcpf.org/cpproduct/go-baby-go-the-ultimate-toy-hack/";
-      }
 
     </script>
   
@@ -94,19 +92,19 @@
                       <div class="slider">
                         <img
                           id="img-1"
-                          src= <%= asset_path('gobabygo_logo.png') %>
+                          src= <%= asset_path('1stHero.jpg') %>
                           alt="Image 1"
                           style="opacity:1"
                         />
                         <img
                           id="img-2"
-                          src = <%= asset_path('Portfolio.png') %>
+                          src = <%= asset_path('2ndHero.jpg') %>
                           alt="Image 2"
                           style="opacity:0"
                         />
                         <img
                           id="img-3"
-                          src = <%= asset_path('gobabygo_logo.png') %>
+                          src = <%= asset_path('3rdHero.jpg') %>
                           alt="Image 3"
                           style="opacity:0"
                         />
