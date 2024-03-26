@@ -3,19 +3,7 @@
 <% # Handles applying filters # %>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    const showFiltersBtn = document.getElementById("showFiltersBtn");
     const clearFiltersBtn = document.getElementById("clearFiltersBtn");
-    const filterOptions = document.querySelector(".filter-options");
-
-    showFiltersBtn.addEventListener("click", function() {
-      if (filterOptions.classList.contains("hidden")) {
-        filterOptions.classList.remove("hidden");
-        showFiltersBtn.textContent = "Hide Filters";
-      } else {
-        filterOptions.classList.add("hidden");
-        showFiltersBtn.textContent = "Show Filters";
-      }
-    });
 
     clearFiltersBtn.addEventListener("click", function() {
       // Clear all filter options
@@ -39,7 +27,7 @@
       });
       
       // Submit the form to apply cleared filters
-      filterOptions.querySelector("form").submit();
+      document.querySelector(".filter-options form").submit();
     });
   });
 </script>
@@ -47,8 +35,6 @@
 <% # Handles applying sorting options # %>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    // Your existing JavaScript code...
-
     const sortOptionDropdown = document.getElementById("sortOption");
 
     sortOptionDropdown.addEventListener("change", function() {
@@ -65,12 +51,49 @@
   });
 </script>
 
-
-
 <div class="user_applications index py-10">
+
   <% if @user.officer_member? || @user.admin? || @user.staff_member? %>
-    <div class="filter-toggle mb-5">
-      <button id="showFiltersBtn" class="ml-3 py-1 px-2 bg-gray-500 text-white inline-block cursor-pointer rounded-md hover:bg-gray-600">Show Filters</button>
+    <div class="text-center">
+    <div class="filter-options ml-auto mr-auto max-w-md">
+      <h3 class="text-lg font-semibold mb-3">Filter Options:</h3>
+      <%= form_tag(user_applications_path, method: :get) do %>
+        <label>
+          <%= check_box_tag :my_applications, 1, params[:my_applications] == "1"%>
+          My Applications
+        </label>
+        <label>
+          <%= check_box_tag :accepted, 1, params[:accepted] == "1" %>
+          Accepted
+        </label>
+        <label>
+          <%= check_box_tag :waitlist, 1, params[:waitlist] == "1" %>
+          Waitlist
+        </label>
+        <label >
+          <%= check_box_tag :not_accepted, 1, params[:not_accepted] == "1" %>
+          Not Accepted
+        </label>
+        <br />
+        <br />
+        <label>
+          Date Applied Range: <br />
+          <%= date_field_tag :start_date, params[:start_date], placeholder: "Start Date" %>
+           -
+          <%= date_field_tag :end_date, params[:end_date], placeholder: "End Date" %>
+        </label>
+        <br />
+        <br />
+        <label class="mt-3">
+          Applicant Height Range: <br />
+          <%= number_field_tag :min_height, params[:min_height], placeholder: "Min Height" %>
+           - 
+          <%= number_field_tag :max_height, params[:max_height], placeholder: "Max Height" %>
+        </label>
+        <br />
+        <%= submit_tag "Apply Filters", class: "rounded-lg mt-5 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+      <% end %>
+
       <% if @date_range_error.present? %>
         <div class="text-red-600 text-bold ml-3"><%= @date_range_error %></div>
       <% end %>
@@ -81,47 +104,7 @@
         <div class="text-red-600 text-bold ml-3"><%= @height_value_error %></div>
       <% end %>
       <% if params[:accepted].present? || params[:waitlist].present? || params[:not_accepted].present? || params[:start_date].present? || params[:end_date].present? || params[:min_height].present? || params[:max_height].present?%>
-        <button id="clearFiltersBtn" class="rounded-lg ml-3 py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer">Clear Filters</button>
-      <% end %>
-    </div>
-
-    <div class="filter-options hidden ml-3 ">
-      <h3 class="text-lg font-semibold mb-3">Filter Options:</h3>
-      <%= form_tag(user_applications_path, method: :get, id: 'filter_form') do %>
-        <label>
-          <%= check_box_tag :my_applications, 1, params[:my_applications] == "1", onchange: submit_tag %>
-          My Applications
-        </label>
-        <label>
-          <%= check_box_tag :accepted, 1, params[:accepted] == "1", onchange: 'submitForm()' %>
-          Accepted
-        </label>
-        <label>
-          <%= check_box_tag :waitlist, 1, params[:waitlist] == "1", onchange: 'submitForm()' %>
-          Waitlist
-        </label>
-        <label >
-          <%= check_box_tag :not_accepted, 1, params[:not_accepted] == "1", onchange: 'submitForm()' %>
-          Not Accepted
-        </label>
-        <br />
-        <br />
-        <label>
-          Application Date Range:
-          <%= date_field_tag :start_date, params[:start_date], placeholder: "Start Date" %>
-           -
-          <%= date_field_tag :end_date, params[:end_date], placeholder: "End Date" %>
-        </label>
-        <br />
-        <br />
-        <label class="mt-3">
-          Child Height Range (35-45):
-          <%= number_field_tag :min_height, params[:min_height], placeholder: "Min Height" %>
-           - 
-          <%= number_field_tag :max_height, params[:max_height], placeholder: "Max Height" %>
-        </label>
-        <br />
-        <%= submit_tag "Apply Filters", class: "rounded-lg mt-5 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+        <button id="clearFiltersBtn" class="rounded-lg my-3 py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer">Clear Filters</button>
       <% end %>
     </div>
     <div>
@@ -203,3 +186,4 @@
   </script>
 
 </div>
+
