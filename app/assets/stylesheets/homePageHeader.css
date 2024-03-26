@@ -158,6 +158,13 @@
               justify-content: center;
               align-items: center;
               /* width: 20%; */
+              color: black;
+              background-color: white;
+              border-bottom: 5px solid maroon;
+              padding: 1%;
+              border-radius: 30px;
+              opacity: 100%;
+              font-weight: 500;
             }
 
           
