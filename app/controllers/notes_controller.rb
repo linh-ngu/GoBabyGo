@@ -27,7 +27,7 @@ class NotesController < ApplicationController
       if @note.save
         format.html { redirect_to car_url(@note.car_id), notice: "Note was successfully created." }
       else
-        format.html { redirect_to car_url(@note.car_id), notice: "Cannot make a note with no text." }
+        format.html { redirect_to car_url(@note.car_id), notice: "Content can\'t be blank" }
       end
     end
   end

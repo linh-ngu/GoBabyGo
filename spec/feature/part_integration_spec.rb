@@ -6,8 +6,8 @@ RSpec.describe 'Part management as admin', type: :feature do
   before do
     @admin = Admin.create!(email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
     sign_in @admin
-    @user = User.create!(email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :admin)
-    @car_type = CarType.create!(name: 'SUV', max_height: 200, min_height: 150, price: 25000)
+    @user = User.create!(first_name: "test", last_name: "name", email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :admin)
+    @car_type = CarType.create!(name: 'SUV', max_height: 200, max_weight: 150, price: 25000)
     @car = Car.create!(car_type_id: @car_type.id)
   end
   scenario 'SUNNY: create with valid inputs' do
@@ -78,8 +78,8 @@ RSpec.describe 'Part management Integrity', type: :feature do
   before do
     @admin = Admin.create!(email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
     sign_in @admin
-    @user = User.create!(email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :visitor)
-    @car_type = CarType.create!(name: 'SUV', max_height: 200, min_height: 150, price: 25000)
+    @user = User.create!(first_name: "test", last_name: "name", email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :visitor)
+    @car_type = CarType.create!(name: 'SUV', max_height: 200, max_weight: 150, price: 25000)
     @car = Car.create!(car_type_id: @car_type.id)
   end
   scenario 'RAINY: try to do CRUD operations as non admin' do
