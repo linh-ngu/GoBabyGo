@@ -64,7 +64,7 @@
               margin-top: 1rem;
 
           }
-
+          
           #button-wrapper {
               display: flex;
               align-items: center;
@@ -129,9 +129,9 @@
 
           .dot {
               cursor: pointer;
-              height: 15px;
-              width: 15px;
-              margin: 0 2px;
+              height: 10px;
+              width: 10px;
+              margin: 0 1px;
               background-color: #bbb;
               border-radius: 50%;
               display: inline-block;
@@ -149,7 +149,7 @@
   width: 60%;
   margin-right: 20%;
   margin-left: 20%;
-  height: 40vh;
+  height: 35vh;
   padding-top: 1rem;
    /* Prevents the image from repeating */
   /* background-image: url('<%= asset_path('gobabygo_logo.png') %>');  */
