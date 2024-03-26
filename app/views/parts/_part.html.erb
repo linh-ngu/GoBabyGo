@@ -18,7 +18,7 @@
     </tr>
     <tr>
       <td class="p-2"><strong>Car:</strong></td>
-      <td class="p-2"><%= part.car_id %></td>
+      <td><%= link_to Car.find(part.car_id).user_application.child_last_name, car_path(Car.find(part.car_id)),  class: "text-blue-500 hover:underline p-2"%></td>
     </tr>
   </table>
 </div>
