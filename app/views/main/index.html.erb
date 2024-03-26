@@ -29,12 +29,12 @@
       }
 
       document.addEventListener('DOMContentLoaded', function() {
-
         var currentImg = 0;
         var imgs = document.querySelectorAll('.slider img');
         let dots = document.querySelectorAll('.dot');
+        var texts = document.querySelectorAll('.img-text'); // Select all the text overlays
         var interval = 5000;
-      
+
         var secondImageUrl = "<%= asset_path('2ndHero.jpg') %>";
         var thirdImageUrl = "<%= asset_path('3rdHero.jpg') %>";
 
@@ -43,34 +43,35 @@
 
         var timer = setInterval(changeSlide, interval);
         function changeSlide(n) {
-          for (var i = 0; i < imgs.length; i++) {
-            imgs[i].style.opacity = 0;
-            dots[i].className = dots[i].className.replace(' active', '');
-          }
+            for (var i = 0; i < imgs.length; i++) {
+                imgs[i].style.opacity = 0;
+                dots[i].className = dots[i].className.replace(' active', '');
+                texts[i].style.display = 'none'; // Hide all text overlays
+            }
 
-          currentImg = (currentImg + 1) % imgs.length;
+            currentImg = (currentImg + 1) % imgs.length;
 
-          if (n != undefined) {
-            clearInterval(timer);
-            timer = setInterval(changeSlide, interval);
-            currentImg = n;
-          }
+            if (n !== undefined) {
+                clearInterval(timer);
+                timer = setInterval(changeSlide, interval);
+                currentImg = n;
+            }
 
-          imgs[currentImg].style.opacity = 1;
-          dots[currentImg].className += ' active';
+            imgs[currentImg].style.opacity = 1;
+            dots[currentImg].className += ' active';
+            texts[currentImg].style.display = 'block'; // Show the current text overlay
         }
 
         function calculateDays(today, eventDate) {
-          const difference = eventDate.getTime() - today.getTime();
-
-          return Math.ceil(difference / (1000 * 3600 * 24)); // convert to days
+            const difference = eventDate.getTime() - today.getTime();
+            return Math.ceil(difference / (1000 * 3600 * 24)); // Convert to days
         }
         function logoClickHandler() {
-          // Navigate to the root path or any other URL
-          window.location.href = "https://www.yourcpf.org/cpproduct/go-baby-go-the-ultimate-toy-hack/";
+            // Navigate to the specified URL
+            window.location.href = "https://www.yourcpf.org/cpproduct/go-baby-go-the-ultimate-toy-hack/";
         }
-
       });
+
 
 
     </script>
@@ -88,69 +89,75 @@
       <div id="header" class="" style="">
             <div id="header-box" class="inset-x-0 bottom-0">
           
-                    <div id="img-slider">
-                      <div class="slider">
-                        <img
-                          id="img-1"
-                          src= <%= asset_path('1stHero.jpg') %>
-                          alt="Image 1"
-                          style="opacity:1"
-                        />
-                        <img
-                          id="img-2"
-                          src = <%= asset_path('2ndHero.jpg') %>
-                          alt="Image 2"
-                          style="opacity:0"
-                        />
-                        <img
-                          id="img-3"
-                          src = <%= asset_path('3rdHero.jpg') %>
-                          alt="Image 3"
-                          style="opacity:0"
-                        />
-                      </div>
-                    
-                      <div class="navigation-button">
-                        <span class="dot active" onclick="changeSlide(0)"></span>
-                        <span class="dot" onclick="changeSlide(1)"></span>
-                        <span class="dot" onclick="changeSlide(2)"></span>
-                      </div>
-                    </div> 
+                <div id="img-slider">
+                  <div class="slider">
+                    <img
+                      id="img-1"
+                      src= <%= asset_path('1stHero.jpg') %>
+                      alt="Image 1"
+                      style="opacity:1"
+                    />
+                    <img
+                      id="img-2"
+                      src = <%= asset_path('2ndHero.jpg') %>
+                      alt="Image 2"
+                      style="opacity:0"
+                    />
+                    <img
+                      id="img-3"
+                      src = <%= asset_path('3rdHero.jpg') %>
+                      alt="Image 3"
+                      style="opacity:0"
+                    />
+                  </div>
 
 
-                <nav id="nav-wrapper" class="mx-auto px-4">
+                  <div class="navigation-button">
+                    <span class="dot active" onclick="changeSlide(0)"></span>
+                    <span class="dot" onclick="changeSlide(1)"></span>
+                    <span class="dot" onclick="changeSlide(2)"></span>
+                  </div>
+                </div> 
+
+                
+
+                <nav id="nav-wrapper" class="">
                 
                   <img
                     id="img-nav"
                     src= <%= asset_path('gobabygo_logo.png') %>
                     alt="Image 1"
-                    style="height:10%; width:10%; cursor:pointer;"
+                    style="height:10%;  cursor:pointer;"
                     onclick = "logoClickHandler()"
                   />
                   
                   <div id="button-wrapper">
-                    <div id="nav-buttons" class="md:flex space-x-4 items-center text-xl font-semibold">
-                                  <a href="<%= root_path %>" class="py-4 px-2 hover:text-gray-400 transition duration-300 ">Home</a>
-                                  <a href="/abouts" class="py-4 px-2 hover:text-gray-400 transition duration-300">About</a>
-                                  <a href="/contacts" class="py-4 px-2 hover:text-gray-400 transition duration-300">Contact</a>
-                                  <%= link_to 'Help', help_path, class: 'py-4 px-2 hover:text-gray-400 transition duration-300'  %>
+                    <div id="nav-buttons" class="font-semibold">
+                                  <a href="<%= root_path %>" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300">Home</a>
+                                  <a href="/abouts" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300">About</a>
+                                  <a href="/contacts" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300">Contact</a>
+                                  <%= link_to 'Help', help_path, class: 'text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300' %>
                                   <% if admin_signed_in? %>
-                                    <%= link_to "Sign Out", destroy_admin_session_path, class:'border border-black bg-white rounded-lg px-2 py-1 m-1' %>
+                                    <%= link_to "Sign Out", destroy_admin_session_path, class:'border border-black bg-white rounded-lg text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300' %>
                                   <% else %>
-                                    <%= button_to "Sign in", admin_google_oauth2_omniauth_authorize_path, class: "border border-black bg-white rounded-lg px-2 py-1 my-1", style: "" %>
+                                    <%= button_to "Sign in", admin_google_oauth2_omniauth_authorize_path, class:'border border-black bg-white rounded-lg text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300', style: "" %>
                                   <% end %>
 
                     </div>
                   </div>
                   
-                  <div id="nav-title" class="py-3 flex items-center">
-                      <a href="https://www.tamu.edu" target="_blank" rel="noopener noreferrer" class="text-3xl font-bold" style="text-align:center;color:maroon; text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF; ">Texas A&M<br>University</br></a>
+                  <div id="nav-title" class="">
+                      <a href="https://www.tamu.edu" target="_blank" rel="noopener noreferrer" class="text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl" >Texas A&M<br>University</br></a>
                   </div>                 
                 </nav>
 
-                <div id=" ">
-                  <h1>Text Here</h1>
+                <div id="text-overlay">
+                  <h1 id="img1-text" class="img-text">Apply for a GoBabyGo car!</h1>
+                  <h1 id="img2-text" class="img-text" style="display:none;">Come out for build day!</h1>
+                  <h1 id="img3-text" class="img-text" style="display:none;">Recieve your new GoBabyGo car!</h1>
                 </div>
+
+                
                 
             </div>
       </div> 

@@ -54,40 +54,86 @@
               height: 45vh;
               /* margin-top: 5vh; */
           }
+          
+          #text-overlay {
+            position: absolute;
+            width: 60%;
+            margin-left: 20%;
+            margin-right: 20%;
+            height: 45vh;
+            z-index: 900;
+            display: flex;
+            justify-content: center;
+          }
 
+          #text-overlay .img-text {
+            text-align: center;
+            margin-top: 30vh;
+            margin-right: 70%;
+            color: white;
+          }
           #nav-wrapper {
               position: absolute;
-              width: 100%;
+              width: 60%;
+              margin-right: 20%;
+              margin-left: 20%;
               z-index: 999;
               display: flex;
               justify-content: center;
+              align-items: center;
               margin-top: 1rem;
 
           }
           
+          #img-nav {
+            width: 15%;
+            height: 10%;
+          }
+
           #button-wrapper {
               display: flex;
               align-items: center;
-              margin-right: 2rem;
-              margin-left: 2rem;
+              margin-right: 0;
+              margin-left: 0;
               text-align: center;
+              justify-content: center;
               align-items: center;
+              /* width: 100%; */
+              padding-top: 1rem;
+              padding-bottom: 1rem;
+              margin-right: 5%;
+              margin-left: 5%;
               
           }
 
-          #nav-title {
-              color:maroon; text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
-          }
-
           #nav-buttons {
-              color:white; text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
-              background-color: maroon;
-              padding-right: 1rem;
-              padding-left: 1rem;
-              border-radius: 10px;
-              color: black;
+            color:white; text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+            background-color: maroon;
+            padding-right: 1rem;
+            padding-left: 1rem;
+            border-radius: 10px;
+            color: black;
+            display: flex;
+            height: 100%;
+            /* width: 100%; */
+            
 
+        }
+
+          #nav-title {
+              text-align:center;
+              color:maroon; 
+              text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              /* width: 20%; */
+            }
+          #nav-title a {
+            /* width: 100% ; */
           }
+
+          
 
           #dropdown {
               background-color:white;
