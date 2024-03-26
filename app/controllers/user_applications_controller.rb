@@ -22,7 +22,7 @@ class UserApplicationsController < ApplicationController
       when "created_at_desc"
         :desc
       else
-        :asc # Default sorting option
+        :desc # Default sorting option
       end
       @not_accepted_user_applications = UserApplication.where(accepted: [nil, false], waitlist: false)
                                                 .order(created_at: sorting_option)
@@ -179,8 +179,10 @@ class UserApplicationsController < ApplicationController
 
     #app_params passed based on visitor/officer role status - not including application role
     app_params = @user.visitor? ? user_params : officer_params
-
     if @user_application.update(app_params)
+      if (@user_application.accepted == false && @user_application.waitlist == false && @user_application.rejected == false)
+        @user_application.update(accepted: nil)
+      end
       redirect_to user_application_path(@user_application.id)
       flash[:notice] = "Application updated successfully."
     else
@@ -246,6 +248,7 @@ class UserApplicationsController < ApplicationController
       :can_store,
       :notes,
       :accepted,
-      :waitlist)
+      :waitlist,
+      :rejected)
   end
 end
