@@ -4,7 +4,8 @@
     <title>GoogleOauthDevise</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag    'homePage', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'homePageHeader', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'homePageSections', media: 'all', 'data-turbolinks-track': 'reload' %>
     <style>
         .flash__alert   { color: red; }
         .flash__notice  { color: blue; }
@@ -170,9 +171,16 @@
       </div> 
       
       <!-- About Section -->
-      <div id="about-section" class="" style="display: flex;">
-        <img src="path/to/about-image.png" alt="About" style="width: 50%;">
-        <p style="margin-left: 20px;">About paragraph goes here. This is a placeholder for the about section's text.</p>
+      <div id="about-section" class="" style="">
+        <div id="aboutImg-wrapper">
+          <img id="aboutImg" src= <%= asset_path('aboutHomePage.JPG') %> style="">
+        </div>
+        <div id="aboutText-wrapper">
+          <h1 id="aboutTitle" class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-4xl" style="">About GoBabyGo x TAMU</h1>
+          <h3 id="aboutSubTitle" class="text-sm md:text-sm lg:text-md xl:text-lg 2xl:text-xl" style="">How did GoBabyGo get involved with A&M?</h1>
+          <p id ="aboutText" class=" md:text-xs lg:text-sm xl:text-md 2xl:text-lg">About paragraph goes here. This is a placeholder for the about section's text.</p>
+          <a href="<%= root_path %>" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300" style="text-align:center; ">Read More</a>
+        </div>
       </div>
 
       <!-- Process of Applying Section -->
