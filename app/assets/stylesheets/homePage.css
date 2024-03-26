@@ -69,9 +69,24 @@
           #text-overlay .img-text {
             text-align: center;
             margin-top: 30vh;
-            margin-right: 70%;
-            color: white;
+            margin-right: 60%;
+            width: 100%;
+            margin-left: 20%;
           }
+
+          #text-overlay .img-text h1{
+            color: black;
+            background-color: white;
+            border-bottom: 5px solid maroon;
+            padding-bottom: 1%;
+            padding: 3%;
+            border-radius: 30px;
+            opacity: 100%;
+            font-weight: 500;
+          }
+
+        
+
           #nav-wrapper {
               position: absolute;
               width: 60%;
@@ -118,31 +133,22 @@
             display: flex;
             height: 100%;
             width: 100%;
-        }
+          }
 
-        #nav-buttons a {
-          padding-left: 3%;
-          padding-right: 3%;
-          margin-top: 2%;
-          margin-bottom: 2%;
-          border-left: 1px solid #ccc; /* Left border */
-          border-right: 1px solid #ccc; /* Right border */
-        }
+          #nav-buttons a {
+            padding-left: 3%;
+            padding-right: 3%;
+            margin-top: 2%;
+            margin-bottom: 2%;
+            border-left: 1px solid #ccc; /* Left border */
+            border-right: 1px solid #ccc; /* Right border */
+          }
 
-        #nav-buttons #signIn, #nav-buttons #signOut {
-          border-left: 1px solid black; /* Left border */
-          border-right: 1px solid black; /* Right border */
-          
-          /* width: 100%; */
-          /* margin-left: 1%; */
-        
-        }
+          #nav-buttons #signIn, #nav-buttons #signOut {
+            border-left: 1px solid black; /* Left border */
+            border-right: 1px solid black; /* Right border */
 
-        #nav-button form {
-          /* margin-left: 1%; */
-        }
-
-    
+          }
 
           #nav-title {
               text-align:center;
@@ -153,9 +159,6 @@
               align-items: center;
               /* width: 20%; */
             }
-          #nav-title a {
-            /* width: 100% ; */
-          }
 
           
 
@@ -182,6 +185,8 @@
               left: 0;
               transition: all 0.5s ease-in-out;
           }
+
+          
 
           .slider img:first-child {
               z-index: 1;
