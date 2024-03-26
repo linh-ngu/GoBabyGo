@@ -40,7 +40,9 @@
           <div class="flex justify-center">
             <%= link_to("View", user_application_path(user_application), class: view_link_class)%>
             <%= link_to("Change Status", edit_user_application_path(user_application), class: status_link_class)%>
-            <%= link_to("Delete", delete_user_application_path(user_application), class: delete_link_class)%>
+            <% if @user.officer_member? || @user.admin? %>
+              <%= link_to("Delete", delete_user_application_path(user_application), class: delete_link_class)%>
+            <% end %>
           </div>
         </td>
       </tr>
