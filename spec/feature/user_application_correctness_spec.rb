@@ -7,7 +7,7 @@ RSpec.describe 'APPLICANT: Creation of a user application', type: :feature do
     before do
         @admin = Admin.create!(email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
         sign_in @admin
-        @user = User.create!(email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :visitor)
+        @user = User.create!(email: 'test@gmail.com', first_name: "Test", last_name: "User", phone: '1234567890', admin_id: @admin.id, level: :visitor)
     end
 
     scenario 'SUNNY: visit user application path, create application with all fields filled' do
@@ -103,7 +103,7 @@ RSpec.describe 'OFFICER: Changing status of a user application', type: :feature 
     before do
         @admin = Admin.create!(email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
         sign_in @admin
-        @user = User.create!(email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :officer_member)
+        @user = User.create!(email: 'test@gmail.com', first_name: "Test", last_name: "User", phone: '1234567890', admin_id: @admin.id, level: :officer_member)
         @user_application = UserApplication.create(child_first_name: "test", child_last_name: 'child', child_birthdate: "2022-12-12", primary_diagnosis: "Can't walk", secondary_diagnosis: "N/A", child_height: 20, child_weight: 10, caregiver_email:"test@gmail.com", caregiver_name:"test", caregiver_phone:"1234567890",can_transport:true, can_store:true) 
     end
     
@@ -150,7 +150,7 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
     before do
         @admin = Admin.create!(email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
         sign_in @admin
-        @user = User.create!(email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :officer_member)
+        @user = User.create!(email: 'test@gmail.com', first_name: "Test", last_name: "User", phone: '1234567890', admin_id: @admin.id, level: :officer_member)
         @accepted_user_application = UserApplication.create(user_id: @user.id, child_first_name: "accepted", child_last_name: "child", child_birthdate: "2022-12-12", primary_diagnosis: "Can't walk", secondary_diagnosis: "N/A", child_height: 20, child_weight: 10, caregiver_email:"test@gmail.com", caregiver_first_name:"test", caregiver_last_name:"test", caregiver_phone:"1234567890",can_transport:true, can_store:true, accepted: true, waitlist: false, created_at: "2024-01-01")
         @waitlisted_user_application = UserApplication.create(user_id: @user.id, child_first_name: "waitlisted", child_last_name: "child", child_birthdate: "2022-12-12", primary_diagnosis: "Can't walk", secondary_diagnosis: "N/A", child_height: 20, child_weight: 10, caregiver_email:"test@gmail.com", caregiver_first_name:"test", caregiver_last_name:"test", caregiver_phone:"1234567890",can_transport:true, can_store:true, accepted: false, waitlist: true, created_at: "2024-02-01")
         @not_accepted_user_application = UserApplication.create(user_id: @user.id, child_first_name: "not acc", child_last_name:: "child", child_birthdate: "2022-12-12", primary_diagnosis: "Can't walk", secondary_diagnosis: "N/A", child_height: 20, child_weight: 10, caregiver_email:"test@gmail.com", caregiver_first_name:"test", caregiver_last_name:"test", caregiver_phone:"1234567890",can_transport:true, can_store:true, accepted: false, waitlist: false, created_at: "2024-03-01") 
@@ -356,7 +356,7 @@ RSpec.describe "Sort user applications", type: :request do
     before do
         @admin = Admin.create!(email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
         sign_in @admin
-        @user = User.create!(email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :officer_member)
+        @user = User.create!(email: 'test@gmail.com', first_name: "Test", last_name: "User", phone: '1234567890', admin_id: @admin.id, level: :officer_member)
         @accepted_user_application = UserApplication.create(user_id: @user.id, child_first_name: "accepted", child_last_name: "child", child_birthdate: "2022-12-12", primary_diagnosis: "Can't walk", secondary_diagnosis: "N/A", child_height: 20, child_weight: 10, caregiver_email:"test@gmail.com", caregiver_first_name:"test", caregiver_last_name:"test", caregiver_phone:"1234567890",can_transport:true, can_store:true, accepted: true, waitlist: false, created_at: "2024-01-01")
         @waitlisted_user_application = UserApplication.create(user_id: @user.id, child_first_name: "waitlisted", child_last_name: "child", child_birthdate: "2022-12-12", primary_diagnosis: "Can't walk", secondary_diagnosis: "N/A", child_height: 20, child_weight: 10, caregiver_email:"test@gmail.com", caregiver_first_name:"test", caregiver_last_name:"test", caregiver_phone:"1234567890",can_transport:true, can_store:true, accepted: false, waitlist: true, created_at: "2024-02-01")
         @not_accepted_user_application = UserApplication.create(user_id: @user.id, child_first_name: "not acc", child_last_name:: "child", child_birthdate: "2022-12-12", primary_diagnosis: "Can't walk", secondary_diagnosis: "N/A", child_height: 20, child_weight: 10, caregiver_email:"test@gmail.com", caregiver_first_name:"test", caregiver_last_name:"test", caregiver_phone:"1234567890",can_transport:true, can_store:true, accepted: false, waitlist: false, created_at: "2024-03-01") 
