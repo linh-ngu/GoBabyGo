@@ -1,14 +1,13 @@
 <p style="color: green"><%= notice %></p>
 
 <div class="flex flex-col justify-center items-center">
-    <h1 class='p-4 text-xl font-bold'>Part</h1>
+    <h1 class='p-4 text-5xl font-bold'>Part</h1>
     <%= render @part %>
-    <%= link_to "Edit this Part", edit_part_path(@part), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
-    <br>
-    <%= link_to "Back to Parts", parts_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
-    <br>
-    <%= button_to "Destroy this Part", @part, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger text-black-500 bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
-    
+    <div class="flex justify-between">
+    <%= link_to "Edit this Part", edit_part_path(@part), class: "rounded-lg py-3 px-5 bg-blue-400 inline-block font-medium m-2" %>
+    <%= link_to "Back to Parts", parts_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2" %>
+    <%= button_to "Destroy this Part", @part, method: :delete, data: { confirm: 'Are you sure?' }, class: "rounded-lg py-3 px-5 bg-red-500 inline-block font-medium m-2" %> 
+    </div>
 </div>
 
 
