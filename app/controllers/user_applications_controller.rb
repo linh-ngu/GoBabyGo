@@ -194,8 +194,8 @@ class UserApplicationsController < ApplicationController
   def delete
     @user = User.find_by(admin_id: current_admin.id)
     @user_application = UserApplication.find(params[:id])
-    if @user.applicant? || @user.visitor? || @user == nil
-      if @user.id != @user_application.user_id || @user == nil
+    if @user.applicant? || @user.visitor? || @user == nil || @user.staff_member?
+      if @user.id != @user_application.user_id || @user == nil || @user.staff_member?
         redirect_to root_path
         flash[:notice] = "You do not have permission to view that page!"
       end
