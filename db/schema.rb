@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_07_220825) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_25_204335) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_07_220825) do
 
   create_table "car_types", force: :cascade do |t|
     t.integer "max_height"
-    t.integer "min_height"
+    t.integer "max_weight"
     t.string "name"
     t.float "price"
     t.integer "quantity_purchased"
@@ -96,13 +96,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_07_220825) do
   end
 
   create_table "user_applications", force: :cascade do |t|
-    t.string "child_name"
     t.date "child_birthdate"
     t.text "primary_diagnosis"
     t.string "secondary_diagnosis"
     t.integer "child_height"
     t.integer "child_weight"
-    t.string "caregiver_name"
     t.string "caregiver_email"
     t.bigint "caregiver_phone"
     t.boolean "can_transport"
@@ -115,6 +113,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_07_220825) do
     t.integer "user_id"
     t.text "adaptive_equipment"
     t.boolean "waitlist", default: false
+    t.string "child_first_name"
+    t.string "child_last_name"
+    t.string "caregiver_first_name"
+    t.string "caregiver_last_name"
   end
 
   create_table "users", force: :cascade do |t|
@@ -124,6 +126,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_07_220825) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "admin_id"
+    t.string "first_name"
+    t.string "last_name"
   end
 
   add_foreign_key "application_notes", "user_applications"
