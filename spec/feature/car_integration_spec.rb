@@ -82,11 +82,22 @@ RSpec.describe 'Officer Car management', type: :feature do
     car = Car.last
     expect(car.user_application.child_last_name).to eq('child')
   end
-  scenario 'SUNNY: delete a car' do
-    @car = Car.create!(car_type_id: car_type.id, complete: true, modification_details: 'Some modification details')
-    visit car_path(@car)
-    click_on 'Destroy this Car', match: :first
+  scenario 'Create a car with a part and destroy the car (part should be destroyed too)' do
+    car = Car.create!(car_type_id: car_type.id, complete: true, modification_details: 'Some modification details')
+    visit new_part_car_path(car)
+    fill_in 'part_part_name', with: 'Engine'
+    fill_in 'part_part_price', with: 25
+    fill_in 'part_quantity_purchased', with: 12
+    fill_in 'part_purchase_source', with: "http://example.com/purchase"
+    click_on 'Create Part'
+    part = Part.last
+    expect(car.parts).to include(part)
+    click_on 'Delete this Car', match: :first
     expect(page).to have_content("car was successfully destroyed.")
+
+    # Verify that the car and the part are destroyed
+    expect(Car.find_by(id: car.id)).to be_nil
+    expect(Part.find_by(id: part.id)).to be_nil
   end
 end
 
