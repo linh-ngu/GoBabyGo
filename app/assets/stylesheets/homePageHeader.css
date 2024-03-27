@@ -17,8 +17,8 @@
  #mediaSide1, #mediaSide2{
   background-color: red;
   width: 20%;
-  height: 100%;
-  position: absolute;
+  min-height: 100vh;
+  position: fixed;
   z-index: 0;
 }
 
@@ -72,6 +72,7 @@
             margin-right: 60%;
             width: 100%;
             margin-left: 20%;
+
           }
 
           #text-overlay .img-text h1{
@@ -83,9 +84,12 @@
             border-radius: 30px;
             opacity: 100%;
             font-weight: 500;
+            transition: .8s;
           }
-
-        
+          #text-overlay .img-text h1:hover {
+            transition: .8s;
+            scale: 1.1;
+          }
 
           #nav-wrapper {
               position: absolute;
@@ -165,6 +169,11 @@
               border-radius: 30px;
               opacity: 100%;
               font-weight: 500;
+              transition: .8s;
+            }
+            #nav-title:hover {
+              transition:.8s;
+              scale: 1.1;
             }
 
           
@@ -226,14 +235,5 @@
 
 
 #about-section {
-  position: relative;
-  z-index: 100;
-  width: 60%;
-  margin-right: 20%;
-  margin-left: 20%;
-  height: 35vh;
-  padding-top: 1rem;
-   /* Prevents the image from repeating */
-  /* background-image: url('<%= asset_path('gobabygo_logo.png') %>');  */
 
 }

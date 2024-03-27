@@ -4,6 +4,9 @@
     display: flex;
     height: 45vh;
     width: 60%;
+    margin-right: 20%;
+    margin-left: 20%;
+    position: relative;
 }
 
 #aboutImg-wrapper {
@@ -19,6 +22,13 @@
    border: 5px solid black;
    margin-left: 10%;
    margin-right: 10%;
+   transition: .8s;
+
+   scale: 1;
+}
+#aboutImg:hover {
+    scale:1.1;
+    transition: .8s;
 }
 
 #aboutText-wrapper {
@@ -35,13 +45,13 @@
 }
 
 #aboutText-wrapper #aboutTitle {
-    font-weight: 600;
+    font-weight: 700;
 }
 #aboutText-wrapper #aboutSubTitle {
-    font-weight: 400;
+    font-weight: 500;
 }   
 #aboutText-wrapper #aboutText {
-    font-weight: 375;
+    font-weight: 400;
     margin-top: 1%;
 }
 
@@ -54,6 +64,8 @@
     border-radius: 30px;
     background-color: white;
     margin-top: 2%;
+    border-bottom: 3px solid maroon;
+
 
 }
 #aboutText-wrapper a:hover {
@@ -65,6 +77,58 @@
     padding-right: 3%;
     padding-top: 2%;
     padding-bottom: 2%;
+}
+
+#process-section {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    height: 45vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#applyHereButton {
+    transition: .8s;
+    padding:1%;
+    border-radius: 30px;
+    background-color: white;
+    margin-top: 2%;
+    border-bottom: 3px solid maroon;
+    font-weight: 500;
+
+
+}
+#applyHereButton:hover {
+    transition: .8s;
+    background-color: maroon;
+    color: white;
+    border-radius: 30px;
+    padding:1%;
+    padding-right: 2%;
+    padding-left: 2%;
+}
+
+#applySteps-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+#process-section h2 {
+    /* width: 50%; */
+    background-color: white;
+    text-align: center;
+    margin-bottom: 2%;
+    font-weight: 700;
+    padding:1%;
+    padding-right: 2%;
+    padding-left: 2%;
+    border-radius: 20px;
+    text-align: center;
+    width: 50%;
+    border-bottom: 5px solid maroon;
+
 }
 
 @media only screen and (max-width: 1000px) {

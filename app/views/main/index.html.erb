@@ -67,11 +67,11 @@
             const difference = eventDate.getTime() - today.getTime();
             return Math.ceil(difference / (1000 * 3600 * 24)); // Convert to days
         }
+      });
         function logoClickHandler() {
             // Navigate to the specified URL
             window.location.href = "https://www.yourcpf.org/cpproduct/go-baby-go-the-ultimate-toy-hack/";
         }
-      });
 
 
 
@@ -176,8 +176,8 @@
           <img id="aboutImg" src= <%= asset_path('aboutHomePage.JPG') %> style="">
         </div>
         <div id="aboutText-wrapper">
-          <h1 id="aboutTitle" class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-4xl" style="">About GoBabyGo x TAMU</h1>
-          <h3 id="aboutSubTitle" class="text-sm md:text-sm lg:text-md xl:text-lg 2xl:text-xl" style="">How did GoBabyGo get involved with A&M?</h1>
+          <h1 id="aboutTitle" class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-4xl " style="">About GoBabyGo x TAMU</h1>
+          <h4 id="aboutSubTitle" class="text-sm md:text-sm lg:text-md xl:text-lg 2xl:text-xl" style="">How did GoBabyGo get involved with A&M?</h4>
           <p id ="aboutText" class=" md:text-xs lg:text-xs xl:text-sm 2xl:text-md">Our journey with GoBabyGo began when we combined the pioneering 
           spirit of Professor Cole Galloway's mobility project with the heart and 
           ingenuity of Texas A&M. Together, we're turning everyday play into paths 
@@ -188,15 +188,15 @@
       </div>
 
       <!-- Process of Applying Section -->
-      <div id="process-section" class="" style="text-align: center; padding: 20px;">
-        <h2>Process of Applying</h2>
-        <button style="background-color: blue; color: white; padding: 10px 20px; font-size: 20px;">Apply Now!</button>
-        <div style="display: flex; justify-content: center; padding: 20px;">
-          <div style="background-color: blue; color: white; padding: 20px; width: 100px; margin: 0 5px;">Box 1</div>
-          <div style="background-color: blue; color: white; padding: 20px; width: 100px; margin: 0 5px;">Box 2</div>
-          <div style="background-color: blue; color: white; padding: 20px; width: 100px; margin: 0 5px;">Box 3</div>
-          <div style="background-color: blue; color: white; padding: 20px; width: 100px; margin: 0 5px;">Box 4</div>
-          <div style="background-color: blue; color: white; padding: 20px; width: 100px; margin: 0 5px;">Box 5</div>
+      <div id="process-section" class="" style="">
+        <h2 class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">Apply for a new ride!</h2>
+        <a id="applyHereButton" href="/" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300" style="text-align:center; ">Apply here!</a>
+        <div id="applySteps-wrapper"style="">
+          <div style="">Box 1</div>
+          <div style="">Box 1</div>
+          <div style="">Box 1</div>
+          <div style="">Box 1</div>
+          <div style="">Box 1</div>
         </div>
       </div>
 
