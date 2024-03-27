@@ -54,7 +54,7 @@ class UserApplicationsController < ApplicationController
       when "created_at_desc"
         :desc
       else
-        :asc # Default sorting option
+        :desc # Default sorting option
       end
       @not_accepted_user_applications = UserApplication.where(accepted: [nil, false], waitlist: false, archived: false)
                                                 .order(created_at: sorting_option)
@@ -224,8 +224,10 @@ class UserApplicationsController < ApplicationController
 
     #app_params passed based on visitor/officer role status - not including application role
     app_params = @user.visitor? ? user_params : officer_params
-
     if @user_application.update(app_params)
+      if (@user_application.accepted == false && @user_application.waitlist == false && @user_application.rejected == false)
+        @user_application.update(accepted: nil)
+      end
       redirect_to user_application_path(@user_application.id)
       flash[:notice] = "Application updated successfully."
     else
@@ -237,8 +239,8 @@ class UserApplicationsController < ApplicationController
   def delete
     @user = User.find_by(admin_id: current_admin.id)
     @user_application = UserApplication.find(params[:id])
-    if @user.applicant? || @user.visitor? || @user == nil
-      if @user.id != @user_application.user_id || @user == nil
+    if @user.applicant? || @user.visitor? || @user == nil || @user.staff_member?
+      if @user.id != @user_application.user_id || @user == nil || @user.staff_member?
         redirect_to root_path
         flash[:notice] = "You do not have permission to view that page!"
       end
@@ -292,6 +294,7 @@ class UserApplicationsController < ApplicationController
       :notes,
       :accepted,
       :waitlist,
-      :archived)
+      :archived,
+      :rejected)
   end
 end

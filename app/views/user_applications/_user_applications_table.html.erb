@@ -45,7 +45,9 @@
             <% else %> 
               <%= button_to("Archive", {controller: "user_applications", action: "update", id: user_application.id, button: 'archive'}, {class: status_link_class, method: :put}) %>
             <% end %>
-            <%= link_to("Delete", delete_user_application_path(user_application), class: delete_link_class)%>
+            <% if @user.officer_member? || @user.admin? %>
+              <%= link_to("Delete", delete_user_application_path(user_application), class: delete_link_class)%>
+            <% end %>
           </div>
         </td>
       </tr>
