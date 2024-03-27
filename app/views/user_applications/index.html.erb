@@ -83,6 +83,8 @@
       <% if params[:accepted].present? || params[:waitlist].present? || params[:not_accepted].present? || params[:start_date].present? || params[:end_date].present? || params[:min_height].present? || params[:max_height].present?%>
         <button id="clearFiltersBtn" class="rounded-lg ml-3 py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer">Clear Filters</button>
       <% end %>
+      <%# <button class="ml-3 py-1 px-2 bg-gray-500 text-white inline-block cursor-pointer rounded-md hover:bg-gray-600">Show Archived Applications</button> %>
+      <%= link_to 'Show Archived Applications', archive_user_applications_path, class: 'ml-3 py-1 px-2 bg-gray-500 text-white inline-block cursor-pointer rounded-md hover:bg-gray-700' %>
     </div>
 
     <div class="filter-options hidden ml-3 ">

@@ -1,0 +1,51 @@
+<div class='mt-8'><%= link_to('Back to Current User Applications', user_applications_path, class:'rounded-lg ml-3 py-2 px-3 bg-blue-500 text-white inline-block font-medium cursor-pointer hover:bg-blue-600') %></div>
+
+<% # Handles applying sorting options # %>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const sortOptionDropdown = document.getElementById("sortOption");
+        sortOptionDropdown.addEventListener("change", function() {
+        const selectedSortOption = sortOptionDropdown.value;
+        const currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.set('sort_option', selectedSortOption);
+        window.location.href = currentUrl.href;
+        });
+    });
+</script>
+
+<div class="user_applications index py-10">
+    <div class="ml-3">
+        <%= form_tag(archive_user_applications_path, method: :get) do %>
+            <label class="float-left mr-3 mb-2">
+                Semester:
+                <%= select_tag :semester_input, options_for_select(['', 'Winter', 'Spring'], params[:semester_input]), class: "rounded-lg mt-1 py-2 px-3 bg-white text-gray-900" %>
+            </label>
+
+            <label class="float-left mr-3 mb-2">
+                Year:
+                <%= number_field_tag :year_input, params[:year_input], placeholder: "Ex. " + Time.now.year.to_s, class: "rounded-lg mt-1 py-2 px-3 bg-white text-gray-900" %>
+            </label>
+
+            <%= submit_tag "Apply Filter", class: "rounded-lg mt-1 ml-5 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+        <% end %>
+
+        <%= link_to "Clear Filter", archive_user_applications_path, class: "rounded-lg mt-1 ml-5 py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer" %>
+    
+        <label class="float-right mr-3 mb-2">
+            Sort By:
+            <select id="sortOption" class="rounded-lg mt-1 py-2 px-3 bg-white text-gray-900">
+                <option value="created_at_desc" <%= params[:sort_option] == "created_at_desc" ? "selected" : "" %>>Newest to oldest</option>
+                <option value="created_at_asc" <%= params[:sort_option] == "created_at_asc" ? "selected" : "" %>>Oldest to newest</option>
+            </select>
+        </label>
+    </div>
+
+    <%= render partial: 'user_applications_table', locals: {  
+        user_applications: @user_applications, 
+        view_link_class: "action show rounded-md py-2 px-8 my-1 bg-gray-300 text-black inline-block font-small cursor-pointer hover:bg-gray-400",
+        status_link_class: "action accept rounded-md mx-2 my-1 py-2 px-3 bg-gray-300 text-black inline-block font-medium cursor-pointer hover:bg-gray-400",
+        delete_link_class: "rounded-md py-2 px-3 bg-red-600 my-1 text-white inline-block font-medium cursor-pointer hover:bg-red-700",
+        table_class: "accepted",
+        header_color: "green-800"
+    } %>
+</div>
