@@ -1,5 +1,5 @@
 class CarsController < ApplicationController
-  before_action :set_car, only: %i[ show edit update destroy ]
+  before_action :set_car, only: %i[ show edit update destroy new_part ]
 
   # GET /cars or /cars.json
   def index
@@ -59,7 +59,6 @@ class CarsController < ApplicationController
       flash[:notice] = "You do not have permission to view that page!"
     end
 
-    # Associate finance with the car
     @car = Car.new(car_params)
 
     respond_to do |format|
@@ -105,6 +104,9 @@ class CarsController < ApplicationController
       redirect_to root_path
       flash[:notice] = "You do not have permission to view that page!"
     end
+    for part in @car.parts
+      part.destroy
+    end
     @car.destroy
 
     respond_to do |format|
@@ -112,6 +114,14 @@ class CarsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  def new_part
+    @current_user = User.find_by(admin_id: current_admin.id)
+    unless @current_user.admin? || @current_user.officer_member?
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
+    @part = Part.new
+  end    
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -120,5 +130,8 @@ class CarsController < ApplicationController
     end
     def car_params
       params.require(:car).permit(:modification_details, :complete, :user_application_id, :car_type_id)
+    end
+    def part_params
+      params.require(:part).permit(:part_name, :part_price, :purchase_source, :quantity_purchased, :car_id)
     end
 end

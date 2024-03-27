@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     member do
       get :delete
     end
+    get 'new_part', on: :member
   end
 
   resources :car_types do
