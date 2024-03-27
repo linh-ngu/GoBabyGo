@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema[7.0].define(version: 2024_03_26_232146) do
-=======
-ActiveRecord::Schema[7.0].define(version: 2024_03_26_031230) do
->>>>>>> aefc977e064cfde92176e9cfc34cdb9d11491c79
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -121,12 +117,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_26_031230) do
     t.string "child_last_name"
     t.string "caregiver_first_name"
     t.string "caregiver_last_name"
-<<<<<<< HEAD
     t.string "build_session"
     t.boolean "archived", default: false
-=======
     t.boolean "rejected", default: false
->>>>>>> aefc977e064cfde92176e9cfc34cdb9d11491c79
   end
 
   create_table "users", force: :cascade do |t|
