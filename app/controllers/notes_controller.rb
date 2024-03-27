@@ -27,8 +27,7 @@ class NotesController < ApplicationController
       if @note.save
         format.html { redirect_to car_url(@note.car_id), notice: "Note was successfully created." }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @note.errors, status: :unprocessable_entity }
+        format.html { redirect_to car_url(@note.car_id), notice: "Content can\'t be blank" }
       end
     end
   end

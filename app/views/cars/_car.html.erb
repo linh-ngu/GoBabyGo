@@ -2,6 +2,15 @@
   <table class="border border-gray-900 bg-gray-300">
     <tbody>
       <tr>
+        <th class="p-2">Application:</th>
+        <td>
+          <% if car.user_application.nil? %>
+            None
+          <% else %>
+            <%= link_to "Application", user_application_path(car.user_application), class: "text-blue-500 hover:underline p-2" %>
+          <% end %>
+        </td>
+      <tr>
         <th class="p-2">Name:</th>
         <td class="p-2"><%= car.car_type.name %></td>
       </tr>
