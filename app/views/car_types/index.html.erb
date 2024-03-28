@@ -25,7 +25,7 @@
         <td class = "px-3 py-4 break-all"><%= car_type.max_weight %></td>
         <td class = "px-3 py-4 break-all"><%= link_to 'Show', car_type, class: "text-blue-500 hover:underline" %></td>
         <td class = "px-3 py-4 break-all"><%= link_to 'Edit', edit_car_type_path(car_type), class: "text-blue-500 hover:underline" %></td>
-        <td class = "px-3 py-4 break-all"><%= link_to 'Destroy', car_type, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %></td>
+        <td class = "px-3 py-4 break-all"><%= link_to 'Delete', car_type, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %></td>
       </tr>
     <% end %>
   </tbody>
