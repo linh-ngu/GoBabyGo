@@ -1,4 +1,4 @@
-<div class='mt-8'><%= link_to('Back to Dashboard', dashboard_path, class:'rounded-lg ml-3 py-2 px-3 bg-blue-500 text-white inline-block font-medium cursor-pointer hover:bg-blue-600') %></div>
+<div class='mt-8'><%= link_to('Back to Dashboard', dashboard_path, class:'rounded-lg ml-5 py-2 px-3 bg-blue-500 text-white inline-block font-medium cursor-pointer hover:bg-blue-600') %></div>
 
 <% # Handles applying filters # %>
 <script>
@@ -50,39 +50,83 @@
   });
 </script>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const filterOptionsBox = document.querySelector(".filter-options");
+    const toggleFiltersBtn = document.getElementById("toggleFiltersBtn");
+
+    toggleFiltersBtn.addEventListener("click", function() {
+      // Toggle the display property of the filter options box
+      if (filterOptionsBox.style.display === "none") {
+        filterOptionsBox.style.display = "block";
+        toggleFiltersBtn.textContent = "Hide Filters";
+      } else {
+        filterOptionsBox.style.display = "none";
+        toggleFiltersBtn.textContent = "Show Filters";
+      }
+    });
+  });
+</script>
+
 <div class="user_applications index py-10">
   <% if @user.officer_member? || @user.admin? || @user.staff_member? %>
-    <%= link_to 'Archived Applications Page', archive_user_applications_path, class: 'ml-3 mb-3 py-1 px-2 bg-gray-500 text-white inline-block cursor-pointer rounded-md hover:bg-gray-700' %>
-    <div class="filter-options ml-3">
+    <%= link_to 'View Archived Applications Page', archive_user_applications_path, class: 'ml-5 mb-3 py-1 px-2 bg-gray-500 text-white cursor-pointer rounded-md hover:bg-gray-700' %>
+    <br />
+    <button id="toggleFiltersBtn" class="ml-5 rounded-lg my-3 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer"><%= params[:my_applications].present? || params[:accepted].present? || params[:waitlist].present? || params[:not_accepted].present? || params[:start_date].present? || params[:end_date].present? || params[:min_height].present? || params[:max_height].present? ? 'Hide Filters' : 'Show Filters' %></button>
+    <br/>
+    <br />
+    <div class="filter-options ml-5 bg-gray-300 inline-block float-left mb-3 py-5 px-5 border rounded" style="display: <%= params[:my_applications].present? || params[:accepted].present? || params[:waitlist].present? || params[:not_accepted].present? || params[:start_date].present? || params[:end_date].present? || params[:min_height].present? || params[:max_height].present? ? 'block' : 'none' %>;">
+    <h2 class="text-2xl font-bold mb-3"><%= @page_title %></h2>
+    <hr class="border-t-2 border-gray-400 my-3">
+      <div class="font-bold text-lg mb-3">Sort Options:</div>
+      <select id="sortOption" class="font-normal rounded-lg py-2 px-3 bg-white mb-3">
+        <option value="created_at_desc" <%= params[:sort_option] == "created_at_desc" ? "selected" : "" %>>Newest to oldest</option>
+        <option value="created_at_asc" <%= params[:sort_option] == "created_at_asc" ? "selected" : "" %>>Oldest to newest</option>
+      </select>
+      <hr class="border-t-2 border-gray-400 my-3">
       <%= form_tag(user_applications_path, method: :get) do %>
         <label class="font-bold text-lg">
-        Filter by:
+          Filter Options:
         </label>
         <br />
-        <label>
-          <%= check_box_tag :my_applications, 1, params[:my_applications] == "1"%>
-          My Applications
-        </label>
-        <label>
-          <%= check_box_tag :accepted, 1, params[:accepted] == "1" %>
-          Accepted
-        </label>
-        <label>
-          <%= check_box_tag :waitlist, 1, params[:waitlist] == "1" %>
-          Waitlist
-        </label>
-        <label>
-          <%= check_box_tag :not_accepted, 1, params[:not_accepted] == "1" %>
-          Not Accepted
-        </label>
         <br />
-        <label class="font-bold">Applied within:</label>
+        
+        <div class="font-bold">Application Status</div>
+        <br/>
+        <div class="bg-gray-300 px-2 py-2 border rounded">
+          <label>
+            <%= check_box_tag :my_applications, 1, params[:my_applications] == "1"%>
+            My Applications
+          </label>
+          <label>
+            <%= check_box_tag :accepted, 1, params[:accepted] == "1" %>
+            Accepted
+          </label>
+          <label>
+            <%= check_box_tag :waitlist, 1, params[:waitlist] == "1" %>
+            Waitlist
+          </label>
+          <label >
+            <%= check_box_tag :not_accepted, 1, params[:not_accepted] == "1" %>
+            Not Accepted
+          </label>
+        </div>
+        <br />
+        <div class="font-bold">Application Date</div>
+        <label class = "bg-gray-300 px-2 py-3 border rounded">
         <%= date_field_tag :start_date, params[:start_date], placeholder: "Start Date", class: "w-36 mt-5 px-2 py-1 border rounded" %> - <%= date_field_tag :end_date, params[:end_date], placeholder: "End Date", class: "w-36 px-2 py-1 border rounded" %>
+        </label>
         <br />
-        <label class="font-bold">Height within:</label>
-        <%= number_field_tag :min_height, params[:min_height], placeholder: "Min Height" , class: "w-28 mt-5 px-2 py-1 border rounded"%> - <%= number_field_tag :max_height, params[:max_height], placeholder: "Max Height", class: "w-28 border rounded"%>
+        <br />
+        <div class="font-bold">Height Range</div>
+        <label class = "bg-gray-300 px-2 py-3 border rounded">
+        <%= number_field_tag :min_height, params[:min_height], placeholder: "Min Height" , class: "ml-1 w-28 mt-5 px-1 py-1 border rounded"%> - <%= number_field_tag :max_height, params[:max_height], placeholder: "Max Height", class: "w-28 w-28 mt-5 px-1 py-1 border rounded"%>
+        </label>
         <br />
         <%= submit_tag "Apply Filters", class: "rounded-lg mt-5 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+        <% if params[:my_applications].present? || params[:accepted].present? || params[:waitlist].present? || params[:not_accepted].present? || params[:start_date].present? || params[:end_date].present? || params[:min_height].present? || params[:max_height].present?%>
+          <button id="clearFiltersBtn" class="rounded-lg my-3 py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer">Clear Filters</button>
+        <% end %>
       <% end %>
       <% if @date_range_error.present? %>
         <div class="text-red-600 text-bold ml-3"><%= @date_range_error %></div>
@@ -93,25 +137,14 @@
       <% if @height_value_error.present? %>
         <div class="text-red-600 text-bold ml-3"><%= @height_value_error %></div>
       <% end %>
-      <% if params[:accepted].present? || params[:waitlist].present? || params[:not_accepted].present? || params[:start_date].present? || params[:end_date].present? || params[:min_height].present? || params[:max_height].present?%>
-        <button id="clearFiltersBtn" class="rounded-lg my-3 py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer">Clear Filters</button>
-      <% end %>
     </div>
 
-    
-    <div class="ml-3 mt-10 font-bold">
-      <h2 class="text-2xl font-bold mb-3"><%= @page_title %></h2>
-      Sort By:
-      <select id="sortOption" class="font-normal rounded-lg py-2 px-3 bg-white text-gray-900">
-        <option value="created_at_desc" <%= params[:sort_option] == "created_at_desc" ? "selected" : "" %>>Newest to oldest</option>
-        <option value="created_at_asc" <%= params[:sort_option] == "created_at_asc" ? "selected" : "" %>>Oldest to newest</option>
-      </select>
-    </div>
+
   <% end %>
 </div>
 
-
 <% if @user.applicant? %>
+  <h2 class="text-2xl font-bold mb-3 ml-5"><%= @page_title %></h2>
   <div class='flex flex-col justify-center items-center border border-black bg-[#FFEFAD] rounded-lg lg:w-2/3 w-[500px] mx-auto my-4'>
   <div class='w-3/4'>
       <div class='flex justify-between px-12 py-4 font-bold'>
@@ -149,31 +182,7 @@
 <% end %>
 
 <div class='text-center m-4'><%= link_to("New Application", new_user_application_path, class: "border border-black rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium")%></div>  
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const checkboxes = document.querySelectorAll("input[type='checkbox']");
-    const filterForm = document.getElementById('filter_form');
 
-    checkboxes.forEach(function(checkbox) {
-      checkbox.addEventListener("change", function() {
-        checkboxes.forEach(function(otherCheckbox) {
-          if (otherCheckbox !== checkbox) {
-            otherCheckbox.checked = false;
-          }
-        });
-        filterForm.submit(); // This line submits the form whenever a checkbox is checked or unchecked
-      });
-    });
-
-    filterForm.addEventListener("submit", function(event) {
-      const checkedCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.checked);
-      if (checkedCheckboxes.length === 0) {
-        event.preventDefault();
-        window.location.href = '/user_applications';
-      }
-    });
-  });
-</script>
 
 </div>
 
