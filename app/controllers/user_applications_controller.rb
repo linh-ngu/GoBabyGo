@@ -210,6 +210,16 @@ class UserApplicationsController < ApplicationController
     redirect_to user_applications_path(@user)
   end
 
+  def new_car
+    @current_user = User.find_by(admin_id: current_admin.id)
+    unless @current_user.admin? || @current_user.officer_member?
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
+    @user_application = UserApplication.find(params[:id])
+    @car = Car.new
+  end    
+
   private
   def user_params
     params.require(:user_application).permit(

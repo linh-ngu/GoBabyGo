@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     member do
       get :delete
     end
+    get 'new_car', on: :member
   end
 
   resources :users do
