@@ -28,7 +28,7 @@ class UserApplicationsController < ApplicationController
     @user_applications = UserApplication.where(archived: true).order(created_at: sorting_option)
 
     # Applying date range filter
-    if params[:semester_input].present? && ["Winter", "Spring"].include?(params[:semester_input]) && params[:year_input].present?
+    if params[:semester_input].present? && ["Fall", "Spring"].include?(params[:semester_input]) && params[:year_input].present?
       begin
         @user_applications = @user_applications.where(build_session: "#{params[:semester_input]} #{params[:year_input]}", archived: true).order(created_at: sorting_option)
       rescue ArgumentError => e
@@ -37,8 +37,6 @@ class UserApplicationsController < ApplicationController
       end
     end
   end
-
-  
 
   def index
     @user = User.find_by(admin_id: current_admin.id)
