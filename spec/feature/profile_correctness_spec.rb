@@ -1,4 +1,4 @@
-# location spec/feature/applicant_profile_correctness_spec.rb
+# location spec/feature/profile_correctness_spec.rb
 require 'rails_helper'
 
 RSpec.describe 'APPLICANT: Edit Profile', type: :feature do
@@ -7,7 +7,7 @@ RSpec.describe 'APPLICANT: Edit Profile', type: :feature do
     before do
         @admin = Admin.create!(email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
         sign_in @admin
-        @user = User.create!(email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, id: 100, level: :applicant)
+        @user = User.create!(first_name: "test", last_name: "name", email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, id: 100, level: :applicant)
     end
 
     scenario 'SUNNY: visit edit user path, update profile with valid inputs' do
@@ -61,7 +61,7 @@ RSpec.describe 'VISITOR: Edit Profile', type: :feature do
     before do
         @admin = Admin.create!(email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
         sign_in @admin
-        @user = User.create!(email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, id: 100, level: :visitor)
+        @user = User.create!(first_name: "test", last_name: "name", email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, id: 100, level: :visitor)
     end
 
     scenario 'SUNNY: visit edit user path, update profile with valid inputs' do

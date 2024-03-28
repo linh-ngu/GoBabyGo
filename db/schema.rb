@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_26_031230) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_26_232146) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -118,6 +118,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_26_031230) do
     t.string "caregiver_first_name"
     t.string "caregiver_last_name"
     t.boolean "rejected", default: false
+    t.string "build_session"
+    t.boolean "archived", default: false
   end
 
   create_table "users", force: :cascade do |t|

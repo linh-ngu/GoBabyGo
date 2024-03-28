@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   resources :abouts
   resources :contacts
   resources :user_applications do
+    get 'archive', on: :collection
+    
     resources :application_notes do
       member do
         get :delete
