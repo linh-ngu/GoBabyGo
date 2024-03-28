@@ -1,4 +1,5 @@
-<div class='mt-8'><%= link_to('Back to Dashboard', dashboard_path, class:'rounded-lg ml-3 py-2 px-3 bg-blue-500 text-white inline-block font-medium cursor-pointer hover:bg-blue-600') %></div>
+<div class='mt-8'><%= link_to('Back to Dashboard', dashboard_path, class:'rounded-lg mb-5 ml-5 py-2 px-3 bg-blue-500 text-white inline-block font-medium cursor-pointer hover:bg-blue-600') %></div>
+<%= link_to 'View Archived Applications Page', archive_user_applications_path, class: 'ml-5 mb-3 py-1 px-2 bg-gray-500 text-white cursor-pointer rounded-md hover:bg-gray-700' %>
 
 <% # Handles applying filters # %>
 <script>
@@ -50,50 +51,71 @@
   });
 </script>
 
-<div class="user_applications index py-10">
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const filterOptionsBox = document.querySelector(".filter-options");
+    const toggleFiltersBtn = document.getElementById("toggleFiltersBtn");
+
+    toggleFiltersBtn.addEventListener("click", function() {
+      // Toggle the display property of the filter options box
+      if (filterOptionsBox.style.display === "none") {
+        filterOptionsBox.style.display = "block";
+        toggleFiltersBtn.textContent = "Hide Filters";
+      } else {
+        filterOptionsBox.style.display = "none";
+        toggleFiltersBtn.textContent = "Show Filters";
+      }
+    });
+  });
+</script>
+
+<div class="user_applications  index py-10">
   <% if @user.officer_member? || @user.admin? || @user.staff_member? %>
-    <div class="text-center">
-    <div class="filter-options ml-auto mr-auto max-w-md">
-      <h3 class="text-lg font-semibold mb-3">Filter Options:</h3>
+    
+    <br />
+    <button id="toggleFiltersBtn" class="ml-5 rounded-lg my-3 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer"><%= params[:my_applications].present? || params[:accepted].present? || params[:waitlist].present? || params[:not_accepted].present? || params[:start_date].present? || params[:end_date].present? || params[:min_height].present? || params[:max_height].present? ? 'Hide Filters' : 'Show Filters' %></button>
+    <br/>
+    <br />
+    <div class="filter-options flex flex-col justify-center items-center ml-5 bg-gray-300 mb-3 py-5 px-5 border rounded w-2/3 min-w-2/3" style="display: <%= params[:my_applications].present? || params[:accepted].present? || params[:waitlist].present? || params[:not_accepted].present? || params[:start_date].present? || params[:end_date].present? || params[:min_height].present? || params[:max_height].present? ? 'block' : 'none' %>;">
       <%= form_tag(user_applications_path, method: :get) do %>
-        <label>
-          <%= check_box_tag :my_applications, 1, params[:my_applications] == "1"%>
-          My Applications
-        </label>
-        <label>
-          <%= check_box_tag :accepted, 1, params[:accepted] == "1" %>
-          Accepted
-        </label>
-        <label>
-          <%= check_box_tag :waitlist, 1, params[:waitlist] == "1" %>
-          Waitlist
-        </label>
-        <label >
-          <%= check_box_tag :not_accepted, 1, params[:not_accepted] == "1" %>
-          Not Accepted
+        <label class="font-bold text-lg">
+          Filter Options:
         </label>
         <br />
         <br />
-        <label>
-          Date Applied Range: <br />
-          <%= date_field_tag :start_date, params[:start_date], placeholder: "Start Date" %>
-           -
-          <%= date_field_tag :end_date, params[:end_date], placeholder: "End Date" %>
+          <label class="font-bold">Application Status</label>
+          <label>
+            <%= check_box_tag :my_applications, 1, params[:my_applications] == "1"%>
+            My Applications
+          </label>
+          <label>
+            <%= check_box_tag :accepted, 1, params[:accepted] == "1" %>
+            Accepted
+          </label>
+          <label>
+            <%= check_box_tag :waitlist, 1, params[:waitlist] == "1" %>
+            Waitlist
+          </label>
+          <label >
+            <%= check_box_tag :not_accepted, 1, params[:not_accepted] == "1" %>
+            Not Accepted
+          </label>
+        <br />
+        <label class="font-bold">Application Date</label>
+        <label class = "bg-gray-300 px-2 py-3 border rounded">
+        <%= date_field_tag :start_date, params[:start_date], placeholder: "Start Date", class: "w-36 mt-5 px-2 py-1 border rounded" %> - <%= date_field_tag :end_date, params[:end_date], placeholder: "End Date", class: "w-36 px-2 py-1 border rounded" %>
         </label>
         <br />
-        <br />
-        <label class="mt-3">
-          Applicant Height Range: <br />
-          <%= number_field_tag :min_height, params[:min_height], placeholder: "Min Height" %>
-           - 
-          <%= number_field_tag :max_height, params[:max_height], placeholder: "Max Height" %>
+        <label class="font-bold mt-3">Height Range</label>
+        <label class = "bg-gray-300 px-2 py-3 border rounded">
+        <%= number_field_tag :min_height, params[:min_height], placeholder: "Min Height" , class: "ml-1 w-28 mt-5 px-1 py-1 border rounded"%> - <%= number_field_tag :max_height, params[:max_height], placeholder: "Max Height", class: "w-28 w-28 mt-5 px-1 py-1 border rounded"%>
         </label>
         <br />
         <%= submit_tag "Apply Filters", class: "rounded-lg mt-5 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+        <% if params[:my_applications].present? || params[:accepted].present? || params[:waitlist].present? || params[:not_accepted].present? || params[:start_date].present? || params[:end_date].present? || params[:min_height].present? || params[:max_height].present?%>
+          <button id="clearFiltersBtn" class="rounded-lg my-3 py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer">Clear Filters</button>
+        <% end %>
       <% end %>
-
-      <%= link_to 'Show Archived Applications', archive_user_applications_path, class: 'ml-3 py-1 px-2 bg-gray-500 text-white inline-block cursor-pointer rounded-md hover:bg-gray-700' %>
-
       <% if @date_range_error.present? %>
         <div class="text-red-600 text-bold ml-3"><%= @date_range_error %></div>
       <% end %>
@@ -103,87 +125,50 @@
       <% if @height_value_error.present? %>
         <div class="text-red-600 text-bold ml-3"><%= @height_value_error %></div>
       <% end %>
-      <% if params[:accepted].present? || params[:waitlist].present? || params[:not_accepted].present? || params[:start_date].present? || params[:end_date].present? || params[:min_height].present? || params[:max_height].present?%>
-        <button id="clearFiltersBtn" class="rounded-lg my-3 py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer">Clear Filters</button>
-      <% end %>
-    </div>
-    <div>
-      <label class="float-right mr-3 mb-2">
-      Sort By:
-      <select id="sortOption" class="rounded-lg mt-1 py-2 px-3 bg-white text-gray-900">
-        <option value="created_at_desc" <%= params[:sort_option] == "created_at_desc" ? "selected" : "" %>>Newest to oldest</option>
-        <option value="created_at_asc" <%= params[:sort_option] == "created_at_asc" ? "selected" : "" %>>Oldest to newest</option>
-      </select>
-      </label>
     </div>
   <% end %>
+</div>
 
-  <h2 class="text-2xl font-bold ml-3"><%= @page_title %></h2>
-  <% if @user.applicant? %>
-    <div class='flex flex-col justify-center items-center border border-black bg-[#FFEFAD] rounded-lg lg:w-2/3 w-[500px] mx-auto my-4'>
-    <div class='w-3/4'>
-        <div class='flex justify-between px-12 py-4 font-bold'>
-          <p>Child's Name</p>
-          <p class='px-8'>Actions</p>
-        </div>
-        <div class='flex flex-col pb-4'>
-          <% if @user_applications.any? %>
-            <% @user_applications.each do |user_application| %>
-              <div class='flex justify-between'>
-                <p><%= user_application.child_first_name + " " + user_application.child_last_name %></p>
-                <div class='py-2'>
-                  <%= link_to("Show", user_application_path(user_application), class: "action show border border-black rounded-lg bg-white px-2 py-1 m-1")%>
-                  <%= link_to("Edit", edit_user_application_path(user_application), class: "action edit border border-black rounded-lg bg-white px-2 py-1 m-1")%>
-                  <%= link_to("Delete", delete_user_application_path(user_application), class: "action delete border border-black rounded-lg bg-white px-2 py-1 m-1")%>
-                </div>
+<% if @user.applicant? %>
+  <h2 class="text-2xl font-bold mb-3 ml-5"><%= @page_title %></h2>
+  <div class='flex flex-col justify-center items-center border border-black bg-[#FFEFAD] rounded-lg lg:w-2/3 w-[500px] mx-auto my-4'>
+  <div class='w-3/4'>
+      <div class='flex justify-between px-12 py-4 font-bold'>
+        <p>Child's Name</p>
+        <p class='px-8'>Actions</p>
+      </div>
+      <div class='flex flex-col pb-4'>
+        <% if @user_applications.any? %>
+          <% @user_applications.each do |user_application| %>
+            <div class='flex justify-between'>
+              <p><%= user_application.child_first_name + " " + user_application.child_last_name %></p>
+              <div class='py-2'>
+                <%= link_to("Show", user_application_path(user_application), class: "action show border border-black rounded-lg bg-white px-2 py-1 m-1")%>
+                <%= link_to("Edit", edit_user_application_path(user_application), class: "action edit border border-black rounded-lg bg-white px-2 py-1 m-1")%>
+                <%= link_to("Delete", delete_user_application_path(user_application), class: "action delete border border-black rounded-lg bg-white px-2 py-1 m-1")%>
               </div>
-            <% end %>
+            </div>
           <% end %>
-        </div>
+        <% end %>
       </div>
     </div>
-  <% end %>
+  </div>
+<% end %>
 
-  <% if @user.officer_member? || @user.admin? || @user.staff_member? %>
-  
-    <%= render partial: 'user_applications_table', locals: {  
-      user_applications: @officer_user_applications, 
-      view_link_class: "action show rounded-md py-2 px-8 my-1 bg-gray-300 text-black inline-block font-small cursor-pointer hover:bg-gray-400",
-      status_link_class: "action accept rounded-md mx-2 my-1 py-2 px-3 bg-gray-300 text-black inline-block font-medium cursor-pointer hover:bg-gray-400",
-      delete_link_class: "rounded-md py-2 px-3 bg-red-600 my-1 text-white inline-block font-medium cursor-pointer hover:bg-red-700",
-      table_class: "accepted",
-      header_color: "green-800"
-    } %>
-    <br />
-  <% end %>
+<% if @user.officer_member? || @user.admin? || @user.staff_member? %>
+  <%= render partial: 'user_applications_table', locals: {  
+    user_applications: @officer_user_applications, 
+    view_link_class: "action show py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100",
+    status_link_class: "action accept py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 ",
+    delete_link_class: "text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2",
+    table_class: "accepted",
+    header_color: "green-800"
+  } %>
+  <br />
+<% end %>
 
-  <div class='text-center m-4'><%= link_to("New Application", new_user_application_path, class: "border border-black rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium")%></div>
-  
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const checkboxes = document.querySelectorAll("input[type='checkbox']");
-      const filterForm = document.getElementById('filter_form');
+<div class='text-center m-4'><%= link_to("New Application", new_user_application_path, class: "text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800")%></div>  
 
-      checkboxes.forEach(function(checkbox) {
-        checkbox.addEventListener("change", function() {
-          checkboxes.forEach(function(otherCheckbox) {
-            if (otherCheckbox !== checkbox) {
-              otherCheckbox.checked = false;
-            }
-          });
-          filterForm.submit(); // This line submits the form whenever a checkbox is checked or unchecked
-        });
-      });
-
-      filterForm.addEventListener("submit", function(event) {
-        const checkedCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.checked);
-        if (checkedCheckboxes.length === 0) {
-          event.preventDefault();
-          window.location.href = '/user_applications';
-        }
-      });
-    });
-  </script>
 
 </div>
 
