@@ -5,7 +5,7 @@ class ApplicationNotesController < ApplicationController
 
   # GET /application_notes or /application_notes.json
   def index
-    @application_notes = ApplicationNote.where(user_application_id: @user_application.id)
+    @application_notes = ApplicationNote.where(user_application_id: @user_application.id).order(created_at: :desc)
   end
 
   # GET /application_notes/1 or /application_notes/1.json
@@ -30,7 +30,7 @@ class ApplicationNotesController < ApplicationController
         format.html { redirect_to [@user_application, @application_note], notice: "Application note was successfully created." }
         format.json { render :show, status: :created, location: @application_note }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to new_user_application_application_note_path(@user_application), notice: "Failed to create application note." }
         format.json { render json: @application_note.errors, status: :unprocessable_entity }
       end
     end
