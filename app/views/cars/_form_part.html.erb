@@ -30,9 +30,9 @@
       <td class="p-1"><%= form.label :quantity_purchased %></td>
       <td class="p-1"><%= form.number_field :quantity_purchased, class: "py-1 px-2 bg-white border border-black" %></td>
     </tr>
-<%= form.hidden_field :car_id, value: car.id %>
 
     <tr>
+      <%= form.hidden_field :car_id, value: car.id %>
       <td colspan="2" class="p-1 text-center"><%= form.submit class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %></td>
     </tr>
   </table>

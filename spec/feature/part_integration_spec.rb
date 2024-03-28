@@ -11,7 +11,7 @@ RSpec.describe 'Part management as admin', type: :feature do
     @car = Car.create!(car_type_id: @car_type.id)
   end
   scenario 'SUNNY: create with valid inputs' do
-    visit edit_car_path(@car)
+    visit new_part_car_path(@car)
     fill_in 'part_part_name', with: 'Engine'
     fill_in 'part_part_price', with: 25
     fill_in 'part_quantity_purchased', with: 12
@@ -20,7 +20,7 @@ RSpec.describe 'Part management as admin', type: :feature do
     expect(page).to have_content('part was successfully created.')
   end
   scenario 'RAINY: create with invalid inputs' do
-    visit edit_car_path(@car)
+    visit new_part_car_path(@car)
     fill_in 'part_part_price', with: 25
     fill_in 'part_quantity_purchased', with: 12
     fill_in 'part_purchase_source', with: "http://example.com/purchase"
@@ -28,7 +28,7 @@ RSpec.describe 'Part management as admin', type: :feature do
     expect(page).to have_text('Part name can\'t be blank')
   end
   scenario 'RAINY: create with no inputs' do
-    visit edit_car_path(@car)
+    visit new_part_car_path(@car)
     click_on 'Create Part'
     expect(page).to have_text('Part name can\'t be blank')
     expect(page).to have_text('Part price can\'t be blank')

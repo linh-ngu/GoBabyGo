@@ -31,15 +31,15 @@ class PartsController < ApplicationController
       # end
     end
 
-    # GET /parts/new
-    def new
-      @current_user = User.find_by(admin_id: current_admin.id)
-      # unless @current_user.admin? || @current_user.officer_member?
-      #   redirect_to root_path
-      #   flash[:notice] = "You do not have permission to view that page!"
-      # end
-      @part = Part.new
-    end
+    # # GET /parts/new
+    # def new
+    #   @current_user = User.find_by(admin_id: current_admin.id)
+    #   # unless @current_user.admin? || @current_user.officer_member?
+    #   #   redirect_to root_path
+    #   #   flash[:notice] = "You do not have permission to view that page!"
+    #   # end
+    #   @part = Part.new
+    # end
 
     # GET /parts/1/edit
     def edit

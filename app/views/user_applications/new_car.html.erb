@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+<div class="flex flex-col justify-center items-center">
+  <h1 class='p-4 text-xl font-bold'>New Car</h1>
+  <%= render "form_car", car: @car, user_application: @user_application %>
+
+  <div class="flex">
+  <%= link_to "Back to Applications", user_application_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2"%>
+  </div>
+</div>
+```

@@ -185,7 +185,7 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
         expect(page).to have_content("accepted child")
         expect(page).to have_content("waitlisted child")
         expect(page).to have_content("not acc child")
-
+        click_on "Show Filters"
         check "Accepted"
         click_on "Apply Filters"
         expect(page).to have_content("accepted child")
@@ -196,7 +196,7 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
 
     scenario 'SUNNY: Filter by waitlist applicants' do
         visit user_applications_path
-
+        click_on "Show Filters"
         check "Waitlist"
         click_on "Apply Filters"
         expect(page).not_to have_content("accepted child")
@@ -207,7 +207,7 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
 
     scenario 'SUNNY: Filter by not accepted applicants' do
         visit user_applications_path
-
+        click_on "Show Filters"
         check "Not Accepted"
         click_on "Apply Filters"
         expect(page).not_to have_content("accepted child")
@@ -218,7 +218,7 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
 
     scenario 'SUNNY: Filter applicants after a specific date' do
         visit user_applications_path
-
+        click_on "Show Filters"
         fill_in "start_date", with: "2024-01-01"
         click_on "Apply Filters"
         expect(page).to have_content("accepted child")
@@ -248,7 +248,7 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
 
     scenario 'SUNNY: Filter applicants before a specific date' do
         visit user_applications_path
-
+        click_on "Show Filters"
         fill_in "end_date", with: "2024-03-01"
         click_on "Apply Filters"
         expect(page).to have_content("accepted child")
@@ -278,7 +278,7 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
 
     scenario 'SUNNY: Filter applicants between a specific date range' do
         visit user_applications_path
-
+        click_on "Show Filters"
         fill_in "start_date", with: "2024-01-01"
         fill_in "end_date", with: "2024-03-01"
         click_on "Apply Filters"
@@ -312,13 +312,14 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
 
     scenario 'SUNNY: Check default is sort by newest to oldest applications' do
         visit user_applications_path
-        expect(page).to have_content("Sort By:")
+        click_on "Show Filters"
+        expect(page).to have_content("Sort Options:")
         expect(page).to have_content("Newest to oldest")
     end
 
     scenario 'RAINY: Attempt to filter in date range with invalid text.' do
         visit user_applications_path
-
+        click_on "Show Filters"
         fill_in "start_date", with: "NOOOOOO"
         fill_in "end_date", with: "WHYYYYY"
         click_on "Apply Filters"
@@ -327,7 +328,7 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
     
     scenario 'RAINY: Attempt to filter in date range with start > end' do
         visit user_applications_path
-
+        click_on "Show Filters"
         fill_in "start_date", with: "2023-12-30"
         fill_in "end_date", with: "2023-01-01"
         click_on "Apply Filters"
@@ -337,7 +338,7 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
 
     scenario 'RAINY: Attempt to filter in height range with negative number.' do
         visit user_applications_path
-
+        click_on "Show Filters"
         fill_in "min_height", with: "-1"
         fill_in "max_height", with: "-2"
         click_on "Apply Filters"
@@ -347,7 +348,7 @@ RSpec.describe 'OFFICER: Applying filters to user applications page', type: :fea
 
     scenario 'RAINY: Attempt to filter in height range with min > max height.' do
         visit user_applications_path
-
+        click_on "Show Filters"
         fill_in "min_height", with: "10"
         fill_in "max_height", with: "2"
         click_on "Apply Filters"
@@ -369,18 +370,18 @@ RSpec.describe "Sort user applications", type: :request do
 
     describe "GET /user_applications" do
         it "SUNNY: Sort by newest to oldest" do
-          get user_applications_path, params: { sort_option: "created_at_desc" }
-          expect(response.body.index(@accepted_user_application.child_first_name)).to be < response.body.index(@waitlisted_user_application.child_first_name)
-          expect(response.body.index(@waitlisted_user_application.child_first_name)).to be > response.body.index(@not_accepted_user_application.child_first_name)        
+            get user_applications_path, params: { sort_option: "created_at_desc" }
+            expect(response.body.index(@accepted_user_application.child_first_name)).to be < response.body.index(@waitlisted_user_application.child_first_name)
+            expect(response.body.index(@waitlisted_user_application.child_first_name)).to be > response.body.index(@not_accepted_user_application.child_first_name)        
         end
       end
 
     describe "GET /user_applications" do
-      it "SUNNY: Sort by oldest to newest" do
-        get user_applications_path, params: { sort_option: "created_at_asc" }
-        expect(response.body.index(@accepted_user_application.child_first_name)).to be < response.body.index(@waitlisted_user_application.child_first_name)
-        expect(response.body.index(@waitlisted_user_application.child_first_name)).to be < response.body.index(@not_accepted_user_application.child_first_name)        
-      end
+        it "SUNNY: Sort by oldest to newest" do
+            get user_applications_path, params: { sort_option: "created_at_asc" }
+            expect(response.body.index(@accepted_user_application.child_first_name)).to be < response.body.index(@waitlisted_user_application.child_first_name)
+            expect(response.body.index(@waitlisted_user_application.child_first_name)).to be < response.body.index(@not_accepted_user_application.child_first_name)        
+        end
     end
 end
 

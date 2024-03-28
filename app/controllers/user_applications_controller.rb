@@ -54,29 +54,22 @@ class UserApplicationsController < ApplicationController
       else
         :desc # Default sorting option
       end
-      @not_accepted_user_applications = UserApplication.where(accepted: [nil, false], waitlist: false, archived: false)
-                                                .order(created_at: sorting_option)
-
-      @waitlist_user_applications = UserApplication.where(waitlist: true, accepted: false, archived: false)
-                                             .order(created_at: sorting_option)
-
-      @accepted_user_applications = UserApplication.where(accepted: true, archived: false)
-                                              .order(created_at: sorting_option)
+                                    
 
       @officer_user_applications = UserApplication.where(archived: false).order(created_at: sorting_option)
-      #different options for sorting applications
 
-      # Additional filtering based on user selection
-      if params[:my_applications] == "1"
-        @officer_user_applications = @officer_user_applications.where(user_id: @user.id)
-      elsif params[:accepted] == "1"
-        @officer_user_applications = @accepted_user_applications
-      elsif params[:waitlist] == "1"
-        @officer_user_applications = @waitlist_user_applications
-      elsif params[:not_accepted] == "1"
-        @officer_user_applications = @not_accepted_user_applications
+      # Initialize an empty array to store all selected applications
+      if params[:my_applications] == "1" || params[:accepted] == "1" || params[:waitlist] == "1" || params[:not_accepted] == "1"
+        # Initialize an empty relation to store all selected applications
+        selected_applications = @officer_user_applications.none
+
+        # Apply filtering based on user selection
+        selected_applications = selected_applications.or(@officer_user_applications.where(user_id: @user.id)) if params[:my_applications] == "1"
+        selected_applications = selected_applications.or(@officer_user_applications.where(accepted: true)) if params[:accepted] == "1"
+        selected_applications = selected_applications.or(@officer_user_applications.where(waitlist: true)) if params[:waitlist] == "1"
+        selected_applications = selected_applications.or(@officer_user_applications.where(accepted: [nil, false], waitlist: false)) if params[:not_accepted] == "1"
+        @officer_user_applications = selected_applications
       end
-
       # Applying date range filter
       if params[:start_date].present? || params[:end_date].present?
         begin
@@ -155,7 +148,7 @@ class UserApplicationsController < ApplicationController
         flash[:notice] = "You do not have permission to view that page!"
       end
     end
-
+    @edit_access = @user.officer_member? || @user.admin?
     @access_accepted = @user.officer_member? || @user.staff_member? || @user.admin?
   end
 
@@ -252,6 +245,16 @@ class UserApplicationsController < ApplicationController
     @user_application.destroy
     redirect_to user_applications_path(@user)
   end
+
+  def new_car
+    @current_user = User.find_by(admin_id: current_admin.id)
+    unless @current_user.admin? || @current_user.officer_member?
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
+    @user_application = UserApplication.find(params[:id])
+    @car = Car.new
+  end    
 
   private
   def user_params

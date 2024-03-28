@@ -117,9 +117,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_28_194331) do
     t.string "child_last_name"
     t.string "caregiver_first_name"
     t.string "caregiver_last_name"
+    t.boolean "rejected", default: false
     t.string "build_session"
     t.boolean "archived", default: false
-    t.boolean "rejected", default: false
   end
 
   create_table "users", force: :cascade do |t|
