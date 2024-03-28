@@ -41,9 +41,9 @@
             <%= link_to("View", user_application_path(user_application), class: view_link_class)%>
             <%= link_to("Change Status", edit_user_application_path(user_application), class: status_link_class)%>
             <% if action_name == 'archive' %>
-              <%= button_to("Unarchive", {controller: "user_applications", action: "update", id: user_application.id, button: 'unarchive'}, {class: status_link_class, method: :put}) %>
+              <%= button_to("Unarchive", {controller: "user_applications", action: "update", id: user_application.id, button: 'unarchive'}, {class: archive_link_class, method: :put}) %>
             <% else %> 
-              <%= button_to("Archive", {controller: "user_applications", action: "update", id: user_application.id, button: 'archive'}, {class: status_link_class, method: :put}) %>
+              <%= button_to("Archive", {controller: "user_applications", action: "update", id: user_application.id, button: 'archive'}, {class: archive_link_class, method: :put}) %>
             <% end %>
             <% if @user.officer_member? || @user.admin? %>
               <%= link_to("Delete", delete_user_application_path(user_application), class: delete_link_class)%>

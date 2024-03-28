@@ -80,7 +80,7 @@
             <th class=''>Build Semester</th>
             <td class='p-1'>
                 <% if action_name == 'edit' %>
-                    <%= select_tag :semester_input, options_for_select(['', 'Winter', 'Spring'], params[:semester_input]), class: 'py-1 px-2' %>
+                    <%= select_tag :semester_input, options_for_select(['', 'Fall', 'Spring'], params[:semester_input]), class: 'py-1 px-2' %>
                     <%= number_field_tag :year_input, params[:year_input], placeholder: "Ex. " + Time.now.year.to_s, class: 'py-1 px-2' %>
                 <% else %>
                     <div class='py-1 px-2 bg-white'><%= "#{@user_application.build_session}</div>".html_safe %>
