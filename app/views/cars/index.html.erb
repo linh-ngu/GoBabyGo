@@ -16,8 +16,7 @@
       <th class='p-4 text-xl font-bold text-left'>First Name</th>
       <th class='p-4 text-xl font-bold text-left'>Last Name</th>
       <% if @edit_access %>
-        <th class='p-4 text-xl font-bold text-left'>Car Info</th>
-        <th class='p-4 text-xl font-bold text-left'>Price</th>
+        <th class='p-4 text-xl font-bold text-left'>Car Type</th>
       <% end %>
       <th class='p-4 text-xl font-bold text-left'>Complete</th>
       <% if @edit_access %>
@@ -53,11 +52,10 @@
           <% end %>
         </td>
         <% if @edit_access %>
-        <td class = "px-3 py-4 break-all"><%= link_to car.car_type.name, car_type_path(car.car_type), class: "text-blue-500 hover:underline" %></td>
-        <td class = "px-3 py-4 break-all"><%= car.car_type.price %></td>
+          <td class = "px-3 py-4 break-all"><%= link_to car.car_type.name, car_type_path(car.car_type), class: "text-blue-500 hover:underline" %></td>
         <% end %>
-        <td class = "px-3 py-4 break-all"><%= car.complete ? "True" : "False" %></td>
-        <td class = "px-3 py-4 break-all"><%= link_to 'Show', car, class: "text-blue-500 hover:underline" %></td>
+          <td class = "px-3 py-4 break-all"><%= car.complete ? "True" : "False" %></td>
+          <td class = "px-3 py-4 break-all"><%= link_to 'Show', car, class: "text-blue-500 hover:underline" %></td>
         <% if @edit_access %>
           <td class = "px-3 py-4 break-all"><%= link_to 'Edit', edit_car_path(car), class: "text-blue-500 hover:underline" %></td>
           <td><%= link_to 'Delete', car, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %></td>

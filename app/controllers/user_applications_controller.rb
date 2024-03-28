@@ -150,7 +150,7 @@ class UserApplicationsController < ApplicationController
         flash[:notice] = "You do not have permission to view that page!"
       end
     end
-
+    @edit_access = @user.officer_member? || @user.admin?
     @access_accepted = @user.officer_member? || @user.staff_member? || @user.admin?
   end
 
