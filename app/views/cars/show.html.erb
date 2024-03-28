@@ -16,27 +16,36 @@
     <% end %>
 
     <% if @car.notes.any? %>
-      <div class="overflow-x-auto w-full">
-        <table class="w-full overflow-hidden bg-white divide-y divide-gray-300 rounded-lg">
+      <div class='flex flex-col justify-center items-center border border-black bg-gray-300 rounded-lg min-w-2/3 w-3/4'>
+        <table class="w-full max-w-6xl mx-auto overflow-hidden bg-white divide-y divide-gray-300 rounded-lg">
           <thead>
             <tr>
-              <td class='p-4 text-xl font-bold text-left'>User</td>
-              <td class='p-4 text-xl font-bold text-left'>Note Info</td>
+              <td class='border border-gray-200 px-3 py-2 justify-left'>User</td>
+              <td class='border border-gray-200 px-3 py-2 justify-left'>Note Info</td>
               <% if @current_user.present? %>
-                <td colspan="2" class='p-4 text-xl font-bold text-left'>Actions</td>
+                <td colspan="2" class='border border-gray-200 px-3 py-2'>Actions</td>
               <% end %>
             </tr>
           </thead>
           <tbody>
             <% @car.notes.each do |note| %>
               <tr>
-                <td class="px-3 py-4"><%= User.find(note.user_id).email %></td>
-                <td class="px-3 py-4 break-all"><%= note.content %></td>
+                <td class="border border-gray-200 px-3 py-2">
+                  <% user = User.find(note.user_id) %>
+                  <%= "#{user.first_name} #{user.last_name}" %>
+                </td>
+                <td class="border border-gray-200 px-3 py-2">
+                  <div style = "white-space: pre-wrap"><%= note.content %></div>
+                </td>
+
+
+
+
                 <% if @current_user.present? && note.user_id == @current_user.id %>
-                  <td class="px-3 py-4">
+                  <td class="border border-gray-200 px-3 py-2">
                     <%= link_to "Edit", edit_note_path(note), class: "text-blue-500 hover:underline mr-2" %>
                   </td>
-                  <td class="px-3 py-4">
+                  <td class="border border-gray-200 px-3 py-2">
                     <%= button_to 'Delete', note_path(note), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %>
                   </td>
                 <% end %>
