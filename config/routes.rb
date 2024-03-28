@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   end
 
 
-  resources :parts do
+  resources :parts, except: [:new] do
     member do
       get :delete
     end

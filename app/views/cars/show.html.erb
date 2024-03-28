@@ -6,18 +6,18 @@
     <div class="flex flex-col justify-center items-center w-full">
     <h1 class="text-3xl font-bold p-4">Notes</h1>
     </div>
-    <%= form_with(model: Note.new, url: notes_path, local: true) do |form| %>
-      <div class="flex items-center" width = "100%">
-        <%= form.text_area :content, class: 'py-2 mb-2 px-2 mr-2 w-full', placeholder: 'Enter your note here...' %>
-        <%= form.submit "Create Note", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    <%= form_with(model: Note.new, url: notes_path, local: true, class: 'w-full') do |form| %>
+      <div class="flex items-center w-full" width = "100%">
+        <%= form.text_area :content, class: 'form-textarea resize-y w-full h-32 w-full py-2 m-2 px-2', placeholder: 'Enter your note here...' %>
+        <%= form.submit "Create Note", class: "m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
         <%= form.hidden_field :car_id, value: @car.id %>
         <%= form.hidden_field :user_id, value: @current_user.id %>
       </div>
     <% end %>
 
     <% if @car.notes.any? %>
-      <div class="overflow-x-auto">
-        <table class="w-full max-w-6xl mx-auto overflow-hidden bg-white divide-y divide-gray-300 rounded-lg">
+      <div class="overflow-x-auto w-full">
+        <table class="w-full overflow-hidden bg-white divide-y divide-gray-300 rounded-lg">
           <thead>
             <tr>
               <td class='p-4 text-xl font-bold text-left'>User</td>
@@ -80,7 +80,6 @@
           </tbody>
         </table>
       <% else %>
-        <p>No parts associated with this car.</p>
         <%= link_to "Add a Part", new_part_car_path(@car), class: 'rounded-lg py-3 px-5 bg-blue-400 inline-block font-medium m-2' %>
       <% end %>
 
