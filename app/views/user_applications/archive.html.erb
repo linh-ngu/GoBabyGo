@@ -25,8 +25,8 @@
                 <%= number_field_tag :year_input, params[:year_input], placeholder: "Ex. " + Time.now.year.to_s, class: "rounded-lg mt-1 py-2 px-3 bg-white text-gray-900" %>
             </label>
 
-            <%= submit_tag "Apply Filter", class: "rounded-lg mt-1 m-2 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
-            <%= link_to "Clear Filter", archive_user_applications_path, class: "rounded-lg mt-1 m-2 py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer" %>
+            <%= submit_tag "Apply Filter", class: "rounded-lg mt-1 m-2 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700" %>
+            <%= link_to "Clear Filter", archive_user_applications_path, class: "rounded-lg mt-1 m-2 py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer hover:bg-red-700" %>
         <% end %>
 
         <div class="flex justify-between items-center">
