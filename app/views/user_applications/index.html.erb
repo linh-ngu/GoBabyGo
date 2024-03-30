@@ -1,5 +1,5 @@
 <div class='mt-8'><%= link_to('Back to Dashboard', dashboard_path, class:'rounded-lg mb-5 ml-5 py-2 px-3 bg-blue-500 text-white inline-block font-medium cursor-pointer hover:bg-blue-600') %></div>
-<%= link_to 'View Archived Applications Page', archive_user_applications_path, class: 'ml-5 mb-3 py-1 px-2 bg-gray-500 text-white cursor-pointer rounded-md hover:bg-gray-700' %>
+<%= link_to 'View Archived Applications Page', archive_user_applications_path, class: 'rounded-lg mb-5 ml-5 mt-5 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700' %>
 
 <% # Handles applying filters # %>
 <script>
@@ -69,13 +69,9 @@
   });
 </script>
 
-<div class="user_applications  index py-10">
+<div class="user_applications index">
   <% if @user.officer_member? || @user.admin? || @user.staff_member? %>
-    
-    <br />
-    <button id="toggleFiltersBtn" class="ml-5 rounded-lg my-3 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer"><%= params[:my_applications].present? || params[:accepted].present? || params[:waitlist].present? || params[:not_accepted].present? || params[:start_date].present? || params[:end_date].present? || params[:min_height].present? || params[:max_height].present? ? 'Hide Filters' : 'Show Filters' %></button>
-    <br/>
-    <br />
+    <button id="toggleFiltersBtn" class="ml-5 rounded-lg py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700"><%= params[:my_applications].present? || params[:accepted].present? || params[:waitlist].present? || params[:not_accepted].present? || params[:start_date].present? || params[:end_date].present? || params[:min_height].present? || params[:max_height].present? ? 'Hide Filters' : 'Show Filters' %></button>
     <div class="filter-options flex flex-col justify-center items-center ml-5 bg-gray-300 mb-3 py-5 px-5 border rounded w-2/3 min-w-2/3" style="display: <%= params[:my_applications].present? || params[:accepted].present? || params[:waitlist].present? || params[:not_accepted].present? || params[:start_date].present? || params[:end_date].present? || params[:min_height].present? || params[:max_height].present? ? 'block' : 'none' %>;">
       <%= form_tag(user_applications_path, method: :get) do %>
         <label class="font-bold text-lg">
@@ -166,10 +162,10 @@
       table_class: "accepted",
       header_color: "green-800"
     } %>
-    <br />
+  
   <% end %>
 
-<div class='text-center m-4'><%= link_to("New Application", new_user_application_path, class: "text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800")%></div>  
+<div class='text-center'><%= link_to("New Application", new_user_application_path, class: "rounded-lg mb-5 ml-5 mt-5 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700") %></div>
 
 
 </div>

@@ -11,8 +11,11 @@
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :content %>
+  <% if ['edit', 'show'].include? action_name %>
+    <p class='text-lg font-bold'>Created by <%= @user.first_name + " " + @user.last_name %> on <%= @application_note.created_at.strftime("%B %d, %Y") %></p>
+  <% end %>
+
+  <div class="">
     <%= action_name != 'show' ? form.text_area(:content, rows: 10, cols: 50, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full") : form.text_area(:content, rows: 10, cols: 50, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", readonly: true) %>
   </div>
 

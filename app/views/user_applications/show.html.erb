@@ -15,7 +15,7 @@
 
     <div class="flex justify-between">
         <% if !(@user.visitor? || @user.applicant?) %>
-            <%= link_to('Notes', user_application_application_notes_path(@user_application), class: 'rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2')%>
+            <%= link_to("#{@user_application.child_first_name} #{@user_application.child_last_name}'s Notes", user_application_application_notes_path(@user_application), class: 'rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2')%>
         <% end %>
         <%= link_to('Edit', edit_user_application_path(@user_application), class: 'rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2') %>
         <%= link_to('Delete', delete_user_application_path(@user_application), class: 'rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2') %>

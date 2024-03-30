@@ -2,16 +2,24 @@
     <div class="my-3 text-center">
         <th class=''>Application Status</th>
         <td class='p-1'>
-        <% if @user_application.accepted.nil? %>
-            <%= "<div class='py-1 px-2 bg-gray-300'>Pending</div>".html_safe %>
-        <% elsif @user_application.accepted %>
-            <%= "<div class='py-1 px-2 bg-green-300'>Accepted! You will be contacted shortly.</div>".html_safe %>
-        <% elsif @user_application.waitlist %>
-            <%= "<div class='py-1 px-2 bg-blue-300'>Waitlisted</div>".html_safe %>
-        <% elsif @user_application.rejected %>
-            <%= "<div class='py-1 px-2 bg-red-300'>Denied</div>".html_safe %>
+            <% if @user_application.accepted.nil? %>
+                <%= "<div class='py-1 px-2 bg-gray-300'>Pending</div>".html_safe %>
+            <% elsif @user_application.accepted %>
+                <%= "<div class='py-1 px-2 bg-green-300'>Accepted! You will be contacted shortly.</div>".html_safe %>
+            <% elsif @user_application.waitlist %>
+                <%= "<div class='py-1 px-2 bg-blue-300'>Waitlisted</div>".html_safe %>
+            <% elsif @user_application.rejected %>
+                <%= "<div class='py-1 px-2 bg-red-300'>Denied</div>".html_safe %>
+            <% end %>
         </td>
-        <% end %>
+        <th class=''>Build Semester</th>
+        <td class='p-1'>
+            <% if @user_application.build_session == " " %>
+                <p class='py-1 px-2 bg-white'>None</p>
+            <% else %>
+                <div class='py-1 px-2 bg-white'><%= "#{@user_application.build_session}</div>".html_safe %>
+            <% end %>
+        </td>
     </div>
 <% end %>
 <table class="border border-black bg-gray-300" summary="Application form fields">
@@ -77,15 +85,13 @@
             </td>
         </tr>
         <tr>
-            <th class=''>Build Semester</th>
-            <td class='p-1'>
-                <% if action_name == 'edit' %>
+            <% if action_name == 'edit' %>
+                <th class=''>Build Semester</th>
+                <td class='p-1'>
                     <%= select_tag :semester_input, options_for_select(['', 'Fall', 'Spring'], params[:semester_input]), class: 'py-1 px-2' %>
                     <%= number_field_tag :year_input, params[:year_input], placeholder: "Ex. " + Time.now.year.to_s, class: 'py-1 px-2' %>
-                <% else %>
-                    <div class='py-1 px-2 bg-white'><%= "#{@user_application.build_session}</div>".html_safe %>
-                <% end %>
-            </td>
+                </td>
+            <% end %>
         </tr>
     <% end %>
         <tr>
