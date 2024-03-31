@@ -18,13 +18,14 @@
         <td class="p-2"><%= form.text_field :name, class: "form-input" %></td>
       </tr>
       <tr>
-        <td class="p-2"><%= form.label :max_height %></td>
+        <td class="p-2"><%= form.label :max_height, "Max Height (in.)" %></td>
         <td class="p-2"><%= form.number_field :max_height, class: "form-input" %></td>
       </tr>
       <tr>
-        <td class="p-2"><%= form.label :max_weight %></td>
+        <td class="p-2"><%= form.label :max_weight, "Max Weight (lbs.)" %></td>
         <td class="p-2"><%= form.number_field :max_weight, class: "form-input" %></td>
       </tr>
+
       <tr>
         <td class="p-2"><%= form.label :price %></td>
         <td class="p-2"><%= form.number_field :price, step: '0.01', class: "form-input" %></td>

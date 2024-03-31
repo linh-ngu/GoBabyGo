@@ -29,7 +29,7 @@
               <td class = "px-3 py-4 break-all"><%= car.complete ? "True" : "False" %></td>
               <td class = "px-3 py-4 break-all"><%= link_to 'Show', car, class: "text-blue-500 hover:underline" %></td>
               <td class = "px-3 py-4 break-all"><%= link_to 'Edit', edit_car_path(car), class: "text-blue-500 hover:underline" %></td>
-              <td class = "px-3 py-4 break-all"><%= link_to 'Destroy', car, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %></td>
+              <td class = "px-3 py-4 break-all"><%= link_to 'Delete', car, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %></td>
             </tr>
           <% end %>
         </tbody>
@@ -41,6 +41,6 @@
   <div class="flex justify-center items-center">
     <%= link_to "Edit this Car Type", edit_car_type_path(@car_type), class: "rounded-lg py-3 px-5 bg-blue-400 inline-block font-medium m-2" %>
     <%= link_to "Back to Car Types", car_types_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2" %>
-    <%= button_to "Destroy this Car Type", @car_type, method: :delete, data: { confirm: 'Are you sure?' }, class: "rounded-lg py-3 px-5 bg-red-500 inline-block font-medium m-2" %>
+    <%= button_to "Delete this Car Type", @car_type, method: :delete, data: { confirm: 'Are you sure?' }, class: "rounded-lg py-3 px-5 bg-red-500 inline-block font-medium m-2" %>
   </div>
 </div>

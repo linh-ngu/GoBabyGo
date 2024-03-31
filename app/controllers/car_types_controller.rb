@@ -96,11 +96,18 @@ class CarTypesController < ApplicationController
     #   redirect_to root_path
     #   flash[:notice] = "You do not have permission to view that page!"
     # end
-    @car_type.destroy
+    if @car_type.cars.present?
+      redirect_to car_types_url, notice: "car_type cannot be deleted as it is associated with a car."
+    
+    else
+      @car_type.destroy
 
-    respond_to do |format|
-      format.html { redirect_to car_types_url, notice: "car_type was successfully destroyed." }
-      format.json { head :no_content }
+      
+
+      respond_to do |format|
+        format.html { redirect_to car_types_url, notice: "car_type was successfully destroyed." }
+        format.json { head :no_content }
+      end
     end
   end
 

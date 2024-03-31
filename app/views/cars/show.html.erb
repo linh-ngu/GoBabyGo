@@ -6,39 +6,47 @@
     <div class="flex flex-col justify-center items-center w-full">
     <h1 class="text-3xl font-bold p-4">Notes</h1>
     </div>
-    <%= form_with(model: Note.new, url: notes_path, local: true) do |form| %>
-      <%= form.hidden_field :car_id, value: @car.id %>
-      <%= form.hidden_field :user_id, value: @current_user.id %>
-      <br>
-      <div class="flex items-center" width = "100%">
-        <%= form.text_area :content, class: 'py-2 mb-2 px-2 mr-2 w-full', placeholder: 'Enter your note here...' %>
-        <%= form.submit "Create Note", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    <%= form_with(model: Note.new, url: notes_path, local: true, class: 'w-full') do |form| %>
+      <div class="flex items-center w-full" width = "100%">
+        <%= form.text_area :content, class: 'form-textarea resize-y w-full h-32 w-full py-2 m-2 px-2', placeholder: 'Enter your note here...' %>
+        <%= form.submit "Create Note", class: "m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+        <%= form.hidden_field :car_id, value: @car.id %>
+        <%= form.hidden_field :user_id, value: @current_user.id %>
       </div>
     <% end %>
 
     <% if @car.notes.any? %>
-      <div class="overflow-x-auto">
+      <div class='flex flex-col justify-center items-center border border-black bg-gray-300 rounded-lg min-w-2/3 w-3/4'>
         <table class="w-full max-w-6xl mx-auto overflow-hidden bg-white divide-y divide-gray-300 rounded-lg">
           <thead>
             <tr>
-              <td class='p-4 text-xl font-bold text-left'>User</td>
-              <td class='p-4 text-xl font-bold text-left'>Note Info</td>
+              <td class='border border-gray-200 px-3 py-2 justify-left'>User</td>
+              <td class='border border-gray-200 px-3 py-2 justify-left'>Note Info</td>
               <% if @current_user.present? %>
-                <td colspan="2" class='p-4 text-xl font-bold text-left'>Actions</td>
+                <td colspan="2" class='border border-gray-200 px-3 py-2'>Actions</td>
               <% end %>
             </tr>
           </thead>
           <tbody>
             <% @car.notes.each do |note| %>
               <tr>
-                <td class="px-3 py-4"><%= User.find(note.user_id).email %></td>
-                <td class="px-3 py-4 break-all"><%= note.content %></td>
+                <td class="border border-gray-200 px-3 py-2">
+                  <% user = User.find(note.user_id) %>
+                  <%= "#{user.first_name} #{user.last_name}" %>
+                </td>
+                <td class="border border-gray-200 px-3 py-2">
+                  <div style = "white-space: pre-wrap"><%= note.content %></div>
+                </td>
+
+
+
+
                 <% if @current_user.present? && note.user_id == @current_user.id %>
-                  <td class="px-3 py-4">
+                  <td class="border border-gray-200 px-3 py-2">
                     <%= link_to "Edit", edit_note_path(note), class: "text-blue-500 hover:underline mr-2" %>
                   </td>
-                  <td class="px-3 py-4">
-                    <%= button_to 'Destroy', note_path(note), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %>
+                  <td class="border border-gray-200 px-3 py-2">
+                    <%= button_to 'Delete', note_path(note), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %>
                   </td>
                 <% end %>
               </tr>
@@ -51,7 +59,8 @@
     <% if @edit_access %>
       <% if @car.parts.any? %>
       <div class="flex flex-col justify-center items-center w-full">
-      <h1 class="text-3xl font-bold p-4">Associated Parts</h1>
+        <h1 class="text-3xl font-bold p-4 mt-2">Associated Parts</h1>
+        <%= link_to "Add a Part", new_part_car_path(@car), class: 'rounded-lg py-3 px-5 bg-blue-400 inline-block font-medium m-2' %>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full max-w-6xl mx-auto overflow-hidden bg-white divide-y divide-gray-300 rounded-lg">
@@ -61,7 +70,6 @@
               <th class="p-4 text-xl font-bold text-left">Quantity</th>
               <th class="p-4 text-xl font-bold text-left">Source</th>
               <th class="p-4 text-xl font-bold text-left">Price</th>
-              <th class="p-4 text-xl font-bold text-left">Car</th>
               <th colspan="3" class="p-4 text-xl font-bold">Actions</th>
             </tr>
           </thead>
@@ -73,29 +81,28 @@
                 <td class = "px-3 py-4"><%= part.quantity_purchased %></td>
                 <td class = "px-3 py-4"><%= part.purchase_source %></td>
                 <td class = "px-3 py-4"><%= part.part_price %></td>
-                <td class = "px-3 py-4"><%= link_to Car.find(part.car_id).car_type.name, car_path(part.car_id) %></td>
                 <td class = "px-3 py-4"><%= link_to 'Show', part, class: "text-blue-500 hover:underline" %></td>
                 <td class = "px-3 py-4"><%= link_to 'Edit', edit_part_path(part), class: "text-blue-500 hover:underline" %></td>
-                <td class = "px-3 py-4"><%= link_to 'Destroy', part, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %></td>
+                <td class = "px-3 py-4"><%= link_to 'Delete', part, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %></td>
               </tr>
             <% end %>
           </tbody>
         </table>
       <% else %>
-        <p>No parts associated with this car.</p>
+        <%= link_to "Add a Part", new_part_car_path(@car), class: 'rounded-lg py-3 px-5 bg-blue-400 inline-block font-medium m-2' %>
       <% end %>
 
       <div class="flex justify-between">
         <%= link_to "Edit this Car", edit_car_path(@car), class: 'rounded-lg py-3 px-5 bg-blue-400 inline-block font-medium m-2' %>
-        <%= link_to "Back to Cars", cars_path, class: 'rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2' %>
-        <%= button_to "Destroy this Car", @car, method: :delete, data: { confirm: 'Are you sure?' }, class: 'rounded-lg py-3 px-5 bg-red-500 inline-block font-medium m-2' %>
+        <%= button_to "Delete this Car", @car, method: :delete, data: { confirm: 'Are you sure?' }, class: 'rounded-lg py-3 px-5 bg-red-500 inline-block font-medium m-2' %>
+        <%= link_to "Back to all Cars", cars_path, class: 'rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2' %>
           <% if @car.user_application.nil? == false %>
             <%= link_to "View Application", user_application_path(@car.user_application), class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2" %>
           <% end %>
       </div>
     <% else %>
       <div class="flex justify-between">
-      <%= link_to "Back to Cars", cars_path, class: 'rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2'%> 
+      <%= link_to "Back to My Cars", cars_path, class: 'rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2'%> 
       <% if @car.user_application.nil? == false %>
             <%= link_to "View Application", user_application_path(@car.user_application), class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2" %>
           <% end %>

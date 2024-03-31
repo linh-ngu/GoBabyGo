@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     member do
       get :delete
     end
+    get 'new_car', on: :member
   end
 
   resources :users do
@@ -28,7 +29,7 @@ Rails.application.routes.draw do
   end
 
 
-  resources :parts do
+  resources :parts, except: [:new] do
     member do
       get :delete
     end
@@ -38,6 +39,7 @@ Rails.application.routes.draw do
     member do
       get :delete
     end
+    get 'new_part', on: :member
   end
 
   resources :car_types do

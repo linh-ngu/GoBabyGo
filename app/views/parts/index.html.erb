@@ -7,11 +7,11 @@
 <table class="w-full max-w-6xl mx-auto overflow-hidden bg-white divide-y divide-gray-300 rounded-lg">
   <thead>
     <tr>
+      <th class="p-4 text-xl font-bold text-left">Car</th>
       <th class="p-4 text-xl font-bold text-left">Part Name</th>
       <th class="p-4 text-xl font-bold text-left">Quantity</th>
-      <th class="p-4 text-xl font-bold text-left">Source</th>
       <th class="p-4 text-xl font-bold text-left">Price</th>
-      <th class="p-4 text-xl font-bold text-left">Car</th>
+      <th class="p-4 text-xl font-bold text-left">Source</th>
       <th colspan="3" class="p-4 text-xl font-bold text-left">Actions</th>
     </tr>
   </thead>
@@ -19,14 +19,14 @@
   <tbody>
     <% @parts.each do |part| %>
       <tr>
+        <td class = "px-3 py-4"><%= link_to Car.find(part.car_id).car_type.name, car_path(part.car_id), class: "text-blue-500 hover:underline" %></td>
         <td class = "px-3 py-4"><%= part.part_name %></td>
         <td class = "px-3 py-4"><%= part.quantity_purchased %></td>
-        <td class = "px-3 py-4"><%= part.purchase_source %></td>
         <td class = "px-3 py-4"><%= part.part_price %></td>
-        <td class = "px-3 py-4"><%= link_to Car.find(part.car_id).car_type.name, car_path(part.car_id), class: "text-blue-500 hover:underline" %></td>
+        <td class = "px-3 py-4"><%= part.purchase_source %></td>
         <td class = "px-3 py-4"><%= link_to 'Show', part, class: "text-blue-500 hover:underline" %></td>
         <td class = "px-3 py-4"><%= link_to 'Edit', edit_part_path(part), class: "text-blue-500 hover:underline" %></td>
-        <td class = "px-3 py-4"><%= link_to 'Destroy', part, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %></td>
+        <td class = "px-3 py-4"><%= link_to 'Delete', part, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %></td>
       </tr>
     <% end %>
   </tbody>

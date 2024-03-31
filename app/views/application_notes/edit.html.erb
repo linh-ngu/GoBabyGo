@@ -1,7 +1,7 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">Editing application note</h1>
 
-  <%= render "form", application_note: @application_note, user_application: @user_application %>
+  <%= render "form", application_note: @application_note, user_application: @user_application, user: @user %>
 
-  <%= link_to "Back to application notes", user_application_application_notes_path(@user_application), class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= link_to "Back to #{@user_application.child_first_name + " " + @user_application.child_last_name}'s notes", user_application_application_notes_path(@user_application), class: "rounded-lg m-2 py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>

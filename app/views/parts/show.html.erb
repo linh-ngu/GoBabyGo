@@ -6,7 +6,7 @@
     <div class="flex justify-between">
     <%= link_to "Edit this Part", edit_part_path(@part), class: "rounded-lg py-3 px-5 bg-blue-400 inline-block font-medium m-2" %>
     <%= link_to "Back to Parts", parts_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2" %>
-    <%= button_to "Destroy this Part", @part, method: :delete, data: { confirm: 'Are you sure?' }, class: "rounded-lg py-3 px-5 bg-red-500 inline-block font-medium m-2" %> 
+    <%= button_to "Delete this Part", @part, method: :delete, data: { confirm: 'Are you sure?' }, class: "rounded-lg py-3 px-5 bg-red-500 inline-block font-medium m-2" %> 
     </div>
 </div>
 

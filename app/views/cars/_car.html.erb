@@ -7,16 +7,9 @@
           <% if car.user_application.nil? %>
             None
           <% else %>
-            <%= link_to "Application", user_application_path(car.user_application), class: "text-blue-500 hover:underline p-2" %>
+            <%= link_to "View Application", user_application_path(car.user_application), class: "text-blue-500 hover:underline p-2" %>
           <% end %>
         </td>
-      <tr>
-        <th class="p-2">Name:</th>
-        <td class="p-2"><%= car.car_type.name %></td>
-      </tr>
-      <tr>
-        <th class="p-2">Price:</th>
-        <td class="p-2">$<%= car.car_type.price %></td>
       </tr>
       <tr>
         <th class="p-2">First Name:</th>
@@ -25,6 +18,22 @@
       <tr>
         <th class="p-2">Last Name:</th>
         <td class="p-2"><%= car.user_application.nil? ? "None" : car.user_application.child_last_name %></td>
+      </tr>
+      <tr>
+        <th class="p-2">Car Type:</th>
+        <td class="p-2"><%= link_to car.car_type.name, car_type_path(car.car_type), class: "text-blue-500 hover:underline" %></td>
+      </tr>
+      <tr>
+        <th class="p-2">Price:</th>
+        <td class="p-2">$<%= car.car_type.price %></td>
+      </tr>
+      <tr>
+        <th class="p-2">Max Height:</th>
+        <td class="p-2"><%= car.car_type.max_height %> in.</td>
+      </tr>
+      <tr>
+        <th class="p-2">Max Weight:</th>
+        <td class="p-2"><%= car.car_type.max_weight %> lbs.</td>
       </tr>
       <tr>
         <th class="p-2">Modifications:</th>
