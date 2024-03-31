@@ -19,7 +19,7 @@ RSpec.describe 'VISITOR: Attempt to access Members Table that that do not belong
     before do
         @admin = Admin.create!(user_account_created: true, email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
         sign_in @admin
-        @user = User.create!(id: 1, email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :visitor)
+        @user = User.create!(id: 1, first_name: 'Test', last_name: 'User', email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :visitor)
     end
 
     scenario ' - renders show_user view with visitor level instead of users_table' do
@@ -37,7 +37,7 @@ RSpec.describe 'APPLICANT: Attempt to access Members Table that do not belong to
     before do
         @admin = Admin.create!(user_account_created: true, email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
         sign_in @admin
-        @user = User.create!(id: 1, email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :applicant)
+        @user = User.create!(id: 1, email: 'test@gmail.com', first_name: 'Test', last_name: 'User', phone: '1234567890', admin_id: @admin.id, level: :applicant)
     end
 
     scenario ' - renders show_user view with applicant level instead of users_table' do
@@ -55,7 +55,7 @@ RSpec.describe 'Authorized User: Attempt to access Members Table is permitted ba
   before do
       @admin = Admin.create!(user_account_created: true, email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
       sign_in @admin
-      @user = User.create!(id: 1, email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :officer_member)
+      @user = User.create!(id: 1, email: 'test@gmail.com', first_name: 'Test', last_name: 'User', phone: '1234567890', admin_id: @admin.id, level: :officer_member)
   end
 
   scenario ' - Members Table renders instead of user dashbaord' do
@@ -86,7 +86,7 @@ RSpec.describe 'Authorized User: Attempt to access Members Table is permitted ba
       @admin_toBeUpdated = Admin.create!(user_account_created: true, email: 'update_me@gmail.com', full_name: 'Update Admin', uid: '223456', avatar_url: 'http://example.com/avatar1')
       sign_in @admin
       @user = User.create!(id: 1, email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :admin)
-      @visitor_user = User.create!(id: 2, email: 'update_me@gmail.com', phone: '1234567891', admin_id: @admin.id, level: :visitor)
+      @visitor_user = User.create!(id: 2, email: 'update_me@gmail.com', first_name: 'Test', last_name: 'User', phone: '1234567891', admin_id: @admin.id, level: :visitor)
   end
 
   scenario ' - Members Table renders instead of user dashbaord' do
@@ -106,7 +106,7 @@ RSpec.describe 'Authorized User: Attempt to access Members Table is permitted ba
   before do
       @admin = Admin.create!(user_account_created: true, email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
       sign_in @admin
-      @user = User.create!(id: 1, email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :staff_member)
+      @user = User.create!(id: 1, email: 'test@gmail.com', first_name: 'Test', last_name: 'User', phone: '1234567890', admin_id: @admin.id, level: :staff_member)
   end
 
   scenario ' - Members Table renders instead of user dashbaord' do
