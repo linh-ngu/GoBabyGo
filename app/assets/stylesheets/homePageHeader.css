@@ -15,11 +15,11 @@
  */
 
  body {
-  background-color: maroon;
+  background-color: hsl(0, 45%, 25%);
 
  }
  #mediaSide1, #mediaSide2{
-  background-color: maroon;
+  background-color: hsl(0, 45%, 25%);
   width: 20%;
   min-height: 100vh;
   position: fixed;
@@ -49,7 +49,7 @@
   background-position: center;
   background-repeat: no-repeat; /* Prevents the image from repeating */
   /* background-image: url('<%= asset_path('gobabygo_logo.png') %>');  */
-  background-color: maroon;
+  background-color: hsl(0, 45%, 25%);
   /* background-color: whitesmoke; */
 
 
@@ -93,7 +93,7 @@
           #text-overlay .img-text h1{
             color: black;
             background-color: white;
-            border-bottom: 5px solid maroon;
+            border-bottom: 5px solid hsl(0, 45%, 25%);
             padding-bottom: 1%;
             padding: 3%;
             border-radius: 30px;
@@ -146,7 +146,7 @@
             flex-wrap: wrap;
             color:white; 
             text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
-            background-color: maroon;
+            background-color: hsl(0, 45%, 25%);
             padding-right: 1rem;
             padding-left: 1rem;
             border-radius: 10px;
@@ -180,7 +180,7 @@
 
           #nav-title {
               text-align:center;
-              color:maroon; 
+              color:hsl(0, 35%, 25%); 
               text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
               display: flex;
               justify-content: center;
@@ -188,7 +188,7 @@
               /* width: 20%; */
               color: black;
               background-color: white;
-              border-bottom: 5px solid maroon;
+              border-bottom: 5px solid hsl(0, 45%, 25%);
               padding: 1%;
               border-radius: 30px;
               opacity: 100%;
@@ -204,7 +204,7 @@
 
           #dropdown {
               background-color:white;
-              color:maroon; 
+              color:hsl(0, 45%, 25%);
               text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF; 
               border-radius: 20px;
           }
@@ -271,7 +271,7 @@
     background-position: center;
     background-repeat: no-repeat; /* Prevents the image from repeating */
     /* background-image: url('<%= asset_path('gobabygo_logo.png') %>');  */
-    background-color: maroon;
+    background-color: hsl(0, 45%, 25%);
   
   }
 

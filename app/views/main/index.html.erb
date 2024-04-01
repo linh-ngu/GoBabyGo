@@ -139,7 +139,9 @@
                                   <a href="/contacts" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300">Contact</a>
                                   <%= link_to 'Help', help_path, class: 'text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300' %>
                                   <% if admin_signed_in? %>
+                                    <%= link_to "Dashboard", dashboard_path , class:'text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300' %>
                                     <%= link_to " Sign out ", destroy_admin_session_path, class:'border border-black bg-white rounded-lg text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300',  id:'signOut', style: 'margin-left:2%; ' %>
+
                                   <% else %>
                                     <%= button_to " Sign in ", admin_google_oauth2_omniauth_authorize_path, class:'border border-black bg-white rounded-lg text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300', id:'signIn', style: 'margin-left:15%;width:130%;padding-left:5%; padding-right:5%; ' %>
                                   <% end %>
@@ -189,7 +191,24 @@
 
       <!-- Process of Applying Section -->
       <div id="process-section" class="" style="">
-        <h2 class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">Apply for a new ride!</h2>
+        <h2 class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">
+        
+          <span style="display: flex; align-items: center; justify-content: center;">
+            <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+            <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 15C5 16.8565 5.73754 18.6371 7.05029 19.9498C8.36305 21.2626 10.1435 21.9999 12 21.9999C13.8565 21.9999 15.637 21.2626 16.9498 19.9498C18.2625 18.6371 19 16.8565 19 15V9C19 7.14348 18.2625 5.36305 16.9498 4.05029C15.637 2.73754 13.8565 2 12 2C10.1435 2 8.36305 2.73754 7.05029 4.05029C5.73754 5.36305 5 7.14348 5 9V15Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 6V14" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 11L12 14L9 11" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Apply for a new ride!
+            <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+            <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 15C5 16.8565 5.73754 18.6371 7.05029 19.9498C8.36305 21.2626 10.1435 21.9999 12 21.9999C13.8565 21.9999 15.637 21.2626 16.9498 19.9498C18.2625 18.6371 19 16.8565 19 15V9C19 7.14348 18.2625 5.36305 16.9498 4.05029C15.637 2.73754 13.8565 2 12 2C10.1435 2 8.36305 2.73754 7.05029 4.05029C5.73754 5.36305 5 7.14348 5 9V15Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 6V14" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 11L12 14L9 11" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>        
+          </span>
+        </h2>
         <a id="applyHereButton" href="/" class="text-xs md:text-sm 
           lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition 
           duration-300" style="text-align:center; ">
@@ -211,39 +230,78 @@
           </svg>
           
         </a>
-        <div id="applySteps-wrapper1"class="applySteps-wrapper" style="margin-top:2%;">
-          
-          <div id="stepBox">
-            <h1 id="stepTitle" class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">Go Apply</h1>
-            <h3 id="stepBodyText" class="text-xs md:text-xs lg:text-lg xl:text-lg 2xl:text-xl">Go ahead and sign up to begin and submit an application.</h3>
-          </div>
-          <div id="stepBox">
-            <h1 id="stepTitle" class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">You are Accepted</h1>
-            <h3 id="stepBodyText" class="text-xs md:text-xs lg:text-lg xl:text-lg 2xl:text-xl">Once you are accepted, an official GoBabyGo member will reach out from the contact information you provide in your application.</h3>
-          </div>          
-          <div id="stepBox">
-            <h1 id="stepTitle" class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">Assesment Day</h1>
-            <h3 id="stepBodyText" class="text-xs md:text-xs lg:text-lg xl:text-lg 2xl:text-xl">The caregivers and child will come to the Assesment Day site and be evaluated for their future ride!</h3>
-          </div> 
-        </div>
+        <div id="applySteps-wrapper" class="applySteps-wrapper">
 
-        <div id="applySteps-wrapper2" class="applySteps-wrapper" style="margin-top:0%;">
-          <div id="stepBox">
-            <h1 id="stepTitle" class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">Build Day</h1>
-            <h3 id="stepBodyText" class="text-xs md:text-xs lg:text-lg xl:text-lg 2xl:text-xl">The GoBabyGo members will assemble and build your brand new ride!</h3>
-          </div>          
-          <div id="stepBox">
-            <h1 id="stepTitle" class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">Build Day</h1>
-            <h3 id="stepBodyText" class="text-xs md:text-xs lg:text-lg xl:text-lg 2xl:text-xl">GoBabyGo Members will assemble your new ride and you come pick it up!</h3>
-          </div> 
-        </div>
+          <div class="stepBox">
+            <h1 class="stepTitle">Go Apply</h1>
+            <h3 class="stepBodyText">Go ahead and sign up to begin and submit an application.</h3>
+          </div>
+          <div class="down-arrow">&#x25BC;</div> <!-- Simplified arrow representation -->
+
+          <div class="stepBox">
+            <h1 class="stepTitle">You are Accepted</h1>
+            <h3 class="stepBodyText">Once you are accepted, an official GoBabyGo member will reach out from the contact information you provide in your application.</h3>
+          </div>
+          <div class="down-arrow">&#x25BC;</div>
+
+          <div class="stepBox">
+            <h1 class="stepTitle">Assessment Day</h1>
+            <h3 class="stepBodyText">The caregivers and child will come to the Assessment Day site and be evaluated for their future ride!</h3>
+          </div>
+          <div class="down-arrow">&#x25BC;</div>
+
+          <div class="stepBox">
+            <h1 class="stepTitle">Build Day</h1>
+            <h3 class="stepBodyText">GoBabyGo Members will have assembled your new ride, and you can come to pick it up!</h3>
+          </div>
+
+
+        </div>  
 
       </div>
 
       <!-- Resources and Contact Section -->
       <div id="resources-contact" class=""  style="">
-        <h3>Resources and Contact</h3>
-        <!-- Add your resources and contact details here -->
+       <!-- Add your resources and contact details here -->
+        <% if admin_signed_in? %>
+          <a id="contactBottom" href="/contacts" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg" style="margin-right:2%;">Contact us!
+            <?xml version="1.0" encoding="iso-8859-1"?>
+            <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+            <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+              viewBox="0 0 470.773 470.773" xml:space="preserve" style="display:inline-block;">
+            <g>
+              <path d="M397.743,156.286c-7.435,0-14.493,1.63-20.841,4.553C372.586,137.628,352.185,120,327.743,120
+                c-7.68,0-14.958,1.745-21.467,4.852c-5.392-21.789-25.101-37.995-48.533-37.995c-7.109,0-13.871,1.501-20,4.187V50
+                c0-27.57-22.43-50-50-50c-27.57,0-50,22.43-50,50v196.337l-19.399-41.602c-11.652-24.988-41.46-35.836-66.447-24.184
+                c-24.986,11.651-35.836,41.459-24.185,66.446l104.349,223.776l279.966-0.006l4.141-8.31c1.289-2.587,31.575-64.054,31.575-124.431
+                V206.286C447.743,178.715,425.313,156.286,397.743,156.286z M417.743,338.026c0,41.223-16.901,84.903-24.64,102.741l-241.93,0.006
+                L54.902,234.319c-4.661-9.995-0.321-21.918,9.674-26.579c9.995-4.661,21.918-0.322,26.579,9.673l51.015,109.403l25.574,0.1V50
+                c0-11.028,8.972-20,20-20s20,8.972,20,20v156.286h30v-69.429c0-11.028,8.972-20,20-20c11.028,0,20,8.972,20,20v69.429h30V170
+                c0-11.028,8.972-20,20-20s20,8.972,20,20v36.286h30c0-11.028,8.972-20,20-20s20,8.972,20,20V338.026z"/>
+            </g>
+            </svg>
+          </a>
+          <%= link_to "Feedback Form", 'https://forms.gle/QC4sMmohcSoP6uzm7', class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium my-4" %>  
+
+        <% else %>
+         <a id="contactBottom" href="/contacts" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg ">Contact us!
+          <?xml version="1.0" encoding="iso-8859-1"?>
+          <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+          <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            viewBox="0 0 470.773 470.773" xml:space="preserve" style="display:inline-block;">
+          <g>
+            <path d="M397.743,156.286c-7.435,0-14.493,1.63-20.841,4.553C372.586,137.628,352.185,120,327.743,120
+              c-7.68,0-14.958,1.745-21.467,4.852c-5.392-21.789-25.101-37.995-48.533-37.995c-7.109,0-13.871,1.501-20,4.187V50
+              c0-27.57-22.43-50-50-50c-27.57,0-50,22.43-50,50v196.337l-19.399-41.602c-11.652-24.988-41.46-35.836-66.447-24.184
+              c-24.986,11.651-35.836,41.459-24.185,66.446l104.349,223.776l279.966-0.006l4.141-8.31c1.289-2.587,31.575-64.054,31.575-124.431
+              V206.286C447.743,178.715,425.313,156.286,397.743,156.286z M417.743,338.026c0,41.223-16.901,84.903-24.64,102.741l-241.93,0.006
+              L54.902,234.319c-4.661-9.995-0.321-21.918,9.674-26.579c9.995-4.661,21.918-0.322,26.579,9.673l51.015,109.403l25.574,0.1V50
+              c0-11.028,8.972-20,20-20s20,8.972,20,20v156.286h30v-69.429c0-11.028,8.972-20,20-20c11.028,0,20,8.972,20,20v69.429h30V170
+              c0-11.028,8.972-20,20-20s20,8.972,20,20v36.286h30c0-11.028,8.972-20,20-20s20,8.972,20,20V338.026z"/>
+          </g>
+          </svg></a>
+        
+        <% end %>
       </div>
 
       
