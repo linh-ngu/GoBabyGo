@@ -5,9 +5,22 @@ RSpec.describe 'APPLICANT: Routing from the dashboard to edit profile page.', ty
     include Devise::Test::IntegrationHelpers
 
     before do
-        @admin = Admin.create!(email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar', user_account_created: true)
+        @admin = Admin.create!(
+            email: 'test@gmail.com', 
+            full_name: 'Test Admin', 
+            uid: '123456', 
+            avatar_url: 'http://example.com/avatar', 
+            user_account_created: true
+        )
         sign_in @admin
-        @user = User.create!(first_name: "test", last_name: "name", email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, id: 100, level: :applicant)
+        @user = User.create!(
+            email: 'test@gmail.com', 
+            first_name: "Test", 
+            last_name: "User", 
+            phone: '1234567890', 
+            admin_id: @admin.id, 
+            level: :applicant
+        )
     end
 
     scenario 'SUNNY: Start at the dashboard. Route to the edit profile page and back.' do
@@ -25,9 +38,22 @@ RSpec.describe 'Visitor: Routing from the dashboard to edit profile page.', type
     include Devise::Test::IntegrationHelpers
 
     before do
-        @admin = Admin.create!(email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar', user_account_created: true)
+        @admin = Admin.create!(
+            email: 'test@gmail.com', 
+            full_name: 'Test Admin', 
+            uid: '123456', 
+            avatar_url: 'http://example.com/avatar', 
+            user_account_created: true
+        )
         sign_in @admin
-        @user = User.create!(first_name: "test", last_name: "name", email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, id: 100, level: :visitor)
+        @user = User.create!(
+            email: 'test@gmail.com', 
+            first_name: "Test", 
+            last_name: "User", 
+            phone: '1234567890', 
+            admin_id: @admin.id, 
+            level: :visitor
+        )
     end
 
     scenario 'SUNNY: Start at the dashboard. Route to the edit profile page and back.' do

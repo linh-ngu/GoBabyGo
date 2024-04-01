@@ -6,7 +6,7 @@
 
 <div class="flex flex-col justify-center items-center">
     <h1 class='p-4 text-xl font-bold'><%= @user_application.child_first_name + " " + @user_application.child_last_name%>'s Application</h1>
-
+    <p>Created By: <%= @creator %> </p>
     <%= form_for @user_application, html: { class: 'flex flex-col items-center' } do |f| %>
         
         <%= render(partial: 'form', locals: {f: f}) %>
