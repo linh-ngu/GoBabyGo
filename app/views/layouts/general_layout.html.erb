@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GoogleOauthDevise</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'general_layout', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <style>
+        .flash__alert   { color: red; }
+        .flash__notice  { color: blue; }
+        .flash__success { color: green; }
+    </style>
+    <script>
+    function toggleDropdown() {
+        var dropdown = document.getElementById("dropdown");
+        dropdown.classList.toggle("hidden");
+        dropdown.classList.toggle("flex");
+        dropdown.classList.toggle("flex-col");
+    }
+</script>
+<style>
+        /* Optional: for smooth dropdown appearance */
+        .dropdown-enter-active, .dropdown-leave-active {
+            transition: height 0.5s ease;
+        }
+        .dropdown-enter, .dropdown-leave-to /* .dropdown-leave-active in <2.1.8 */ {
+            height: 0;
+            overflow: hidden;
+        }
+    </style>
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body>
+    <div id="page-container">
+
+      
+      <div id="header" class="relative" style="background-image: url('<%= asset_path('gobabygo_logo.png') %>'); ">
+
+          <div id="header-box" class="absolute inset-x-0 bottom-0">
+              <div class=" text-black">
+                  <nav class="max-w-6xl mx-auto px-4">
+                      <div class="flex justify-between">
+
+                          <div id="nav-title" class="py-3 flex items-center">
+                              <a href="<%= root_path %>" class="text-3xl font-bold" style="color:maroon; text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF; ">GoBabyGo x TAMU</a>
+                          </div>
+
+                          <div id="nav-buttons" class="hidden md:flex space-x-4 items-center text-xl font-semibold">
+                              <a href="<%= root_path %>" class="py-4 px-2 hover:text-gray-400 transition duration-300 ">Home</a>
+                              <a href="/abouts" class="py-4 px-2 hover:text-gray-400 transition duration-300">About</a>
+                              <%
+=begin%>
+ <div class="relative" id="dropdownMenuButton" data-dropdown-toggle="dropdown">
+                                  <button class="py-4 px-2 hover transition duration-300 flex items-center" style="color:maroon; text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF; " onclick="toggleDropdown()">Services <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                                  <div id="dropdown" class="hidden absolute left-0 mt-1 w-48" >
+                                      <a href="#" class="block px-4 py-2 hover">Web Design</a>
+                                      <a href="#" class="block px-4 py-2 hover">Development</a>
+                                      <a href="#" class="block px-4 py-2 hover">SEO</a>
+                                  </div>
+                              </div> 
+<%
+=end%>
+                              <a href="/contacts" class="py-4 px-2 hover:text-gray-400 transition duration-300">Contact</a>
+                              <%= link_to 'Help', help_path, class: 'py-4 px-2 hover:text-gray-400 transition duration-300'  %>
+                              <% if admin_signed_in? %>
+                                 <%= link_to "Sign Out", destroy_admin_session_path, class:'border border-black bg-white rounded-lg px-2 py-1 m-1' %>
+                              <% else %>
+                                <%= button_to "Sign in", admin_google_oauth2_omniauth_authorize_path, class: "border border-black bg-white rounded-lg px-2 py-1 my-1", style: "" %>
+                              <% end %>
+
+                          </div>
+
+
+                      </div>
+                  </nav>
+              </div>
+          </div>
+      </div>
+
+      <div id="content" style="background-color:transparent;">
+        <div id="content-box">
+        <%= yield %>
+        </div>
+      </div>
+      <div id="footer" style="background-color:transparent; height:10vh;">
+      </div>
+      
+
+
+    </div>
+
+
+
+
+
+ <% if flash.any? %>
+      <% flash.each do |key, value| -%>
+        <section class="flash flash__<%= key %>"><%= value.html_safe %></section>
+      <% end -%>
+  <% end %> 
+
+    
+    
+  </body>
+</html>
