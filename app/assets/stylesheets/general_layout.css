@@ -13,6 +13,7 @@
     background-position: center;
     background-repeat: no-repeat; /* Prevents the image from repeating */
     height: 20vh; /* Adjust if you want a different height */
+    background-color: hsl(0, 45%, 25%);
 }
 
 /* Ensure the navbar is visible on the background */
