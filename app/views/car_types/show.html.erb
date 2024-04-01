@@ -1,36 +1,35 @@
 <p style="color: green"><%= notice %></p>
 <div class="flex flex-col justify-center items-center">
-    <h1 class='p-4 text-xl font-bold'>Car</h1>
+    <h1 class='p-8 text-5xl font-bold'>Car Type</h1>
   <%= render @car_type %>
   <% if @car_type.cars.any? %>
-    <table class="w-full">
-      <br>
-      <h2 class="text-xl font-bold mb-4">Associated Cars</h2>
-      <table class="w-full">
+      <h2 class="text-3xl font-bold p-4">Associated Cars</h2>
+      <div class="overflow-x-auto">
+      <table class="w-full max-w-7xl mx-auto overflow-hidden bg-white divide-y divide-gray-300 rounded-lg">
         <thead>
           <tr>
-            <th class="text-left">Application</th>
-            <th class="text-left">Modifications</th>
-            <th class="text-left">Complete</th>
-            <th colspan="3" class="text-left">Actions</th>
+            <th class='p-4 text-xl font-bold text-left'>Application</th>
+            <th class='p-4 text-xl font-bold text-left'>Modifications</th>
+            <th class='p-4 text-xl font-bold text-left'>Complete</th>
+            <th colspan="3"class='p-4 text-xl font-bold text-left'>Actions</th>
           </tr>
         </thead>
 
         <tbody>
           <% @car_type.cars.each do |car| %>
             <tr>
-              <td>
+              <td class = "px-3 py-4 break-all">
                 <% if car.user_application.nil? %>
                   None
                 <% else %>
-                  <%= link_to car.user_application.child_name, user_application_path(car.user_application), class: "text-blue-500" %>
+                  <%= link_to car.user_application.child_first_name, user_application_path(car.user_application), class: "text-blue-500" %>
                 <% end %>
               </td>
-              <td><%= car.modification_details %></td>
-              <td><%= car.complete ? "True" : "False" %></td>
-              <td><%= link_to 'Show', car, class: "btn btn-primary text-blue-500" %></td>
-              <td><%= link_to 'Edit', edit_car_path(car), class: "btn btn-primary text-blue-500" %></td>
-              <td><%= link_to 'Destroy', car, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger text-red-500" %></td>
+              <td class = "px-3 py-4 break-all"><%= car.modification_details %></td>
+              <td class = "px-3 py-4 break-all"><%= car.complete ? "True" : "False" %></td>
+              <td class = "px-3 py-4 break-all"><%= link_to 'Show', car, class: "text-blue-500 hover:underline" %></td>
+              <td class = "px-3 py-4 break-all"><%= link_to 'Edit', edit_car_path(car), class: "text-blue-500 hover:underline" %></td>
+              <td class = "px-3 py-4 break-all"><%= link_to 'Delete', car, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %></td>
             </tr>
           <% end %>
         </tbody>
@@ -38,12 +37,10 @@
     <% else %>
       <p>No cars associated with this car_type.</p>
     <% end %>
-  </table>
 
-    <br>
-    <%= link_to "Edit this Car Type", edit_car_type_path(@car_type), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
-    <br>
-    <%= link_to "Back to Car Types", car_types_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
-    <br>
-    <%= button_to "Destroy this Car Type", @car_type, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger text-black-500 bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde" %>
+  <div class="flex justify-center items-center">
+    <%= link_to "Edit this Car Type", edit_car_type_path(@car_type), class: "rounded-lg py-3 px-5 bg-blue-400 inline-block font-medium m-2" %>
+    <%= link_to "Back to Car Types", car_types_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2" %>
+    <%= button_to "Delete this Car Type", @car_type, method: :delete, data: { confirm: 'Are you sure?' }, class: "rounded-lg py-3 px-5 bg-red-500 inline-block font-medium m-2" %>
+  </div>
 </div>

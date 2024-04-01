@@ -1,11 +1,11 @@
 <!-- FILEPATH: /c:/csce431/GoBabyGo/app/views/main/inventory.html.erb -->
 
-<h1 class="text-4xl font-bold mb-4">Inventory</h1>
-<br>
-<ul class="flex flex-col space-y-4"> <!-- Increased space-y value to 4 -->
-<div class='mt-8'><%= link_to "Go to Dashboard", dashboard_path , class:'border border-black bg-white rounded-lg px-2 py-1 m-4' %></div>
-
-  <li><a href="/cars" class="text-blue-500 hover:underline bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Cars</a></li>
-  <li><a href="/car_types" class="text-blue-500 hover:underline bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Car Types</a></li>
-  <li><a href="/parts" class="text-blue-500 hover:underline bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Parts</a></li>
-</ul>
+<div class="flex flex-col justify-center items-center">
+  <h1 class="text-4xl font-bold mb-4">Inventory</h1>
+  <div class="flex justify-center items-center">
+    <%= link_to "Back to Dashboard", dashboard_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2" %>
+    <%= link_to "View Cars", cars_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2" %>
+    <%= link_to "View Car Types", car_types_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2" %>
+    <%= link_to "View Parts", parts_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2" %>
+  </div>
+</div>

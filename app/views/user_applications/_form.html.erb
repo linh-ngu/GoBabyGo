@@ -1,42 +1,106 @@
+<% if action_name == 'show' %>
+    <div class="my-3 text-center">
+        <th class=''>Application Status</th>
+        <td class='p-1'>
+            <% if @user_application.accepted.nil? %>
+                <%= "<div class='py-1 px-2 bg-gray-300'>Pending</div>".html_safe %>
+            <% elsif @user_application.accepted %>
+                <%= "<div class='py-1 px-2 bg-green-300'>Accepted! You will be contacted shortly.</div>".html_safe %>
+            <% elsif @user_application.waitlist %>
+                <%= "<div class='py-1 px-2 bg-blue-300'>Waitlisted</div>".html_safe %>
+            <% elsif @user_application.rejected %>
+                <%= "<div class='py-1 px-2 bg-red-300'>Denied</div>".html_safe %>
+            <% end %>
+        </td>
+        <th class=''>Build Semester</th>
+        <td class='p-1'>
+            <% if @user_application.build_session == " " || @user_application.build_session.nil? %>
+                <p class='py-1 px-2 bg-white'>None</p>
+            <% else %>
+                <div class='py-1 px-2 bg-white'><%= "#{@user_application.build_session}</div>".html_safe %>
+            <% end %>
+        </td>
+    </div>
+<% end %>
 <table class="border border-black bg-gray-300" summary="Application form fields">
     <tbody>
     <% if @access_accepted %>
-    <tr>
-        <th class=''>Accept User?</th>
-        <td class='p-1'>
-            <% if ['new', 'edit'].include?(action_name) %>
-                <div class="slider-container">
-                    <%= f.hidden_field(:accepted, value: 'false') %>
-                    <label class="switch">
-                        <%= f.check_box(:accepted, class: 'accept-slider') %>
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-            <% else %>
-                <%= "<div class='py-1 px-2 bg-white'>#{h(@user_application.accepted)}</div>" %>
+        <tr>
+            <th class=''>Archive?</th>
+            <td class='p-1'>
+                <% if action_name == 'edit' %>
+                    <%= f.radio_button(:archived, true) %> Yes
+                    <%= f.radio_button(:archived, false) %> No
+                <% else %>
+                    <%= "<div class='py-1 px-2 bg-white'>#{h(@user_application.archived)}</div>".html_safe %>
+                <% end %>
+            </td>
+        </tr>
+        <tr>
+            <th class=''>Accept User?</th>
+            <td class='p-1'>
+                <% if ['new', 'edit'].include?(action_name) %>
+                    <div class="slider-container">
+                        <%= f.hidden_field(:accepted, value: 'false') %>
+                        <label class="switch">
+                            <%= f.check_box(:accepted, class: 'accept-slider') %>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                <% else %>
+                    <%= "<div class='py-1 px-2 bg-white'>#{h(@user_application.accepted)}</div>".html_safe %>
+                <% end %>
+            </td>
+        </tr>
+        <tr>
+            <th class=''>Waitlist User?</th>
+            <td class='p-1'>
+                <% if ['new', 'edit'].include?(action_name) %>
+                    <div class="slider-container">
+                        <%= f.hidden_field(:waitlist, value: 'false') %>
+                        <label class="switch">
+                            <%= f.check_box(:waitlist, class: 'waitlist-slider') %>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                <% else %>
+                    <%= "<div class='py-1 px-2 bg-white'>#{h(@user_application.waitlist)}</div>".html_safe %>
+                <% end %>
+            </td>
+        </tr>
+        <tr>
+            <th class=''>Reject User?</th>
+            <td class='p-1'>
+                <% if ['new', 'edit'].include?(action_name) %>
+                    <div class="slider-container">
+                        <%= f.hidden_field(:rejected, value: 'false') %>
+                        <label class="switch">
+                            <%= f.check_box(:rejected, class: 'reject-slider') %>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                <% else %>
+                    <%= "<div class='py-1 px-2 bg-white'>#{h(@user_application.rejected)}</div>".html_safe %>
+                <% end %>
+            </td>
+        </tr>
+        <tr>
+            <% if action_name == 'edit' %>
+                <th class=''>Build Semester</th>
+                <td class='p-1'>
+                    <%= select_tag :semester_input, options_for_select(['', 'Fall', 'Spring'], params[:semester_input]), class: 'py-1 px-2' %>
+                    <%= number_field_tag :year_input, params[:year_input], placeholder: "Ex. " + Time.now.year.to_s, class: 'py-1 px-2' %>
+                </td>
             <% end %>
-        </td>
-    </tr>
-    <tr>
-        <th class=''>Waitlist User?</th>
-        <td class='p-1'>
-            <% if ['new', 'edit'].include?(action_name) %>
-                <div class="slider-container">
-                    <%= f.hidden_field(:waitlist, value: 'false') %>
-                    <label class="switch">
-                        <%= f.check_box(:waitlist, class: 'waitlist-slider') %>
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-            <% else %>
-                <%= "<div class='py-1 px-2 bg-white'>#{h(@user_application.waitlist)}</div>" %>
-            <% end %>
-        </td>
-    </tr>
+        </tr>
     <% end %>
         <tr>
-            <th class=''>Child's Name</th>
-            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:child_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_name)}</div>".html_safe %></td>
+            <th class=''>Child's First Name</th>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:child_first_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_first_name)}</div>".html_safe %></td>
+        </tr>
+        <tr>
+            <th class=''>Child's Last Name</th>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:child_last_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_last_name)}</div>".html_safe %></td>
         </tr>
         <tr>
             <th class=''>Child's Birthdate</th>
@@ -64,8 +128,12 @@
 
         </tr>
         <tr>
-            <th class=''>Caregiver's Name</th>
-            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.caregiver_name)}</div>".html_safe %></td>
+            <th class=''>Caregiver's First Name</th>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_first_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.caregiver_first_name)}</div>".html_safe %></td>
+        </tr>
+        <tr>
+            <th class=''>Caregiver's Last Name</th>
+            <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_last_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.caregiver_last_name)}</div>".html_safe %></td>
         </tr>
         <tr>
             <th class=''>Caregiver's Email</th>
@@ -103,34 +171,30 @@
         </tr>
     </tbody>
     
-    <% if action_name == 'show' %>
-        <tr>
-            <th class=''>Application Status</th>
-            <td class='p-1'>
-            <% if @user_application.accepted.nil? %>
-                <%= "<div class='py-1 px-2 bg-white'>Pending</div>".html_safe %>
-            <% elsif @user_application.accepted %>
-                <%= "<div class='py-1 px-2 bg-white'>Accepted! You will be contacted shortly.</div>".html_safe %>
-            <% else %>
-                <%= "<div class='py-1 px-2 bg-white'>Denied.</div>".html_safe %>
-            </td>
-            <% end %>
-        </tr>
-    <% end %>
     
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var acceptSlider = document.querySelector('.accept-slider');
             var waitlistSlider = document.querySelector('.waitlist-slider');
+            var rejectSlider = document.querySelector('.reject-slider');
 
             acceptSlider.addEventListener('change', function() {
                 if (this.checked) {
                     waitlistSlider.checked = false;
+                    rejectSlider.checked = false;
                 }
             });
 
             waitlistSlider.addEventListener('change', function() {
                 if (this.checked) {
+                    acceptSlider.checked = false;
+                    rejectSlider.checked = false;
+                }
+            });
+
+            rejectSlider.addEventListener('change', function() {
+                if (this.checked) {
+                    waitlistSlider.checked = false;
                     acceptSlider.checked = false;
                 }
             });

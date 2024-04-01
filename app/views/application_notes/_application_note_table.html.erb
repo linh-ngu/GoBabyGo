@@ -1,0 +1,31 @@
+<table class="w-screen mx-auto shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 bg-white">
+  <thead>
+    <tr>
+      <th class="border border-gray-200 px-3 py-2 flex justify-left">Date Created</th>
+      <th class="border border-gray-200 px-3 py-2 justify-left">Note Creator</th>
+      <th class="border border-gray-200 px-3 py-2 w-1/2"> Content</th>
+      <th class="border border-gray-200 px-3 py-2"> Note Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @application_notes.each_with_index do |(application_note, user), index| %>
+      <tr class="<%= index.odd? ? 'bg-gray-100' : 'bg-white' %> border-t border-gray-200 max-h-64">
+        <td class="border border-gray-200 px-3 py-2"><%= application_note.created_at.strftime("%Y-%m-%d") %></td>
+        <td class="border border-gray-200 px-3 py-2">
+          <div class="text-lg font-semibold"><%= user.first_name + " " + user.last_name %></div>
+        </td>
+        <td class="border border-gray-200 px-3 py-2 max-w-lg">
+          <%= application_note.content.split.take(50).join(' ') %>
+          <%= '...' if application_note.content.split.size > 50 %>
+        </td>
+        <td class="border border-gray-200 px-3 py-2">
+          <div class="flex justify-center">
+            <%= link_to "View", user_application_application_note_path(@user_application, application_note), class: "action show rounded-md m-1 py-2 px-8 my-1 bg-gray-300 text-black inline-block font-small cursor-pointer hover:bg-gray-400" %>
+            <%= link_to "Edit", edit_user_application_application_note_path(@user_application, application_note), class: "action show rounded-md m-1 py-2 px-8 my-1 bg-gray-300 text-black inline-block font-small cursor-pointer hover:bg-gray-400" %>
+            <%= link_to "Delete", delete_user_application_application_note_path(@user_application, application_note), class: "action show rounded-md m-1 py-2 px-8 my-1 bg-gray-300 text-white inline-block font-small cursor-pointer bg-red-600 hover:bg-red-700" %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

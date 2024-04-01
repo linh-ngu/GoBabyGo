@@ -1,10 +1,9 @@
 
 <div class="flex flex-col justify-center items-center">
-  <h1 class='p-4 text-xl font-bold'>Editing Car Type</h1>
+  <h1 class='p-4 text-4xl font-bold'>Editing Car Type</h1>
   <%= render "form", car_type: @car_type %>
-
-  <br>
-  <%= link_to "Show this Car Type", @car_type, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
-  <br>
-  <%= link_to "Back to Car Types", car_types_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  <div class="flex justify-center items-center">
+    <%= link_to "Show this Car Type", @car_type, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2" %>
+    <%= link_to "Back to Car Types", car_types_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2" %>
+  </div>
 </div>

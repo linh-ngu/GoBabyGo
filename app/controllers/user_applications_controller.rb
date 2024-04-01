@@ -8,46 +8,73 @@ class UserApplicationsController < ApplicationController
     end
   end
 
+  def archive
+    @user = User.find_by(admin_id: current_admin.id)
+
+    if @user.applicant? || @user.visitor? || @user == nil
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
+
+    sorting_option = case params[:sort_option]
+    when "created_at_asc"
+      :asc
+    when "created_at_desc"
+      :desc
+    else
+      :desc
+    end
+
+    @user_applications = UserApplication.where(archived: true).order(created_at: sorting_option)
+
+    # Applying date range filter
+    if params[:semester_input].present? && ["Fall", "Spring"].include?(params[:semester_input]) && params[:year_input].present?
+      begin
+        @user_applications = @user_applications.where(build_session: "#{params[:semester_input]} #{params[:year_input]}", archived: true).order(created_at: sorting_option)
+      rescue ArgumentError => e
+        flash[:error] = "Invalid format or empty input."
+        redirect_to user_applications_path
+      end
+    end
+  end
+
   def index
     @user = User.find_by(admin_id: current_admin.id)
     @page_title = @user.visitor? || @user.applicant? ? "Your Applications" : "All User Applications"
 
     # Filtering based on user role
     if @user.visitor? || @user.applicant?
-      @user_applications = UserApplication.where(user_id: @user.id)
+      @user_applications = UserApplication.where(user_id: @user.id, archived: false)
     elsif @user.officer_member? || @user.admin? || @user.staff_member?
-      @not_accepted_user_applications = UserApplication.where(accepted: [nil, false], waitlist: false)
-      @waitlist_user_applications = UserApplication.where(waitlist: true, accepted: false)
-      @accepted_user_applications = UserApplication.where(accepted: true)
-
-      #different options for sorting applications
       sorting_option = case params[:sort_option]
       when "created_at_asc"
         :asc
       when "created_at_desc"
         :desc
       else
-        :asc # Default sorting option
+        :desc # Default sorting option
       end
+      @not_accepted_user_applications = UserApplication.where(accepted: [nil, false], waitlist: false, archived: false)
+                                                .order(created_at: sorting_option)
 
-      # Apply sorting to user applications
-      @not_accepted_user_applications = @not_accepted_user_applications.order(created_at: sorting_option)
-      @waitlist_user_applications = @waitlist_user_applications.order(created_at: sorting_option)
-      @accepted_user_applications = @accepted_user_applications.order(created_at: sorting_option)
+      @waitlist_user_applications = UserApplication.where(waitlist: true, accepted: false, archived: false)
+                                             .order(created_at: sorting_option)
 
+      @accepted_user_applications = UserApplication.where(accepted: true, archived: false)
+                                              .order(created_at: sorting_option)
 
-
+      @officer_user_applications = UserApplication.where(archived: false).order(created_at: sorting_option)
+      #different options for sorting applications
 
       # Additional filtering based on user selection
-      if params[:accepted] == "1"
-        @not_accepted_user_applications = []
-        @waitlist_user_applications = []
+      if params[:my_applications] == "1"
+        @officer_user_applications = @officer_user_applications.where(user_id: @user.id)
+      elsif params[:accepted] == "1"
+        @officer_user_applications = @accepted_user_applications
       elsif params[:waitlist] == "1"
-        @not_accepted_user_applications = []
-        @accepted_user_applications = []
+        @officer_user_applications = @waitlist_user_applications
       elsif params[:not_accepted] == "1"
-        @waitlist_user_applications = []
-        @accepted_user_applications = []
+        @officer_user_applications = @not_accepted_user_applications
       end
 
       # Applying date range filter
@@ -68,17 +95,12 @@ class UserApplicationsController < ApplicationController
         end
 
         if start_date && end_date
-          @not_accepted_user_applications = @not_accepted_user_applications.where(created_at: start_date..end_date)
-          @waitlist_user_applications = @waitlist_user_applications.where(created_at: start_date..end_date)
-          @accepted_user_applications = @accepted_user_applications.where(created_at: start_date..end_date)
+          @officer_user_applications = @officer_user_applications.where(created_at: start_date..end_date)
         elsif start_date
-          @not_accepted_user_applications = @not_accepted_user_applications.where("created_at >= ?", start_date)
-          @waitlist_user_applications = @waitlist_user_applications.where("created_at >= ?", start_date)
-          @accepted_user_applications = @accepted_user_applications.where("created_at >= ?", start_date)
+          @officer_user_applications = @officer_user_applications.where("created_at >= ?", start_date)
         elsif end_date
-          @not_accepted_user_applications = @not_accepted_user_applications.where("created_at <= ?", end_date)
-          @waitlist_user_applications = @waitlist_user_applications.where("created_at <= ?", end_date)
-          @accepted_user_applications = @accepted_user_applications.where("created_at <= ?", end_date)
+          @officer_user_applications = @officer_user_applications.where("created_at <= ?", end_date)
+ 
         end
       end
 
@@ -105,17 +127,11 @@ class UserApplicationsController < ApplicationController
         end
 
         if min_height && max_height
-          @not_accepted_user_applications = @not_accepted_user_applications.where(child_height: min_height..max_height)
-          @waitlist_user_applications = @waitlist_user_applications.where(child_height: min_height..max_height)
-          @accepted_user_applications = @accepted_user_applications.where(child_height: min_height..max_height)
+          @officer_user_applications = @officer_user_applications.where(child_height: min_height..max_height)
         elsif min_height
-          @not_accepted_user_applications = @not_accepted_user_applications.where("child_height >= ?", min_height)
-          @waitlist_user_applications = @waitlist_user_applications.where("child_height >= ?", min_height)
-          @accepted_user_applications = @accepted_user_applications.where("child_height >= ?", min_height)
+          @officer_user_applications = @officer_user_applications.where("child_height >= ?", min_height)
         elsif max_height
-          @not_accepted_user_applications = @not_accepted_user_applications.where("child_height <= ?", max_height)
-          @waitlist_user_applications = @waitlist_user_applications.where("child_height <= ?", max_height)
-          @accepted_user_applications = @accepted_user_applications.where("child_height <= ?", max_height)
+          @officer_user_applications = @officer_user_applications.where("child_height <= ?", max_height)
         end
       end
     end
@@ -124,6 +140,15 @@ class UserApplicationsController < ApplicationController
   def show
     @user = User.find_by(admin_id: current_admin.id)
     @user_application = UserApplication.find(params[:id])
+    @creator = User.find(@user_application.user_id).first_name.to_s + " " + User.find(@user_application.user_id).last_name.to_s
+    
+    if @user_application.car.present?
+      @has_car = true
+      @car = @user_application.car
+    else
+      @has_car = false
+      @car = nil
+    end
 
     if @user.applicant? || @user.visitor?
       if @user.id != @user_application.user_id
@@ -131,10 +156,13 @@ class UserApplicationsController < ApplicationController
         flash[:notice] = "You do not have permission to view that page!"
       end
     end
+
+    @access_accepted = @user.officer_member? || @user.staff_member? || @user.admin?
   end
 
   def new
     @user_application = UserApplication.new()
+    @user = User.find_by(admin_id: current_admin.id)
   end
 
   def create
@@ -143,6 +171,7 @@ class UserApplicationsController < ApplicationController
     if @user.visitor? || @user.applicant?
       #user from website submits application
       @user_application = UserApplication.new(user_params)
+      @user_application.archived = false
       flash[:notice] = "Application submitted successfully. We will reach out to you soon with our response."
     elsif @user.officer_member? || @user.admin? || @user.staff_member?
       #officer submits application
@@ -166,6 +195,7 @@ class UserApplicationsController < ApplicationController
 
   def edit
     @user_application = UserApplication.find(params[:id])
+    @creator = User.find(@user_application.user_id).first_name + " " + User.find(@user_application.user_id).last_name
     @user = User.find_by(admin_id: current_admin.id)
     if @user.applicant? || @user.visitor? || @user == nil
       if @user.id != @user_application.user_id || @user == nil
@@ -174,17 +204,31 @@ class UserApplicationsController < ApplicationController
       end
     end
     #if user is an officer, access to edit accepted
-    @access_accepted = @user.officer_member?
+    @access_accepted = @user.officer_member? || @user.staff_member? || @user.admin?
   end
 
   def update
     @user_application = UserApplication.find(params[:id])
     @user = User.find_by(admin_id: current_admin.id)
+    
+    @user_application.build_session = "#{params[:semester_input]} #{params[:year_input]}"
+
+    if params[:button] == 'archive'
+      @user_application.update(archived: true)
+      redirect_to user_applications_path
+      return
+    elsif params[:button] == 'unarchive'
+      @user_application.update(archived: false)
+      redirect_to archive_user_applications_path
+      return
+    end
 
     #app_params passed based on visitor/officer role status - not including application role
     app_params = @user.visitor? ? user_params : officer_params
-
     if @user_application.update(app_params)
+      if (@user_application.accepted == false && @user_application.waitlist == false && @user_application.rejected == false)
+        @user_application.update(accepted: nil)
+      end
       redirect_to user_application_path(@user_application.id)
       flash[:notice] = "Application updated successfully."
     else
@@ -196,8 +240,8 @@ class UserApplicationsController < ApplicationController
   def delete
     @user = User.find_by(admin_id: current_admin.id)
     @user_application = UserApplication.find(params[:id])
-    if @user.applicant? || @user.visitor? || @user == nil
-      if @user.id != @user_application.user_id || @user == nil
+    if @user.applicant? || @user.visitor? || @user == nil || @user.staff_member?
+      if @user.id != @user_application.user_id || @user == nil || @user.staff_member?
         redirect_to root_path
         flash[:notice] = "You do not have permission to view that page!"
       end
@@ -215,14 +259,16 @@ class UserApplicationsController < ApplicationController
   private
   def user_params
     params.require(:user_application).permit(
-      :child_name,
+      :child_first_name,
+      :child_last_name,
       :child_birthdate,
       :primary_diagnosis,
       :secondary_diagnosis,
       :adaptive_equipment,
       :child_height,
       :child_weight,
-      :caregiver_name,
+      :caregiver_first_name,
+      :caregiver_last_name,
       :caregiver_email,
       :caregiver_phone,
       :can_transport,
@@ -232,20 +278,24 @@ class UserApplicationsController < ApplicationController
 
   def officer_params
     params.require(:user_application).permit(
-      :child_name,
+      :child_first_name,
+      :child_last_name,
       :child_birthdate,
       :primary_diagnosis,
       :secondary_diagnosis,
       :adaptive_equipment,
       :child_height,
       :child_weight,
-      :caregiver_name,
+      :caregiver_first_name,
+      :caregiver_last_name,
       :caregiver_email,
       :caregiver_phone,
       :can_transport,
       :can_store,
       :notes,
       :accepted,
-      :waitlist)
+      :waitlist,
+      :archived,
+      :rejected)
   end
 end

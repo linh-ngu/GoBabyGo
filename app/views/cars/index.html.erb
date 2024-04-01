@@ -1,26 +1,28 @@
 <p style="color: green"><%= notice %></p>
 <p class="text-green-500"><%= notice %></p>
-<div class='mt-8'><%= link_to "Go to Inventory", inventory_path , class:'border border-black bg-white rounded-lg px-2 py-1 m-4' %></div>
 
+<div class="flex flex-col justify-center items-center w-full">
 <% if @edit_access %>
-<h1 class="text-3xl font-bold mb-4">Cars</h1>
+<h1 class="text-4xl font-bold mb-4">Cars</h1>
 <% else %>
-<h1 class="text-3xl font-bold mb-4">My Cars</h1>
+<h1 class="text-4xl font-bold mb-4">My Cars</h1>
 <% end %>
+</div>
 <div class="overflow-x-auto">
 <table class="w-full max-w-7xl mx-auto overflow-hidden bg-white divide-y divide-gray-300 rounded-lg">
   <thead>
     <tr>
+      <th class='p-4 text-xl font-bold text-left'>Application</th>
+      <th class='p-4 text-xl font-bold text-left'>First Name</th>
+      <th class='p-4 text-xl font-bold text-left'>Last Name</th>
       <% if @edit_access %>
-        <th class='p-4 text-xl font-bold'>Car Info</th>
-        <th class='p-4 text-xl font-bold'>Price</th>
+        <th class='p-4 text-xl font-bold text-left'>Car Type</th>
       <% end %>
-      <th class='p-4 text-xl font-bold'>Application</th>
-      <th class='p-4 text-xl font-bold'>Modifications</th>
-      <th class='p-4 text-xl font-bold'>Complete</th>
-      <th colspan="1" class='p-4 text-xl font-bold'>Actions</th>
+      <th class='p-4 text-xl font-bold text-left'>Complete</th>
       <% if @edit_access %>
-        <th colspan="2" class='p-4 text-xl font-bold'></th>
+        <th colspan="3" class='p-4 text-xl font-bold text-left'>Actions</th>
+      <% else %>
+        <th colspan="1" class='p-4 text-xl font-bold text-left'>Actions</th>
       <% end %>
     </tr>
   </thead>
@@ -28,22 +30,33 @@
   <tbody>
     <% @cars.each do |car| %>
       <tr>
-        <% if @edit_access %>
-        <td class = "px-3 py-4 break-all"><%= link_to car.car_type.name, car_type_path(car.car_type), class: "text-blue-500 hover:underline" %></td>
-        <td class = "px-3 py-4 break-all"><%= car.car_type.price %></td>
-        <% end %>
         <td class = "px-3 py-4 break-all">
           <% if car.user_application.nil? %>
             None
           <% else %>
-            <%= link_to car.user_application.child_name, user_application_path(car.user_application), class: "text-blue-500 hover:underline" %>
+            <%= link_to "Application", user_application_path(car.user_application), class: "text-blue-500 hover:underline" %>
           <% end %>
         </td>
-        <td class = "px-3 py-4 break-all"><%= car.modification_details %></td>
-        <td class = "px-3 py-4 break-all"><%= car.complete ? "True" : "False" %></td>
-        <td class = "px-3 py-4 break-all"><%= link_to 'Show', car, class: "text-blue-500 hover:underline" %></td>
+        <td class = "px-3 py-4 break-all">
+          <% if car.user_application.nil? %>
+            None
+          <% else %>
+            <%= car.user_application.child_first_name %>
+          <% end %>
+        </td>
+        <td class = "px-3 py-4 break-all">
+          <% if car.user_application.nil? %>
+            None
+          <% else %>
+            <%= car.user_application.child_last_name %>
+          <% end %>
+        </td>
         <% if @edit_access %>
+          <td class = "px-3 py-4 break-all"><%= link_to car.car_type.name, car_type_path(car.car_type), class: "text-blue-500 hover:underline" %></td>
+        <% end %>
+          <td class = "px-3 py-4 break-all"><%= car.complete ? "True" : "False" %></td>
           <td class = "px-3 py-4 break-all"><%= link_to 'Show', car, class: "text-blue-500 hover:underline" %></td>
+        <% if @edit_access %>
           <td class = "px-3 py-4 break-all"><%= link_to 'Edit', edit_car_path(car), class: "text-blue-500 hover:underline" %></td>
           <td><%= link_to 'Delete', car, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %></td>
         <% end %>
@@ -51,16 +64,16 @@
     <% end %>
   </tbody>
 </table>
-<br>
-<br>
 
 <% if @edit_access %>
-  <%= link_to "New Car", new_car_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
-  <br>
-  <br>
-  <%= link_to "Main Inventory", inventory_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  <div class="flex">
+  <%= link_to "Main Inventory", inventory_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2" %>
+  <%= link_to "New Car", new_car_path, class: "rounded-lg py-3 px-5 bg-blue-400 inline-block font-medium m-2" %>
+  </div>
 <% end %>
 
 <% unless @edit_access %>
-  <%= link_to "Back to Dashboard", dashboard_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"%>
+  <div class="flex">
+  <%= link_to "Back to Dashboard", dashboard_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2"%>
+  </div>
 <% end %>

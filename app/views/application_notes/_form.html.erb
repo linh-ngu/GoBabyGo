@@ -1,22 +1,31 @@
-<%= form_with(model: [@user_application, application_note], class: "contents") do |form| %>
-  <% if application_note.errors.any? %>
+<%= form_with(model: [@user_application, @application_note], class: "contents") do |form| %>
+  <% if @application_note.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(application_note.errors.count, "error") %> prohibited this application_note from being saved:</h2>
+      <h2><%= pluralize(@application_note.errors.count, "error") %> prohibited this application_note from being saved:</h2>
 
       <ul>
-        <% application_note.errors.each do |error| %>
+        <% @application_note.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :content %>
-    <%= form.text_field :content, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <% if ['edit', 'show'].include? action_name %>
+    <p class='text-lg font-bold'>Created by <%= @user.first_name + " " + @user.last_name %> on <%= @application_note.created_at.strftime("%B %d, %Y") %></p>
+  <% end %>
+
+  <div class="">
+    <%= action_name != 'show' ? form.text_area(:content, rows: 10, cols: 50, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full") : form.text_area(:content, rows: 10, cols: 50, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", readonly: true) %>
   </div>
 
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
-  </div>
+  <% if action_name == 'new' %>
+    <div class="inline">
+      <%= form.submit "Create #{@user_application.child_first_name + " " + @user_application.child_last_name}'s Note", class: "rounded-lg m-2 py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    </div>
+  <% elsif action_name == 'edit' %>
+    <div class="inline">
+      <%= form.submit "Update #{@user_application.child_first_name + " " + @user_application.child_last_name}'s Note", class: "rounded-lg m-2 py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    </div>
+  <% end %>
 <% end %>

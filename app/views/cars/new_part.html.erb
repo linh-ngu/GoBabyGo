@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+<div class="flex flex-col justify-center items-center">
+  <h1 class='p-4 text-4xl font-bold'>Creating Part</h1>
+  <%= render partial: 'form_part', locals: { car: @car, part: @part } %>
+  <div class="flex justify-center items-center">
+    <%= link_to "Back to Car", @car, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2" %>
+    <%= link_to "Back to all Cars", car_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium m-2" %>
+  </div>
+</div>
+```

@@ -1,7 +1,11 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">New application note</h1>
+  <br>
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-red-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
 
-  <%= render "form", application_note: @application_note, user_application: @user_application %>
+  <%= render "form", application_note: @application_note, user_application: @user_application, user: @user %>
 
-  <%= link_to "Back to application notes", user_application_application_notes_path(@user_application), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= link_to "Back to #{@user_application.child_first_name + " " + @user_application.child_last_name}'s notes", user_application_application_notes_path(@user_application), class: "m-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>
