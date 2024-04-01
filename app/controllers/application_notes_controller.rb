@@ -5,7 +5,7 @@ class ApplicationNotesController < ApplicationController
 
   # GET /application_notes or /application_notes.json
   def index
-    @application_notes = ApplicationNote.where(user_application_id: @user_application.id).order(created_at: :desc)
+    @application_notes = ApplicationNote.where(user_application_id: @user_application.id).order(created_at: :desc).map { |note| [note, User.find(note.creator_id)] }
   end
 
   # GET /application_notes/1 or /application_notes/1.json
@@ -24,6 +24,7 @@ class ApplicationNotesController < ApplicationController
   # POST /application_notes or /application_notes.json
   def create
     @application_note = @user_application.application_notes.build(application_note_params)
+    @application_note.creator_id = @user.id
 
     respond_to do |format|
       if @application_note.save

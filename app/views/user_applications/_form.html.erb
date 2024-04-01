@@ -14,7 +14,7 @@
         </td>
         <th class=''>Build Semester</th>
         <td class='p-1'>
-            <% if @user_application.build_session == " " %>
+            <% if @user_application.build_session == " " || @user_application.build_session.nil? %>
                 <p class='py-1 px-2 bg-white'>None</p>
             <% else %>
                 <div class='py-1 px-2 bg-white'><%= "#{@user_application.build_session}</div>".html_safe %>

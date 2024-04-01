@@ -1,5 +1,7 @@
 <div class='mt-8'><%= link_to('Back to Dashboard', dashboard_path, class:'rounded-lg mb-5 ml-5 py-2 px-3 bg-blue-500 text-white inline-block font-medium cursor-pointer hover:bg-blue-600') %></div>
-<%= link_to 'View Archived Applications Page', archive_user_applications_path, class: 'rounded-lg mb-5 ml-5 mt-5 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700' %>
+<% if @user.officer_member? || @user.admin? || @user.staff_member? %>
+  <%= link_to 'View Archived Applications Page', archive_user_applications_path, class: 'rounded-lg mb-5 ml-5 mt-5 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700' %>
+<% end %>
 
 <% # Handles applying filters # %>
 <script>

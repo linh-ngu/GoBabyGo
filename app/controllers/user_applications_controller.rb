@@ -140,6 +140,7 @@ class UserApplicationsController < ApplicationController
   def show
     @user = User.find_by(admin_id: current_admin.id)
     @user_application = UserApplication.find(params[:id])
+    @creator = User.find(@user_application.user_id).first_name.to_s + " " + User.find(@user_application.user_id).last_name.to_s
     
     if @user_application.car.present?
       @has_car = true
@@ -161,6 +162,7 @@ class UserApplicationsController < ApplicationController
 
   def new
     @user_application = UserApplication.new()
+    @user = User.find_by(admin_id: current_admin.id)
   end
 
   def create
@@ -193,6 +195,7 @@ class UserApplicationsController < ApplicationController
 
   def edit
     @user_application = UserApplication.find(params[:id])
+    @creator = User.find(@user_application.user_id).first_name + " " + User.find(@user_application.user_id).last_name
     @user = User.find_by(admin_id: current_admin.id)
     if @user.applicant? || @user.visitor? || @user == nil
       if @user.id != @user_application.user_id || @user == nil

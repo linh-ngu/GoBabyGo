@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_28_194331) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_30_200124) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,6 +35,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_28_194331) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_application_id", null: false
+    t.bigint "creator_id", null: false
+    t.index ["creator_id"], name: "index_application_notes_on_creator_id"
     t.index ["user_application_id"], name: "index_application_notes_on_user_application_id"
   end
 
@@ -117,9 +119,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_28_194331) do
     t.string "child_last_name"
     t.string "caregiver_first_name"
     t.string "caregiver_last_name"
-    t.boolean "rejected", default: false
     t.string "build_session"
     t.boolean "archived", default: false
+    t.boolean "rejected", default: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -134,4 +136,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_28_194331) do
   end
 
   add_foreign_key "application_notes", "user_applications"
+  add_foreign_key "application_notes", "users", column: "creator_id"
 end
