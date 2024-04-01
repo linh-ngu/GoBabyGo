@@ -81,7 +81,7 @@
           <% @all_users.each do |user| %>
             <% if user.id == @user.id || user.admin? || user.officer_member? %>
               <tr class="<%= cycle('bg-white', 'bg-gray-100') %> border-t border-gray-200">
-                <td class="border border-gray-200 px-3 py-2"><%= user.first_name + " " + user.last_named %></td>
+                <td class="border border-gray-200 px-3 py-2"><%= user.first_name + " " + user.last_name %></td>
                 <td class="border border-gray-200 px-3 py-2"><%= user.email %></td>
                 <td class="border border-gray-200 px-3 py-2"><%= user.level.capitalize %></td>
                 <td class="border border-gray-200 px-3 py-2"></td>
@@ -95,8 +95,8 @@
                   <%= form_with(model: user, url: update_role_user_path(user), local: true, method: :patch) do |form| %>
                     <%# Ensure only visitor, member, and officer roles are selectable %>
                     <% selectable_roles = User.levels.keys - ['admin'] %>
-                    <%= form.select :level, selectable_roles.map { |key| [key.humanize, key] }, {}, {class: "select"} %>
-                    <%= form.submit "Update Role", class: "bg-white mr-3" %>
+                    <%= form.select :level, selectable_roles.map { |key| [key.humanize, key] }, {}, {class: "py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100"} %>
+                    <%= form.submit "Update Role", class: "py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100" %>
                   <% end %>
                 </td>
               </tr>

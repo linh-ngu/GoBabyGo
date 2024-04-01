@@ -13,8 +13,8 @@ RSpec.describe 'Staff Member User can view other members information (Email)', t
     @admin = Admin.create!(user_account_created: true, email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
     @admin_toBeUpdated = Admin.create!(user_account_created: true, email: 'update_me@gmail.com', full_name: 'Update Admin', uid: '223456', avatar_url: 'http://example.com/avatar1')
     sign_in @admin
-    @user = User.create!(id: 1, email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :admin)
-    @visitor_user = User.create!(id: 2, email: 'update_me@gmail.com', phone: '1234567891', admin_id: @admin.id, level: :visitor)
+    @user = User.create!(id: 1, email: 'test@gmail.com', first_name: 'Update', last_name: 'Admin', phone: '1234567890', admin_id: @admin.id, level: :admin)
+    @visitor_user = User.create!(id: 2, first_name: 'Update', last_name: 'Visitor', email: 'update_me@gmail.com', phone: '1234567891', admin_id: @admin.id, level: :visitor)
   end
 
   scenario ' - Members table shows visitor_user information' do
@@ -39,8 +39,8 @@ RSpec.describe 'Admin Account updates User\'s level', type: :feature do
       @admin = Admin.create!(user_account_created: true, email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
       @admin_toBeUpdated = Admin.create!(user_account_created: true, email: 'update_me@gmail.com', full_name: 'Update Admin', uid: '223456', avatar_url: 'http://example.com/avatar1')
       sign_in @admin
-      @user = User.create!(id: 1, email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :admin)
-      @visitor_user = User.create!(id: 2, email: 'update_me@gmail.com', phone: '1234567891', admin_id: @admin.id, level: :visitor)
+      @user = User.create!(id: 1, first_name: 'Update', last_name: 'Admin', email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :admin)
+      @visitor_user = User.create!(id: 2, first_name: 'Update', last_name: 'User', email: 'update_me@gmail.com', phone: '1234567891', admin_id: @admin.id, level: :visitor)
 
 
 
@@ -116,8 +116,8 @@ RSpec.describe 'Officer Member Account updates User\'s level', type: :feature do
       @admin = Admin.create!(user_account_created: true, email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
       @admin_toBeUpdated = Admin.create!(user_account_created: true, email: 'update_me@gmail.com', full_name: 'Update Admin', uid: '223456', avatar_url: 'http://example.com/avatar1')
       sign_in @admin
-      @user = User.create!(id: 1, email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :officer_member)
-      @visitor_user = User.create!(id: 2, email: 'update_me@gmail.com', phone: '1234567891', admin_id: @admin.id, level: :visitor)
+      @user = User.create!(id: 1, first_name: 'Update', last_name: 'Officer', email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :officer_member)
+      @visitor_user = User.create!(id: 2, email: 'update_me@gmail.com', first_name: 'Update', last_name: 'User', phone: '1234567891', admin_id: @admin.id, level: :visitor)
 
 
 
