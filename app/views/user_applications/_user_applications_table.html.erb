@@ -29,11 +29,11 @@
       <div class='flex justify-center'>
         <label class="mx-2">
             Semester:
-            <%= select_tag :semester_input, options_for_select(['', 'Fall', 'Spring'], params[:semester_input]), class: "bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded px-2 py-2 m-2 text-center" %>
+            <%= select_tag :semester_input, options_for_select(['', 'Fall', 'Spring'], params[:semester_input]), class: "bg-white border hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded px-2 py-2 m-2 text-center" %>
         </label>
         <label class="mx-2">
             Year:
-            <%= number_field_tag :year_input, params[:year_input], placeholder: "Ex. " + Time.now.year.to_s, class: "w-28 rounded m-2 py-1.5 px-2 bg-white text-gray-900" %>
+            <%= number_field_tag :year_input, params[:year_input], placeholder: "Ex. " + Time.now.year.to_s, class: "w-28 rounded m-2 py-1.5 px-2 bg-white text-gray-900 border" %>
         </label>
       </div>
     <% end %>
