@@ -1,28 +1,24 @@
 <p class="alert"><%= alert %></p>
 
-<div class='mt-8'><%= link_to "Go to Dashboard", dashboard_path , class:'border border-black bg-white rounded-lg px-2 py-1 m-4' %></div>
+<div class='mt-8'>
+  <div class='mt-8'><%= link_to('Back to Dashboard', dashboard_path, class:'rounded-lg mb-5 ml-5 py-2 px-3 bg-blue-500 text-white inline-block font-medium cursor-pointer hover:bg-blue-600') %></div>
+</div>
 
-<% # Handles applying sorting options # %>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const sortOptionDropdown = document.getElementById("sortOption");
 
     sortOptionDropdown.addEventListener("change", function() {
-      // Get the selected sorting option
       const selectedSortOption = sortOptionDropdown.value;
-
-      // Update the URL with the selected sorting option
       const currentUrl = new URL(window.location.href);
       currentUrl.searchParams.set('sort_option', selectedSortOption);
-
-      // Redirect to the updated URL
       window.location.href = currentUrl.href;
     });
   });
 </script>
 
 <div class="mt-3 font-bold text-lg flex justify-center items-center mb-3">Sort By:
-  <select id="sortOption" class="ml-3 text-black bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+  <select id="sortOption" class="border border-gray-200 ml-3 text-black bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
     <option value="name_desc" <%= params[:sort_option] == "name_desc" ? "selected" : "" %>>Last Name (A-Z)</option>
     <option value="name_asc" <%= params[:sort_option] == "name_asc" ? "selected" : "" %>>Last Name (Z-A)</option>
   </select>
@@ -30,105 +26,74 @@
 
 <div class="mt-3 font-bold text-lg flex justify-center items-center mb-3"><label class="mb-3">Filter by:</label>
   <%= form_tag(table_users_view_path , method: :get) do %>
-    <label class="ml-3 mr-2">
-      <%= check_box_tag :visitor, 1, params[:visitor] == "1"%>
-      Visitor
-    </label>
-    <label class="mx-2">
-      <%= check_box_tag :applicant, 1, params[:applicant] == "1" %>
-      Applicant
-    </label>
-    <label class="mx-2">
-      <%= check_box_tag :staff, 1, params[:staff] == "1" %>
-      Staff
-    </label>
-    <label class="mx-2">
-      <%= check_box_tag :officer, 1, params[:officer] == "1" %>
-      Officer
-    </label>
-    <label class="mx-2">
-      <%= check_box_tag :admin, 1, params[:admin] == "1" %>
-      Admin
-    </label>
-    <%= submit_tag "Apply Filters", class: "text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" %>
-    <br />
-  <%end%>
-</div>
-<div class='flex flex-col justify-center items-center border border-black bg-gray-300 rounded-lg min-w-2/3 w-2/3 mx-auto'>
-<h1 class="text-5xl font-extrabold m-4 text-center">Members of GoBabyGo</h1>
-    <table class="w-full mx-auto shadow rounded-md border border-gray-200 outline-none px-3 py-2 bg-white">
-      <thead>
-        <tr>
-          <th class="border border-gray-200 px-3 py-2 flex justify-left">Name</th>
-          <th class="border border-gray-200 px-3 py-2 justify-left">Email</th>
-          <th class="border border-gray-200 px-3 py-2 justify-left">Current Role</th>
-          <% unless @user.staff_member? %>
-            <th class="border border-gray-200 px-3 py-2">Change Role</th>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <% if @user.staff_member? %>
-          <% @all_users.each do |user| %>
-              <tr class="bg-gray-100 border-t border-gray-200">
-                <td class="border border-gray-200 px-3 py-2"><%= @user.first_name.to_s %> <%= @user.last_name.to_s %></td>
-                <td class="border border-gray-200 px-3 py-2"><%= user.email %></td>
-                <td class="border border-gray-200 px-3 py-2"><%= user.level.capitalize %></td>
-                <td class="border border-gray-200 px-3 py-2"></td>
-              </tr>
-          <% end %>
-        <% elsif @user.officer_member? %>
-          <% @all_users.each do |user| %>
-            <% if user.id == @user.id || user.admin? || user.officer_member? %>
-              <tr class="<%= cycle('bg-white', 'bg-gray-100') %> border-t border-gray-200">
-                <td class="border border-gray-200 px-3 py-2"><%= user.first_name + " " + user.last_name %></td>
-                <td class="border border-gray-200 px-3 py-2"><%= user.email %></td>
-                <td class="border border-gray-200 px-3 py-2"><%= user.level.capitalize %></td>
-                <td class="border border-gray-200 px-3 py-2"></td>
-              </tr>
-            <% else %>
-              <tr class="<%= cycle('bg-white', 'bg-gray-100') %> border-t border-gray-200">
-                <td class="border border-gray-200 px-3 py-2"><%= user.first_name + " " + user.last_name %></td>
-                <td class="border border-gray-200 px-3 py-2"><%= user.email %></td>
-                <td class="border border-gray-200 px-3 py-2"><%= user.level.capitalize %></td>
-                <td class="border border-gray-200 px-3 py-2">
-                  <%= form_with(model: user, url: update_role_user_path(user), local: true, method: :patch) do |form| %>
-                    <%# Ensure only visitor, member, and officer roles are selectable %>
-                    <% selectable_roles = User.levels.keys - ['admin'] %>
-                    <%= form.select :level, selectable_roles.map { |key| [key.humanize, key] }, {}, {class: "py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100"} %>
-                    <%= form.submit "Update Role", class: "py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100" %>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-          <% end %>
-        <% elsif @user.admin? %>
-          <% @all_users.each do |user| %>
-            <% if user.id == @user.id || user.admin? %>
-              <tr class="<%= cycle('bg-white', 'bg-gray-100') %> border-t border-gray-200">
-                <td class="border border-gray-200 px-3 py-2"><%= user.first_name + " " + user.last_name %></td>
-                <td class="border border-gray-200 px-3 py-2"><%= user.email %></td>
-                <td class="border border-gray-200 px-3 py-2"><%= user.level.capitalize %></td>
-                <td class="border border-gray-200 px-3 py-2"></td>
-              </tr>
-            <% else %>
-              <tr class="bg-gray-100 border-t border-gray-200">
-                <td class="border border-gray-200 px-3 py-2"><%= user.first_name + " " + user.last_name %></td>
-                <td class="border border-gray-200 px-3 py-2"><%= user.email %></td>
-                <td class="border border-gray-200 px-3 py-2"><%= user.level.capitalize %></td>
-                <td class="border border-gray-200 px-3 py-2 flex justify-center">
-                  <%= form_with(model: user, url: update_role_user_path(user), local: true, method: :patch) do |form| %>
-                    <%# Ensure only visitor, member, and officer roles are selectable %>
-                    <% selectable_roles = User.levels.keys %>
-                    <%= form.select :level, selectable_roles.map { |key| [key.humanize, key] }, {}, {class: "py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100"} %>
-                    <%= form.submit "Update Role", class: "py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100" %>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-          <% end %>
-        <% end %>
-      </tbody>
-    </table>
+    <div class="flex flex-wrap justify-center">
+      <label class="mx-2 mb-2">
+        <%= check_box_tag :visitor, 1, params[:visitor] == "1"%>
+        Visitor
+      </label>
+      <label class="mx-2 mb-2">
+        <%= check_box_tag :applicant, 1, params[:applicant] == "1" %>
+        Applicant
+      </label>
+      <label class="mx-2 mb-2">
+        <%= check_box_tag :staff, 1, params[:staff] == "1" %>
+        Staff
+      </label>
+      <label class="mx-2 mb-2">
+        <%= check_box_tag :officer, 1, params[:officer] == "1" %>
+        Officer
+      </label>
+      <label class="mx-2 mb-2">
+        <%= check_box_tag :admin, 1, params[:admin] == "1" %>
+        Admin
+      </label>
+    </div>
+    <div class="flex justify-center">
+      <%= submit_tag "Apply Filters", class: "text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mx-2 mt-2" %>
+    </div>
+  <% end %>
 </div>
 
+<div class='border border-black bg-gray-300 rounded-lg mx-auto px-4 py-2 w-full max-w-screen-md overflow-x-auto'>
+  <h1 class="text-5xl font-extrabold m-4 text-center">Members of GoBabyGo</h1>
+  <table class="w-full mx-auto shadow rounded-md border border-gray-200 outline-none px-3 py-2 bg-white">
+    <thead>
+      <tr>
+        <th class="border border-gray-200 px-3 py-2">Name</th>
+        <th class="border border-gray-200 px-3 py-2">Email</th>
+        <th class="border border-gray-200 px-3 py-2">Current Role</th>
+        <% unless @user.staff_member? %>
+          <th class="border border-gray-200 px-3 py-2">Change Role</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @all_users.each do |user| %>
+        <tr class="<%= cycle('bg-white', 'bg-gray-100') %> border-t border-gray-200">
+          <td class="border border-gray-200 px-3 py-2"><%= user.first_name + " " + user.last_name %></td>
+          <td class="border border-gray-200 px-3 py-2"><%= user.email %></td>
+          <td class="border border-gray-200 px-3 py-2">
+          <% if user.level == "staff_member" %>
+            Staff Member
+          <% elsif user.level == "officer_member" %>
+            Officer
+          <% else %>
+            <%= user.level.capitalize %>
+          <% end %>
+          </td>
+          <% if @user.staff_member? %>
+            <td class="border border-gray-200 px-3 py-2"></td>
+          <% else %>
+            <td class="border border-gray-200 px-3 py-2">
+              <%= form_with(model: user, url: update_role_user_path(user), local: true, method: :patch) do |form| %>
+                <% selectable_roles = @user.officer_member? ? User.levels.keys - ['admin'] : User.levels.keys %>
+                <%= form.select :level, selectable_roles.map { |key| [key.humanize, key] }, {}, {class: "py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100"} %>
+                <%= form.submit "Update Role", class: "py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100" %>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

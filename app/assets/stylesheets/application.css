@@ -15,7 +15,8 @@
  */
 
 #page-container {
-    background-color: #ffde57;
+    /* background-color: #ffde57; */
+    background-color:white;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
