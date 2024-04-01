@@ -14,8 +14,12 @@
  *= require_self
  */
 
+ body {
+  background-color: maroon;
+
+ }
  #mediaSide1, #mediaSide2{
-  background-color: red;
+  background-color: maroon;
   width: 20%;
   min-height: 100vh;
   position: fixed;
@@ -24,22 +28,31 @@
 
 
 #page-container {
-  background-color: #ffde57;
+  /* background-color: #ffde57; */
+  /* background-color: whitesmoke; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  margin-top: 3%;
+  
+  /* background-color: maroon; */
+
 }
 
 #header {
   position: relative;
   z-index: 100;
-  top: 0;
+  /* top: 0; */
   width: 100%;
   height: 45vh;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat; /* Prevents the image from repeating */
   /* background-image: url('<%= asset_path('gobabygo_logo.png') %>');  */
+  background-color: maroon;
+  /* background-color: whitesmoke; */
+
+
 }
 
           #header-box {
@@ -53,6 +66,8 @@
               margin-right: 20%;
               height: 45vh;
               /* margin-top: 5vh; */
+              border-top-left-radius: 20px;
+              border-top-right-radius: 20px;
           }
           
           #text-overlay {
@@ -119,7 +134,8 @@
               padding-bottom: 1rem;
               margin-right: 2%;
               margin-left: 2%;
-              
+              display:flex;
+              justify-content: center;
               
           }
 
@@ -128,7 +144,8 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            color:white; text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+            color:white; 
+            text-shadow:-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
             background-color: maroon;
             padding-right: 1rem;
             padding-left: 1rem;
@@ -136,9 +153,12 @@
             color: black;
             display: flex;
             height: 100%;
-            width: 100%;
+            width: 80%;
           }
+          #nav-buttons #leftButton {
+            border-left: 0px solid #ccc; /* Left border */
 
+          }
           #nav-buttons a {
             padding-left: 3%;
             padding-right: 3%;
@@ -146,7 +166,11 @@
             margin-bottom: 2%;
             border-left: 1px solid #ccc; /* Left border */
             border-right: 1px solid #ccc; /* Right border */
+            letter-spacing: .1rem;
+
           }
+
+          
 
           #nav-buttons #signIn, #nav-buttons #signOut {
             border-left: 1px solid black; /* Left border */
@@ -191,6 +215,7 @@
               width: 100%;
               height: 100%;
               position: relative;
+            
           }
 
           .slider img {
@@ -200,6 +225,8 @@
               top: 0;
               left: 0;
               transition: all 0.5s ease-in-out;
+              border-top-left-radius: 50px;
+              border-top-right-radius: 50px;
           }
 
           
@@ -233,7 +260,52 @@
               background-color: #717171;
           }
 
+@media only screen and (max-width: 1000px) {
+  #header {
+    position: relative;
+    z-index: 100;
+    /* top: 0; */
+    width: 100%;
+    /* height: 100%vh; */
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    /* background-image: url('<%= asset_path('gobabygo_logo.png') %>');  */
+    background-color: maroon;
+  
+  }
 
-#about-section {
+  .slider img {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.5s ease-in-out;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+}
+
+  #text-overlay {
+    position: absolute;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    /* height: 45vh; */
+    z-index: 900;
+    display: flex;
+    justify-content: center;
+  }
+
+  #img-slider{
+    position: absolute;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    height: 45vh;
+    /* margin-top: 5vh; */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
 
 }

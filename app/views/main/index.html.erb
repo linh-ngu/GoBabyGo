@@ -134,7 +134,7 @@
                   
                   <div id="button-wrapper">
                     <div id="nav-buttons" class="font-semibold">
-                                  <a href="<%= root_path %>" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300">Home</a>
+                                  <a id="leftButton" href="<%= root_path %>" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300">Home</a>
                                   <a href="/abouts" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300">About</a>
                                   <a href="/contacts" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300">Contact</a>
                                   <%= link_to 'Help', help_path, class: 'text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300' %>
@@ -157,11 +157,11 @@
                     <h1>Apply for a GoBabyGo car!</h1>
                   </div>
                   <div id="img2-text" class="img-text text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl" style="display:none;">
-                    <h1>Come out for a build day!</h1>
+                    <h1>Apply for a GoBabyGo car!</h1>
                   </div>
                   
                   <div id="img3-text" class="img-text text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl" style="display:none;">
-                    <h1>Recieve your new GoBabyGo car!</h1>
+                    <h1>Apply for a GoBabyGo car!</h1>
                   </div>
                 </div>
 
@@ -179,7 +179,7 @@
           <h1 id="aboutTitle" class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-4xl " style="">About GoBabyGo x TAMU</h1>
           <h4 id="aboutSubTitle" class="text-sm md:text-sm lg:text-md xl:text-lg 2xl:text-xl" style="">How did GoBabyGo get involved with A&M?</h4>
           <p id ="aboutText" class=" md:text-xs lg:text-xs xl:text-sm 2xl:text-md">Our journey with GoBabyGo began when we combined the pioneering 
-          spirit of Professor Cole Galloway's mobility project with the heart and 
+          spirit of Professor Cole Galloway's mobility project at the University of Deleware with the heart and 
           ingenuity of Texas A&M. Together, we're turning everyday play into paths 
           of joy and discovery for kids with mobility challenges, using adapted toy 
           cars. </p>
@@ -190,18 +190,58 @@
       <!-- Process of Applying Section -->
       <div id="process-section" class="" style="">
         <h2 class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">Apply for a new ride!</h2>
-        <a id="applyHereButton" href="/" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300" style="text-align:center; ">Apply here!</a>
-        <div id="applySteps-wrapper"style="">
-          <div style="">Box 1</div>
-          <div style="">Box 1</div>
-          <div style="">Box 1</div>
-          <div style="">Box 1</div>
-          <div style="">Box 1</div>
+        <a id="applyHereButton" href="/" class="text-xs md:text-sm 
+          lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition 
+          duration-300" style="text-align:center; ">
+          Click to Begin Application Here
+          <?xml version="1.0" encoding="iso-8859-1"?>
+          <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+          <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            viewBox="0 0 470.773 470.773" xml:space="preserve" style="display:inline-block;">
+          <g>
+            <path d="M397.743,156.286c-7.435,0-14.493,1.63-20.841,4.553C372.586,137.628,352.185,120,327.743,120
+              c-7.68,0-14.958,1.745-21.467,4.852c-5.392-21.789-25.101-37.995-48.533-37.995c-7.109,0-13.871,1.501-20,4.187V50
+              c0-27.57-22.43-50-50-50c-27.57,0-50,22.43-50,50v196.337l-19.399-41.602c-11.652-24.988-41.46-35.836-66.447-24.184
+              c-24.986,11.651-35.836,41.459-24.185,66.446l104.349,223.776l279.966-0.006l4.141-8.31c1.289-2.587,31.575-64.054,31.575-124.431
+              V206.286C447.743,178.715,425.313,156.286,397.743,156.286z M417.743,338.026c0,41.223-16.901,84.903-24.64,102.741l-241.93,0.006
+              L54.902,234.319c-4.661-9.995-0.321-21.918,9.674-26.579c9.995-4.661,21.918-0.322,26.579,9.673l51.015,109.403l25.574,0.1V50
+              c0-11.028,8.972-20,20-20s20,8.972,20,20v156.286h30v-69.429c0-11.028,8.972-20,20-20c11.028,0,20,8.972,20,20v69.429h30V170
+              c0-11.028,8.972-20,20-20s20,8.972,20,20v36.286h30c0-11.028,8.972-20,20-20s20,8.972,20,20V338.026z"/>
+          </g>
+          </svg>
+          
+        </a>
+        <div id="applySteps-wrapper1"class="applySteps-wrapper" style="margin-top:2%;">
+          
+          <div id="stepBox">
+            <h1 id="stepTitle" class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">Go Apply</h1>
+            <h3 id="stepBodyText" class="text-xs md:text-xs lg:text-lg xl:text-lg 2xl:text-xl">Go ahead and sign up to begin and submit an application.</h3>
+          </div>
+          <div id="stepBox">
+            <h1 id="stepTitle" class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">You are Accepted</h1>
+            <h3 id="stepBodyText" class="text-xs md:text-xs lg:text-lg xl:text-lg 2xl:text-xl">Once you are accepted, an official GoBabyGo member will reach out from the contact information you provide in your application.</h3>
+          </div>          
+          <div id="stepBox">
+            <h1 id="stepTitle" class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">Assesment Day</h1>
+            <h3 id="stepBodyText" class="text-xs md:text-xs lg:text-lg xl:text-lg 2xl:text-xl">The caregivers and child will come to the Assesment Day site and be evaluated for their future ride!</h3>
+          </div> 
         </div>
+
+        <div id="applySteps-wrapper2" class="applySteps-wrapper" style="margin-top:0%;">
+          <div id="stepBox">
+            <h1 id="stepTitle" class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">Build Day</h1>
+            <h3 id="stepBodyText" class="text-xs md:text-xs lg:text-lg xl:text-lg 2xl:text-xl">The GoBabyGo members will assemble and build your brand new ride!</h3>
+          </div>          
+          <div id="stepBox">
+            <h1 id="stepTitle" class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">Build Day</h1>
+            <h3 id="stepBodyText" class="text-xs md:text-xs lg:text-lg xl:text-lg 2xl:text-xl">GoBabyGo Members will assemble your new ride and you come pick it up!</h3>
+          </div> 
+        </div>
+
       </div>
 
       <!-- Resources and Contact Section -->
-      <div id="resources-contact" class=""  style="position:relative; width:100%;background-color: #f0f0f0; padding: 20px; text-align: center; bottom:0;">
+      <div id="resources-contact" class=""  style="">
         <h3>Resources and Contact</h3>
         <!-- Add your resources and contact details here -->
       </div>

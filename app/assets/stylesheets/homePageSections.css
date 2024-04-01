@@ -7,6 +7,8 @@
     margin-right: 20%;
     margin-left: 20%;
     position: relative;
+    background-color: whitesmoke;
+
 }
 
 #aboutImg-wrapper {
@@ -49,10 +51,18 @@
 }
 #aboutText-wrapper #aboutSubTitle {
     font-weight: 500;
+    border-bottom: 3px solid maroon;
+    margin-bottom: 1%;
+    border-radius: 20px;
+    margin-top: 2%;
+    padding-left: 2%;
+    padding-right: 2%;
+
 }   
 #aboutText-wrapper #aboutText {
     font-weight: 400;
-    margin-top: 1%;
+    padding-left: 2%;
+
 }
 
 #aboutText-wrapper a {
@@ -62,7 +72,8 @@
     padding-top: 2%;
     padding-bottom: 2%;
     border-radius: 30px;
-    background-color: white;
+    background-color: maroon;
+    color: white;
     margin-top: 2%;
     border-bottom: 3px solid maroon;
 
@@ -70,11 +81,11 @@
 }
 #aboutText-wrapper a:hover {
     transition: .5s;
-    background-color: maroon;
-    color: white;
+    background-color: white;
+    color: black;
     border-radius: 30px;
-    padding-left: 3%;
-    padding-right: 3%;
+    padding-left: 4%;
+    padding-right: 4%;
     padding-top: 2%;
     padding-bottom: 2%;
 }
@@ -83,27 +94,32 @@
     width: 60%;
     margin-left: 20%;
     margin-right: 20%;
-    height: 45vh;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: whitesmoke;
+
 }
 
 #applyHereButton {
     transition: .8s;
     padding:1%;
     border-radius: 30px;
-    background-color: white;
+    background-color: maroon;
+    color:white;
     margin-top: 2%;
-    border-bottom: 3px solid maroon;
+    border-bottom: 3px solid white;
     font-weight: 500;
 
 
 }
 #applyHereButton:hover {
     transition: .8s;
-    background-color: maroon;
-    color: white;
+    background-color: white;
+    border-bottom: 3px solid maroon;
+
+    color: black;
     border-radius: 30px;
     padding:1%;
     padding-right: 2%;
@@ -117,7 +133,7 @@
 
 #process-section h2 {
     /* width: 50%; */
-    background-color: white;
+    /* background-color: white; */
     text-align: center;
     margin-bottom: 2%;
     font-weight: 700;
@@ -128,10 +144,55 @@
     text-align: center;
     width: 50%;
     border-bottom: 5px solid maroon;
+}
+
+.applySteps-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
 
 }
 
+.applySteps-wrapper div {
+    width: 25%;
+    background-color: white;
+    /* height: 80%; */
+    border-radius: 20px;
+    text-align: center;
+    border: 3px solid black;
+}
+
+#stepBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    transition: .8s;
+}
+
+#stepBox:hover {
+    transition: .8s;
+}
+
+#stepBox h1 {
+    width: 100%;
+    margin-bottom: 2%;
+    padding-right: 2%;
+    padding-left: 2%;
+}
+
+#resources-contact {
+    position: relative;
+    width:100%;
+    background-color: #f0f0f0; padding: 20px; text-align: center; bottom:0;
+    /* height: 25vh; */
+}
+
 @media only screen and (max-width: 1000px) {
+
     #about-section {
         display: flex;
         flex-direction: column;
@@ -163,5 +224,97 @@
         align-items: start;
     }
     
+
+
+    #process-section {
+        width: 60%;
+        margin-left: 20%;
+        margin-right: 20%;
+        height: 55vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #applyHereButton {
+        transition: .8s;
+        padding:1%;
+        border-radius: 30px;
+        background-color: white;
+        margin-top: 2%;
+        border-bottom: 3px solid maroon;
+        font-weight: 500;
+    
+    
+    }
+    #applyHereButton:hover {
+        transition: .8s;
+        background-color: maroon;
+        color: white;
+        border-radius: 30px;
+        padding:1%;
+        padding-right: 2%;
+        padding-left: 2%;
+    }
+    
+    #applySteps-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+    
+    #process-section h2 {
+        /* width: 50%; */
+        
+        background-color: white;
+        text-align: center;
+        margin-bottom: 2%;
+        font-weight: 700;
+        padding:1%;
+        padding-right: 2%;
+        padding-left: 2%;
+        border-radius: 20px;
+        text-align: center;
+        width: 50%;
+        border-bottom: 5px solid maroon;
+    }
+    
+    .applySteps-wrapper {
+        display: flex;
+        flex-direction: column;
+        
+        width: 100%;
+        height: 100%;
+        height: 60vh;
+    
+    }
+    
+    .applySteps-wrapper div {
+        width: 45%;
+        /* background-color: blue; */
+        /* height: 20%; */
+        /* margin:5%; */
+    }
+
+    .applySteps-wrapper div {
+        /* width: 25%; */
+        background-color: white;
+        /* height: 80%; */
+        border-radius: 20px;
+        text-align: center;
+        border: 3px solid black;
+    }
+
+
+    #applySteps-wrapper2 {
+        justify-content: space-around;
+        height: 30vh;
+    }
+
+    #applySteps-wrapper2 div {
+        height: 40%;
+    }
+
+    
+
 }
 
