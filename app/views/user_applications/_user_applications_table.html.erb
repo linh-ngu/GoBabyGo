@@ -35,10 +35,10 @@
         <%= number_field_tag :min_height, params[:min_height], placeholder: "Min Height" , class: "w-24 px-1 py-1 border rounded"%> - <%= number_field_tag :max_height, params[:max_height], placeholder: "Max Height", class: "w-24 px-1 py-1 border rounded"%>
       </label>
     </div>
-    <div class="flex justify-center">
-      <%= submit_tag "Apply Filters", class: "mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" %>
+    <div class="flex flex-wrap justify-center items-center space-x-2 whitespace-normal">
+      <%= submit_tag "Apply Filters", class: "mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2" %>
       <% if params[:my_applications].present? || params[:accepted].present? || params[:waitlist].present? || params[:not_accepted].present? || params[:start_date].present? || params[:end_date].present? || params[:min_height].present? || params[:max_height].present? %>
-        <button id="clearFiltersBtn" class="text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2">Clear Filters</button>
+        <button id="clearFiltersBtn" class="text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mt-3">Clear Filters</button>
       <% end %>
     </div>
   <% end %>
