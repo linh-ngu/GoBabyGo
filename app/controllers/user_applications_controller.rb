@@ -25,15 +25,89 @@ class UserApplicationsController < ApplicationController
       :desc
     end
 
-    @user_applications = UserApplication.where(archived: true).order(created_at: sorting_option)
+    @not_accepted_user_applications = UserApplication.where(accepted: [nil, false], waitlist: false, archived: true).order(created_at: sorting_option)
 
-    # Applying date range filter
+    @waitlist_user_applications = UserApplication.where(waitlist: true, accepted: false, archived: true).order(created_at: sorting_option)
+
+    @accepted_user_applications = UserApplication.where(accepted: true, archived: true).order(created_at: sorting_option)
+
+    @officer_user_applications = UserApplication.where(archived: true).order(created_at: sorting_option)
+
+    # Additional filtering based on user selection
+    if params[:my_applications] == "1"
+      @officer_user_applications = @officer_user_applications.where(user_id: @user.id)
+    elsif params[:accepted] == "1"
+      @officer_user_applications = @accepted_user_applications
+    elsif params[:waitlist] == "1"
+      @officer_user_applications = @waitlist_user_applications
+    elsif params[:not_accepted] == "1"
+      @officer_user_applications = @not_accepted_user_applications
+    end
+
+    # Applying build semester filter
     if params[:semester_input].present? && ["Fall", "Spring"].include?(params[:semester_input]) && params[:year_input].present?
       begin
-        @user_applications = @user_applications.where(build_session: "#{params[:semester_input]} #{params[:year_input]}", archived: true).order(created_at: sorting_option)
+        @officer_user_applications = @officer_user_applications.where(build_session: "#{params[:semester_input]} #{params[:year_input]}", archived: true).order(created_at: sorting_option)
       rescue ArgumentError => e
         flash[:error] = "Invalid format or empty input."
-        redirect_to user_applications_path
+        redirect_to archive_user_applications_path
+      end
+    end
+
+    # Applying date range filter
+    if params[:start_date].present? || params[:end_date].present?
+      begin
+        start_date = params[:start_date].present? ? Date.parse(params[:start_date]).beginning_of_day : nil
+        end_date = params[:end_date].present? ? Date.parse(params[:end_date]).end_of_day : nil
+      rescue ArgumentError => e
+        flash[:error] = "Invalid date format (MM-DD-YYYY)."
+        redirect_to archive_user_applications_path
+      end
+
+      if start_date.present? && end_date.present?
+        if start_date > end_date
+          @date_range_error = "Start date cannot be later than end date."
+          return
+        end
+      end
+
+      if start_date && end_date
+        @officer_user_applications = @officer_user_applications.where(created_at: start_date..end_date)
+      elsif start_date
+        @officer_user_applications = @officer_user_applications.where("created_at >= ?", start_date)
+      elsif end_date
+        @officer_user_applications = @officer_user_applications.where("created_at <= ?", end_date)
+      end
+    end
+
+    # Applying height range filter
+    if params[:min_height].present? || params[:max_height].present?
+      begin
+        min_height = params[:min_height].to_i
+        max_height = params[:max_height].to_i
+      rescue ArgumentError => e
+        flash[:error] = "Height must be a number."
+        return
+      end
+
+      if (min_height.present? && min_height < 0) || (max_height.present? && max_height < 0)
+        @height_value_error = "Height cannot be negative."
+        return
+      end
+
+      if min_height.present? && max_height.present?
+        if min_height > max_height
+          @height_range_error = "Minimum height cannot be greater than maximum height."
+          return
+        end
+      end
+
+      if min_height && max_height
+        @officer_user_applications = @officer_user_applications.where(child_height: min_height..max_height)
+      elsif min_height
+        @officer_user_applications = @officer_user_applications.where("child_height >= ?", min_height)
+      elsif max_height
+        @officer_user_applications = @officer_user_applications.where("child_height <= ?", max_height)
       end
     end
   end
