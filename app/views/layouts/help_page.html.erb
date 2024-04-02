@@ -4,8 +4,8 @@
     <title>GoogleOauthDevise</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'general_layout', media: 'all', 'data-turbolinks-track': 'reload' %>
+
     <style>
         .flash__alert   { color: red; }
         .flash__notice  { color: blue; }
@@ -38,6 +38,7 @@
     <div id="page-container">
 
       
+        
       <div id="header" class="relative" style="background-image: url('<%= asset_path('gobabygo_logo.png') %>'); ">
 
           <div id="header-box" class="absolute inset-x-0 bottom-0">
@@ -52,13 +53,16 @@
                           <div id="nav-buttons" class="hidden md:flex space-x-4 items-center text-xl font-semibold">
                               <a href="<%= root_path %>" class="py-4 px-2 hover:text-gray-400 transition duration-300 ">Home</a>
                               <a href="/abouts" class="py-4 px-2 hover:text-gray-400 transition duration-300">About</a>
+                             
+                   
                               <a href="/contacts" class="py-4 px-2 hover:text-gray-400 transition duration-300">Contact</a>
                               <%= link_to 'Help', help_path, class: 'py-4 px-2 hover:text-gray-400 transition duration-300'  %>
-                            <% if admin_signed_in? %>
+                              <% if admin_signed_in? %>
                                  <%= link_to "Sign Out", destroy_admin_session_path, class:'border border-black bg-white rounded-lg px-2 py-1 m-1' %>
                               <% else %>
                                 <%= button_to "Sign in", admin_google_oauth2_omniauth_authorize_path, class: "border border-black bg-white rounded-lg px-2 py-1 my-1", style: "" %>
                               <% end %>
+
                           </div>
 
 
@@ -67,6 +71,7 @@
               </div>
           </div>
       </div>
+
 
       <div id="content" style="background-color:transparent;">
         <div id="content-box">
