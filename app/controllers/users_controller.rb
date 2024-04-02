@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       @user.update(admin_id: current_admin.id)
       @admin.save
       @admin.update(user_account_created: true)
-      redirect_to root_path, :action => 'show'
+      redirect_to new_user_application_path, :action => 'show'
     else
       render('new')
       flash[:notice] = "Make sure you have a valid email, and that your phone number is valid (10 digits)."
