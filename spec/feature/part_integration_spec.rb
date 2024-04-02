@@ -69,7 +69,7 @@ RSpec.describe 'Part management as admin', type: :feature do
   scenario 'SUNNY: delete' do
     part = Part.create(part_name: "Engine", part_price: 25, quantity_purchased: 12, purchase_source: "http://example.com/purchase", car_id: @car.id)
     visit part_path(part)
-    click_on 'Destroy'
+    click_on 'Delete'
     expect(page).to have_content('part was successfully destroyed.')
   end
 end
@@ -83,7 +83,7 @@ RSpec.describe 'Part management Integrity', type: :feature do
     @car = Car.create!(car_type_id: @car_type.id)
   end
   scenario 'RAINY: try to do CRUD operations as non admin' do
-    visit new_part_path
+    visit new_part_car_path(@car)
     expect(page).to have_content('You do not have permission to view that page!')
     part = Part.create(part_name: "Engine", part_price: 25, quantity_purchased: 12, purchase_source: "http://example.com/purchase", car_id: @car.id)
     visit edit_part_path(part)

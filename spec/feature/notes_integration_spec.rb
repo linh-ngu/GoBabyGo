@@ -40,7 +40,7 @@ RSpec.describe 'Notes Management', type: :feature do
   scenario 'SUNNY: delete' do
     note = Note.create!(content: 'This is a note', car_id: @car.id, user_id: @user.id)
     visit car_path(@car)
-    click_on 'Destroy', match: :first
+    click_on 'Delete', match: :first
     expect(page).to have_content('Note was successfully destroyed.')
   end
 end

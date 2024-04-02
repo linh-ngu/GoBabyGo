@@ -101,6 +101,9 @@
               <td class="border border-gray-200 px-3 py-2">
                 <div class="flex flex-wrap justify-center items-center space-x-2 whitespace-normal">
                   <%= link_to("View", user_application_path(user_application), class: view_link_class)%>
+                <% unless Car.find_by(user_application_id: user_application.id).nil? %>
+                  <%= link_to("View Car", car_path(Car.find_by(user_application_id: user_application.id)), class: view_link_class)%>
+                <% end %>
                   <%= link_to("Change Status", edit_user_application_path(user_application), class: status_link_class)%>
                   <% if action_name == 'archive' %>
                     <%= button_to("Unarchive", {controller: "user_applications", action: "update", id: user_application.id, button: 'unarchive'}, {class: archive_link_class, method: :put, onclick: "return confirm('Are you sure you want to unarchive this application?')"}) %>

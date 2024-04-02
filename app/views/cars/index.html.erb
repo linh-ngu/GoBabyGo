@@ -26,10 +26,51 @@
       <% end %>
     </tr>
   </thead>
+  <%= check_box_tag(:include_archived, '1', params[:include_archived] == '1', id: 'include_archived_checkbox', class: 'm-2') %>
+  <%= label_tag(:include_archived, "Include Archived Cars", for: 'include_archived_checkbox', class: 'pl-2') %>
 
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const checkbox = document.getElementById('include_archived_checkbox');
+    const cars = document.querySelectorAll('.car-row');
+    const includeArchivedStart = checkbox.checked;
+    cars.forEach(function(car) {
+      const archived = car.dataset.archived === 'true';
+      if (!includeArchivedStart && archived) {
+        car.style.display = 'none';
+      } else {
+        car.style.display = '';
+      }
+    });
+    checkbox.addEventListener('change', function() {
+      const includeArchived = checkbox.checked;
+
+      cars.forEach(function(car) {
+        const archived = car.dataset.archived === 'true';
+        if (!includeArchived && archived) {
+          car.style.display = 'none';
+        } else {
+          car.style.display = '';
+        }
+      });
+    });
+  });
+</script>
   <tbody>
     <% @cars.each do |car| %>
-      <tr>
+      <% if car.user_application_id.present? %>
+        <% user_application = UserApplication.find_by(id: car.user_application_id) %>
+        <% if user_application %>
+          <tr class="car-row" data-archived="<%= user_application.archived %>">
+        <% else %>
+          <tr class="car-row" data-archived="false">
+        <% end %>
+      <% else %>
+        <tr class="car-row" data-archived="false">
+      <% end %>
+
         <td class = "px-3 py-4 break-all">
           <% if car.user_application.nil? %>
             None
