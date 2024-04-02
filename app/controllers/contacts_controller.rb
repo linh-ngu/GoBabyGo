@@ -1,6 +1,6 @@
 class ContactsController < ApplicationController
   before_action :set_contact, only: %i[ show edit update destroy ]
-
+  layout false
   # GET /contacts or /contacts.json
   def index
     @contacts = Contact.all

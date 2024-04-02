@@ -1,6 +1,6 @@
 class AboutsController < ApplicationController
   before_action :set_about, only: %i[ show edit update destroy ]
-
+  layout false
   # GET /abouts or /abouts.json
   def index
     @abouts = About.all
