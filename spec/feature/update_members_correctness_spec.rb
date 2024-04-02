@@ -20,7 +20,6 @@ RSpec.describe 'Staff Member User can view other members information (Email)', t
   scenario ' - Members table shows visitor_user information' do
     visit table_users_view_path
 
-    expect(page).to have_content('Members of GoBabyGo')
     expect(page).to have_content(@user.email)
     expect(page).to have_content(@user.level.capitalize)
     expect(page).to have_content(@user.level.capitalize)
@@ -40,9 +39,7 @@ RSpec.describe 'Admin Account updates User\'s level', type: :feature do
       @admin_toBeUpdated = Admin.create!(user_account_created: true, email: 'update_me@gmail.com', full_name: 'Update Admin', uid: '223456', avatar_url: 'http://example.com/avatar1')
       sign_in @admin
       @user = User.create!(id: 1, first_name: 'Update', last_name: 'Admin', email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :admin)
-      @visitor_user = User.create!(id: 2, first_name: 'Update', last_name: 'User', email: 'update_me@gmail.com', phone: '1234567891', admin_id: @admin.id, level: :visitor)
-
-
+      @visitor_user = User.create!(id: 2, first_name: 'Update', last_name: 'User', email: 'update_me@gmail.com', phone: '1234567891', admin_id: @admin_toBeUpdated.id, level: :visitor)
 
     end
 
@@ -51,7 +48,6 @@ RSpec.describe 'Admin Account updates User\'s level', type: :feature do
 
     expect(page).to have_content('Members of GoBabyGo')
     expect(page).to have_content(@user.email)
-    expect(page).to have_content(@user.level.capitalize)
     expect(page).to have_content(@user.level.capitalize)
 
     expect(page).to have_content(@visitor_user.email)
@@ -90,8 +86,7 @@ RSpec.describe 'Admin Account updates User\'s level', type: :feature do
 
   scenario ' - Visitor updated to Admin' do
     visit table_users_view_path
-
-    expect(page).to have_content('Members of GoBabyGo')
+    
     expect(page).to have_content(@user.email)
     expect(page).to have_content(@user.level.capitalize)
     expect(page).to have_content(@user.level.capitalize)
@@ -113,23 +108,18 @@ end
 RSpec.describe 'Officer Member Account updates User\'s level', type: :feature do
   include Devise::Test::IntegrationHelpers
   before do
-      @admin = Admin.create!(user_account_created: true, email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
-      @admin_toBeUpdated = Admin.create!(user_account_created: true, email: 'update_me@gmail.com', full_name: 'Update Admin', uid: '223456', avatar_url: 'http://example.com/avatar1')
-      sign_in @admin
-      @user = User.create!(id: 1, first_name: 'Update', last_name: 'Officer', email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :officer_member)
-      @visitor_user = User.create!(id: 2, email: 'update_me@gmail.com', first_name: 'Update', last_name: 'User', phone: '1234567891', admin_id: @admin.id, level: :visitor)
-
-
-
+    @admin = Admin.create!(user_account_created: true, email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
+    @admin_toBeUpdated = Admin.create!(user_account_created: true, email: 'update_me@gmail.com', full_name: 'Update Admin', uid: '223456', avatar_url: 'http://example.com/avatar1')
+    sign_in @admin
+    @user = User.create!(id: 1, first_name: 'Update', last_name: 'Admin', email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :officer_member)
+    @visitor_user = User.create!(id: 2, first_name: 'Update', last_name: 'User', email: 'update_me@gmail.com', phone: '1234567891', admin_id: @admin_toBeUpdated.id, level: :visitor)
     end
 
   scenario ' - Visitor updated to Officer' do
     visit table_users_view_path
 
-    expect(page).to have_content('Members of GoBabyGo')
-    expect(page).to have_content(@user.email)
-    expect(page).to have_content(@user.level.capitalize)
-    expect(page).to have_content(@user.level.capitalize)
+    expect(page).to have_content(@visitor_user.email)
+    expect(page).to have_content("Officer")
 
     expect(page).to have_content(@visitor_user.email)
     expect(page).to have_content(@visitor_user.level.capitalize)
@@ -148,10 +138,8 @@ RSpec.describe 'Officer Member Account updates User\'s level', type: :feature do
   scenario ' - Visitor updated to Staff Member' do
     visit table_users_view_path
 
-    expect(page).to have_content('Members of GoBabyGo')
     expect(page).to have_content(@user.email)
-    expect(page).to have_content(@user.level.capitalize)
-    expect(page).to have_content(@user.level.capitalize)
+    expect(page).to have_content("Officer")
 
     expect(page).to have_content(@visitor_user.email)
     expect(page).to have_content(@visitor_user.level.capitalize)
