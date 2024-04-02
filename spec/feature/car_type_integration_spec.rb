@@ -11,8 +11,8 @@ RSpec.describe 'Car Type Management', type: :feature do
   scenario 'SUNNY: create with valid inputs' do
     visit new_car_type_path
     fill_in 'Name', with: 'SUV'
-    fill_in 'Max height', with: 200
-    fill_in 'Max weight', with: 150
+    fill_in 'Max Height (in.)', with: 200
+    fill_in 'Max Weight (lbs.)', with: 150
     fill_in 'Price', with: 25000
     click_on 'Create Car type'
     expect(page).to have_content('car_type was successfully created.')
@@ -22,8 +22,8 @@ RSpec.describe 'Car Type Management', type: :feature do
     visit new_car_type_path
     
     # Fill in the details
-    fill_in 'Max height', with: 200
-    fill_in 'Max weight', with: 150
+    fill_in 'Max Height (in.)', with: 200
+    fill_in 'Max Weight (lbs.)', with: 150
     fill_in 'Price', with: 25000
     click_on 'Create Car type'
     expect(page).to have_text('Name can\'t be blank')
@@ -43,8 +43,8 @@ RSpec.describe 'Car Type Management', type: :feature do
     car_type = CarType.create(name: "SUV", max_height: 200, max_weight: 180, price: 30000)
     visit edit_car_type_path(car_type)
     fill_in 'Name', with: 'SUV'
-    fill_in 'Max height', with: 200
-    fill_in 'Max weight', with: 150
+    fill_in 'Max Height (in.)', with: 200
+    fill_in 'Max Weight (lbs.)', with: 150
     fill_in 'Price', with: 25000
     click_on 'Update Car type'
     expect(page).to have_content('car_type was successfully updated.')
@@ -53,8 +53,8 @@ RSpec.describe 'Car Type Management', type: :feature do
     car_type = CarType.create(name: "SUV", max_height: 200, max_weight: 180, price: 30000)
     visit edit_car_type_path(car_type)
     fill_in 'Name', with: ''
-    fill_in 'Max height', with: 200
-    fill_in 'Max weight', with: 150
+    fill_in 'Max Height (in.)', with: 200
+    fill_in 'Max Weight (lbs.)', with: 150
     fill_in 'Price', with: 25000
     click_on 'Update Car type'
     expect(page).to have_text('Name can\'t be blank')
@@ -63,8 +63,8 @@ RSpec.describe 'Car Type Management', type: :feature do
     car_type = CarType.create(name: "SUV", max_height: 200, max_weight: 180, price: 30000)
     visit edit_car_type_path(car_type)
     fill_in 'Name', with: ''
-    fill_in 'Max height', with: ''
-    fill_in 'Max weight', with: ''
+    fill_in 'Max Height (in.)', with: ''
+    fill_in 'Max Weight (lbs.)', with: ''
     fill_in 'Price', with: ''
     click_on 'Update Car type'
     expect(page).to have_text('Name can\'t be blank')
@@ -75,7 +75,7 @@ RSpec.describe 'Car Type Management', type: :feature do
   scenario 'SUNNY: delete car type' do
     car_type = CarType.create(name: "SUV", max_height: 200, max_weight: 180, price: 30000)
     visit car_type_path(car_type)
-    click_on 'Destroy'
+    click_on 'Delete'
     expect(page).to have_content('car_type was successfully destroyed.')
   end
 end
