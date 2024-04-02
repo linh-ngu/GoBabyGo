@@ -63,8 +63,7 @@ RSpec.describe 'Authorized User: Attempt to access Members Table is permitted ba
 
     expect(page).to have_content('Members of GoBabyGo')
     expect(page).to have_content(@user.email)
-    expect(page).to have_content(@user.level.capitalize)
-    expect(page).to have_content(@user.level.capitalize)
+    expect(page).to have_content("Officer")
 
   end
 
@@ -85,7 +84,7 @@ RSpec.describe 'Authorized User: Attempt to access Members Table is permitted ba
       @admin = Admin.create!(user_account_created: true, email: 'test@gmail.com', full_name: 'Test Admin', uid: '123456', avatar_url: 'http://example.com/avatar')
       @admin_toBeUpdated = Admin.create!(user_account_created: true, email: 'update_me@gmail.com', full_name: 'Update Admin', uid: '223456', avatar_url: 'http://example.com/avatar1')
       sign_in @admin
-      @user = User.create!(id: 1, email: 'test@gmail.com', phone: '1234567890', admin_id: @admin.id, level: :admin)
+      @user = User.create!(id: 1, email: 'test@gmail.com', phone: '1234567890', first_name: 'Test', last_name: 'User', admin_id: @admin.id, level: :admin)
       @visitor_user = User.create!(id: 2, email: 'update_me@gmail.com', first_name: 'Test', last_name: 'User', phone: '1234567891', admin_id: @admin.id, level: :visitor)
   end
 
@@ -95,8 +94,6 @@ RSpec.describe 'Authorized User: Attempt to access Members Table is permitted ba
     expect(page).to have_content('Members of GoBabyGo')
     expect(page).to have_content(@user.email)
     expect(page).to have_content(@user.level.capitalize)
-    expect(page).to have_content(@user.level.capitalize)
-
   end
 
 end
@@ -114,8 +111,7 @@ RSpec.describe 'Authorized User: Attempt to access Members Table is permitted ba
 
     expect(page).to have_content('Members of GoBabyGo')
     expect(page).to have_content(@user.email)
-    expect(page).to have_content(@user.level.capitalize)
-    expect(page).to have_content(@user.level.capitalize)
+    expect(page).to have_content("Staff Member")
 
   end
 
