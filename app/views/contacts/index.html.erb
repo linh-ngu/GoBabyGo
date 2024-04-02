@@ -5,18 +5,275 @@ h1 {text-align: center;}
   
 </div>
 
-<h1 class="text-5xl font-extrabold m-4 text-center">Contact Us!</h1>
 
-<div class='flex flex-col justify-center items-center border border-black bg-[#FFEFAD] rounded-lg min-w-2/3 w-2/3 mx-auto my-auto'>
-    <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
-    <br>
-    <h2 class="text-5x1 font-medium rounded-lg"> Email: gobabygotamu@gmail.com </h2>
-    <br>
-    <%= link_to "Feedback Form", 'https://forms.gle/QC4sMmohcSoP6uzm7', class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium my-4" %>  
-  <div id="contacts" class="min-w-full">
-    <%= render @contacts %>
-  </div>
+
+<style>
+h1 {text-align: center;}
+p {margin-left: 100px;
+  margin-right: 100px; 
+  }
+      
+
+</style>
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GoogleOauthDevise</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag    'homePageHeader', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'homePageSections', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'contactsPage', media: 'all', 'data-turbolinks-track': 'reload' %> 
+
+
+    <style>
+        .flash__alert   { color: red; }
+        .flash__notice  { color: blue; }
+        .flash__success { color: green; }
+
+        /* Optional: for smooth dropdown appearance */
+            .dropdown-enter-active, .dropdown-leave-active {
+                transition: height 0.5s ease;
+            }
+            .dropdown-enter, .dropdown-leave-to /* .dropdown-leave-active in <2.1.8 */ {
+                height: 0;
+                overflow: hidden;
+            }
+    </style>
+    <script>
+
+      function toggleDropdown() {
+          var dropdown = document.getElementById("dropdown");
+          dropdown.classList.toggle("hidden");
+          dropdown.classList.toggle("flex");
+          dropdown.classList.toggle("flex-col");
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var currentImg = 0;
+        var imgs = document.querySelectorAll('.slider img');
+        let dots = document.querySelectorAll('.dot');
+        var texts = document.querySelectorAll('.img-text'); // Select all the text overlays
+        var interval = 5000;
+
+        var secondImageUrl = "<%= asset_path('2ndHero.jpg') %>";
+        var thirdImageUrl = "<%= asset_path('3rdHero.jpg') %>";
+
+        document.getElementById('img-2').src = secondImageUrl;
+        document.getElementById('img-3').src = thirdImageUrl;
+
+        var timer = setInterval(changeSlide, interval);
+        function changeSlide(n) {
+            for (var i = 0; i < imgs.length; i++) {
+                imgs[i].style.opacity = 0;
+                dots[i].className = dots[i].className.replace(' active', '');
+                texts[i].style.display = 'none'; // Hide all text overlays
+            }
+
+            currentImg = (currentImg + 1) % imgs.length;
+
+            if (n !== undefined) {
+                clearInterval(timer);
+                timer = setInterval(changeSlide, interval);
+                currentImg = n;
+            }
+
+            imgs[currentImg].style.opacity = 1;
+            dots[currentImg].className += ' active';
+            texts[currentImg].style.display = 'block'; // Show the current text overlay
+        }
+
+        function calculateDays(today, eventDate) {
+            const difference = eventDate.getTime() - today.getTime();
+            return Math.ceil(difference / (1000 * 3600 * 24)); // Convert to days
+        }
+      });
+        function logoClickHandler() {
+            // Navigate to the specified URL
+            window.location.href = "https://www.yourcpf.org/cpproduct/go-baby-go-the-ultimate-toy-hack/";
+        }
+
+
+
+    </script>
+  
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body>
+    <div id="page-container">
+      <div id="mediaSide1">
+      </div>
+      <div id="mediaSide2" style="right:0;">
+      </div>
+
+      <div id="header" class="" style="">
+            <div id="header-box" class="inset-x-0 bottom-0">
+          
+                <div id="img-slider">
+                  <div class="slider">
+                    <img
+                      id="img-1"
+                      src= <%= asset_path('1stHero.jpg') %>
+                      alt="Image 1"
+                      style="opacity:1"
+                    />
+                    <img
+                      id="img-2"
+                      src = <%= asset_path('2ndHero.jpg') %>
+                      alt="Image 2"
+                      style="opacity:0"
+                    />
+                    <img
+                      id="img-3"
+                      src = <%= asset_path('3rdHero.jpg') %>
+                      alt="Image 3"
+                      style="opacity:0"
+                    />
+                  </div>
+
+
+                  <div class="navigation-button">
+                    <span class="dot active" onclick="changeSlide(0)"></span>
+                    <span class="dot" onclick="changeSlide(1)"></span>
+                    <span class="dot" onclick="changeSlide(2)"></span>
+                  </div>
+                </div> 
+
+                
+
+                <nav id="nav-wrapper" class="">
+                
+                  <img
+                    id="img-nav"
+                    src= <%= asset_path('gobabygo_logo.png') %>
+                    alt="Image 1"
+                    style="height:10%;  cursor:pointer;"
+                    onclick = "logoClickHandler()"
+                  />
+                  
+                  <div id="button-wrapper">
+                    <div id="nav-buttons" class="font-semibold">
+                                  <a id="leftButton" href="<%= root_path %>" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300">Home</a>
+                                  <a href="/abouts" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300">About</a>
+                                  <a href="/contacts" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300">Contact</a>
+                                  <%= link_to 'Help', help_path, class: 'text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300' %>
+                                  <% if admin_signed_in? %>
+                                    <%= link_to "Dashboard", dashboard_path , class:'text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300' %>
+                                    <%= link_to " Sign out ", destroy_admin_session_path, class:'border border-black bg-white rounded-lg text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300',  id:'signOut', style: 'margin-left:2%; ' %>
+
+                                  <% else %>
+                                    <%= button_to " Sign in ", admin_google_oauth2_omniauth_authorize_path, class:'border border-black bg-white rounded-lg text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300', id:'signIn', style: 'margin-left:15%;width:130%;padding-left:5%; padding-right:5%; ' %>
+                                  <% end %>
+
+                    </div>
+                  </div>
+                  
+                  <div id="nav-title" class="">
+                      <a href="https://www.tamu.edu" target="_blank" rel="noopener noreferrer" class="text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl" >Texas A&M<br>University</br></a>
+                  </div>                 
+                </nav>
+
+                <div id="text-overlay">
+                  <div id="img1-text" class="img-text text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">
+                    <h1>Apply for a GoBabyGo car!</h1>
+                  </div>
+                  <div id="img2-text" class="img-text text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl" style="display:none;">
+                    <h1>Apply for a GoBabyGo car!</h1>
+                  </div>
+                  
+                  <div id="img3-text" class="img-text text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl" style="display:none;">
+                    <h1>Apply for a GoBabyGo car!</h1>
+                  </div>
+                </div>
+
+                
+                
+            </div>
+      </div> 
+      
+      <!-- About Section -->
+      
+      <!-- Resources and Contact Section -->
+      <div id="resources-contact" class=""  style="">
+       <!-- Add your resources and contact details here -->
+        <% if admin_signed_in? %>
+          <div id="contactsWrapper">
+            <h1>
+              Are you a GoBabyGo Member and having issues using the website? 
+              <br>
+              Go ahead and fill out the Feedback Form and a GoBabyGo Officer will get back to you with a solution!
+            </h1>
+            <div style="height:fit-content;">
+              <a id="contactBottom" href="/contacts" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg" style="margin-right:2%; margin-bottom:5%;">Contact us!
+                <?xml version="1.0" encoding="iso-8859-1"?>
+                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                  viewBox="0 0 470.773 470.773" xml:space="preserve" style="display:inline-block;">
+                <g>
+                  <path d="M397.743,156.286c-7.435,0-14.493,1.63-20.841,4.553C372.586,137.628,352.185,120,327.743,120
+                    c-7.68,0-14.958,1.745-21.467,4.852c-5.392-21.789-25.101-37.995-48.533-37.995c-7.109,0-13.871,1.501-20,4.187V50
+                    c0-27.57-22.43-50-50-50c-27.57,0-50,22.43-50,50v196.337l-19.399-41.602c-11.652-24.988-41.46-35.836-66.447-24.184
+                    c-24.986,11.651-35.836,41.459-24.185,66.446l104.349,223.776l279.966-0.006l4.141-8.31c1.289-2.587,31.575-64.054,31.575-124.431
+                    V206.286C447.743,178.715,425.313,156.286,397.743,156.286z M417.743,338.026c0,41.223-16.901,84.903-24.64,102.741l-241.93,0.006
+                    L54.902,234.319c-4.661-9.995-0.321-21.918,9.674-26.579c9.995-4.661,21.918-0.322,26.579,9.673l51.015,109.403l25.574,0.1V50
+                    c0-11.028,8.972-20,20-20s20,8.972,20,20v156.286h30v-69.429c0-11.028,8.972-20,20-20c11.028,0,20,8.972,20,20v69.429h30V170
+                    c0-11.028,8.972-20,20-20s20,8.972,20,20v36.286h30c0-11.028,8.972-20,20-20s20,8.972,20,20V338.026z"/>
+                </g>
+                </svg>
+              </a>
+              
+              <%= link_to "Feedback Form", 'https://forms.gle/QC4sMmohcSoP6uzm7', class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium my-4" %>  
+            </div>
+          </div>
+        <% else %>
+         <div id="guestContact">
+          <h1 style="font-weight:700;"class="text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-xl">Questions or Concerns?</h1>
+          <h4 style="font-weight:400;"class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg">Go ahead and send us an email and a GoBabyGo member will get back to you soon!</h4>
+         </div>
+         
+         <a id="contactBottom" href="/contacts" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg ">Contact us!
+          <?xml version="1.0" encoding="iso-8859-1"?>
+          <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+          <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            viewBox="0 0 470.773 470.773" xml:space="preserve" style="display:inline-block;">
+          <g>
+            <path d="M397.743,156.286c-7.435,0-14.493,1.63-20.841,4.553C372.586,137.628,352.185,120,327.743,120
+              c-7.68,0-14.958,1.745-21.467,4.852c-5.392-21.789-25.101-37.995-48.533-37.995c-7.109,0-13.871,1.501-20,4.187V50
+              c0-27.57-22.43-50-50-50c-27.57,0-50,22.43-50,50v196.337l-19.399-41.602c-11.652-24.988-41.46-35.836-66.447-24.184
+              c-24.986,11.651-35.836,41.459-24.185,66.446l104.349,223.776l279.966-0.006l4.141-8.31c1.289-2.587,31.575-64.054,31.575-124.431
+              V206.286C447.743,178.715,425.313,156.286,397.743,156.286z M417.743,338.026c0,41.223-16.901,84.903-24.64,102.741l-241.93,0.006
+              L54.902,234.319c-4.661-9.995-0.321-21.918,9.674-26.579c9.995-4.661,21.918-0.322,26.579,9.673l51.015,109.403l25.574,0.1V50
+              c0-11.028,8.972-20,20-20s20,8.972,20,20v156.286h30v-69.429c0-11.028,8.972-20,20-20c11.028,0,20,8.972,20,20v69.429h30V170
+              c0-11.028,8.972-20,20-20s20,8.972,20,20v36.286h30c0-11.028,8.972-20,20-20s20,8.972,20,20V338.026z"/>
+          </g>
+          </svg></a>
+        
+        
+
+        <% end %>
+      </div>
+
+      
+      
+    </div>
     
-</div>
+
+
+
+
+
+ 
+ <% if flash.any? %>
+      <% flash.each do |key, value| -%>
+        <section class="flash flash__<%= key %>"><%= value.html_safe %></section>
+      <% end -%>
+  <% end %> 
+
+    
+    
+  </body>
+</html>
+
