@@ -56,11 +56,12 @@
                              
                    
                               <a href="/contacts" class="py-4 px-2 hover:text-gray-400 transition duration-300">Contact</a>
-                              <%= link_to 'Help', help_path, class: 'py-4 px-2 hover:text-gray-400 transition duration-300'  %>
                               <% if admin_signed_in? %>
-                                 <%= link_to "Sign Out", destroy_admin_session_path, class:'border border-black bg-white rounded-lg px-2 py-1 m-1' %>
+                                <%= link_to "Dashboard", dashboard_path , class:'text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300' %>
+                                <%= link_to " Sign out ", destroy_admin_session_path, class:'border border-black bg-white rounded-lg text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300',  id:'signOut', style: ' ' %>
+
                               <% else %>
-                                <%= button_to "Sign in", admin_google_oauth2_omniauth_authorize_path, class: "border border-black bg-white rounded-lg px-2 py-1 my-1", style: "" %>
+                                <%= button_to " Sign in ", admin_google_oauth2_omniauth_authorize_path, class:'border border-black bg-white rounded-lg text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300', id:'signIn', style: 'margin-left:15%;width:130%;padding-left:5%; padding-right:5%; ' %>
                               <% end %>
 
                           </div>
