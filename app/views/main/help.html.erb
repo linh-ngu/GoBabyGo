@@ -18,16 +18,26 @@
   </section>
 
   <!-- Role-Specific Help Section -->
+  <% if @user.applicant? || @user.staff_member? || @user.officer_member? || @user.admin? %>
   <section style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
     <h2 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem; text-align: center;">Role-Specific Help</h2>
+    <% end %>
+    <% if @user.applicant? || @user.staff_member? || @user.officer_member? || @user.admin? %>
     <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">Applicant</h3>
     <%= render 'main/roles/applicant' %>
+    <% end %>
+    <% if @user.staff_member? || @user.officer_member? || @user.admin? %>
     <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">Staff Member</h3>
     <%= render 'main/roles/staff' %>
+    <% end %>
+    <% if @user.officer_member? || @user.admin? %>
     <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">Officer</h3>
     <%= render 'main/roles/officer' %>
+    <% end %>
+    <% if @user.admin? %>
     <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">Admin</h3>
     <%= render 'main/roles/admin' %>
+    <% end %>
 
 
 

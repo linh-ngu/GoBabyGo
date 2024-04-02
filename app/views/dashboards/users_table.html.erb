@@ -117,13 +117,17 @@
           <% if @user.staff_member? %>
             <td class="border border-gray-200 px-3 py-2"></td>
           <% else %>
-            <td class="border border-gray-200 px-3 py-2">
-              <%= form_with(model: user, url: update_role_user_path(user), local: true, method: :patch) do |form| %>
-                <% selectable_roles = @user.officer_member? ? User.levels.keys - ['admin'] : User.levels.keys %>
-                <%= form.select :level, selectable_roles.map { |key| [key.humanize, key] }, {}, {class: "py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100"} %>
-                <%= form.submit "Update Role", class: "py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100" %>
+            <% unless user.email == "gobabygotamu@gmail.com" %>
+              <% if (user.level != "admin" && (@user.officer_member?)) || (@user.admin?) %>
+                <td class="border border-gray-200 px-3 py-2">
+                  <%= form_with(model: user, url: update_role_user_path(user), local: true, method: :patch) do |form| %>
+                    <% selectable_roles = @user.officer_member? ? (User.levels.keys - ['admin']) : User.levels.keys %>
+                    <%= form.select :level, selectable_roles.map { |key| [key.humanize, key] }, {}, {class: "py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100"} %>
+                    <%= form.submit "Update Role", class: "py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100" %>
+                  <% end %>
+                </td>
               <% end %>
-            </td>
+            <% end %>
           <% end %>
         </tr>
       <% end %>
