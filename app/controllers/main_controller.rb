@@ -1,5 +1,6 @@
 class MainController < ApplicationController
   def index
+    render layout:false
     if admin_signed_in?
       @user = User.find_by(admin_id: current_admin.id)
     end

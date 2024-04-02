@@ -1,17 +1,352 @@
-<h1 class="text-5xl font-extrabold m-4 text-center">Welcome to GoBabyGo!</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GoogleOauthDevise</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag    'homePageHeader', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'homePageSections', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <style>
+        .flash__alert   { color: red; }
+        .flash__notice  { color: blue; }
+        .flash__success { color: green; }
 
-<div class='flex flex-col justify-center items-center border border-black bg-[#FFEFAD] rounded-lg min-w-2/3 w-2/3 mx-auto'>
+        /* Optional: for smooth dropdown appearance */
+            .dropdown-enter-active, .dropdown-leave-active {
+                transition: height 0.5s ease;
+            }
+            .dropdown-enter, .dropdown-leave-to /* .dropdown-leave-active in <2.1.8 */ {
+                height: 0;
+                overflow: hidden;
+            }
+    </style>
+    <script>
+
+      function toggleDropdown() {
+          var dropdown = document.getElementById("dropdown");
+          dropdown.classList.toggle("hidden");
+          dropdown.classList.toggle("flex");
+          dropdown.classList.toggle("flex-col");
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var currentImg = 0;
+        var imgs = document.querySelectorAll('.slider img');
+        let dots = document.querySelectorAll('.dot');
+        var texts = document.querySelectorAll('.img-text'); // Select all the text overlays
+        var interval = 5000;
+
+        var secondImageUrl = "<%= asset_path('2ndHero.jpg') %>";
+        var thirdImageUrl = "<%= asset_path('3rdHero.jpg') %>";
+
+        document.getElementById('img-2').src = secondImageUrl;
+        document.getElementById('img-3').src = thirdImageUrl;
+
+        var timer = setInterval(changeSlide, interval);
+        function changeSlide(n) {
+            for (var i = 0; i < imgs.length; i++) {
+                imgs[i].style.opacity = 0;
+                dots[i].className = dots[i].className.replace(' active', '');
+                texts[i].style.display = 'none'; // Hide all text overlays
+            }
+
+            currentImg = (currentImg + 1) % imgs.length;
+
+            if (n !== undefined) {
+                clearInterval(timer);
+                timer = setInterval(changeSlide, interval);
+                currentImg = n;
+            }
+
+            imgs[currentImg].style.opacity = 1;
+            dots[currentImg].className += ' active';
+            texts[currentImg].style.display = 'block'; // Show the current text overlay
+        }
+
+        function calculateDays(today, eventDate) {
+            const difference = eventDate.getTime() - today.getTime();
+            return Math.ceil(difference / (1000 * 3600 * 24)); // Convert to days
+        }
+      });
+        function logoClickHandler() {
+            // Navigate to the specified URL
+            window.location.href = "https://www.yourcpf.org/cpproduct/go-baby-go-the-ultimate-toy-hack/";
+        }
+
+
+
+    </script>
   
-  <div class='p-4 flex flex-wrap justify-center'>
-    <% if admin_signed_in? %>
-      <%= link_to "Go to #{@user.level.capitalize} Dashboard", dashboard_path , class:'border border-black bg-white rounded-lg px-4 py-1 m-2' %>
-      <%= link_to "Sign Out", destroy_admin_session_path, class:'border border-black bg-white rounded-lg px-4 py-1 m-2' %>
-    <% else %>
-      <%= button_to "Sign in with Google", admin_google_oauth2_omniauth_authorize_path, class: "border border-black bg-white rounded-lg px-4 py-1 my-1" %>
-    <% end %>
-  </div>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
 
-  <% flash.each do |type, message| %>
-  <%= message %>
-  <% end %>
-</div>
+  <body>
+    <div id="page-container">
+      <div id="mediaSide1">
+      </div>
+      <div id="mediaSide2" style="right:0;">
+      </div>
+
+      <div id="header" class="" style="">
+            <div id="header-box" class="inset-x-0 bottom-0">
+          
+                <div id="img-slider">
+                  <div class="slider">
+                    <img
+                      id="img-1"
+                      src= <%= asset_path('1stHero.jpg') %>
+                      alt="Image 1"
+                      style="opacity:1"
+                    />
+                    <img
+                      id="img-2"
+                      src = <%= asset_path('2ndHero.jpg') %>
+                      alt="Image 2"
+                      style="opacity:0"
+                    />
+                    <img
+                      id="img-3"
+                      src = <%= asset_path('3rdHero.jpg') %>
+                      alt="Image 3"
+                      style="opacity:0"
+                    />
+                  </div>
+
+
+                  <div class="navigation-button">
+                    <span class="dot active" onclick="changeSlide(0)"></span>
+                    <span class="dot" onclick="changeSlide(1)"></span>
+                    <span class="dot" onclick="changeSlide(2)"></span>
+                  </div>
+                </div> 
+
+                
+
+                <nav id="nav-wrapper" class="">
+                
+                  <img
+                    id="img-nav"
+                    src= <%= asset_path('gobabygo_logo.png') %>
+                    alt="Image 1"
+                    style="height:10%;  cursor:pointer;"
+                    onclick = "logoClickHandler()"
+                  />
+                  
+                  <div id="button-wrapper">
+                    <div id="nav-buttons" class="font-semibold">
+                                  <a id="leftButton" href="<%= root_path %>" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300">Home</a>
+                                  <a href="/abouts" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300">About</a>
+                                  <a href="/contacts" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300">Contact</a>
+                                  <%= link_to 'Help', help_path, class: 'text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300' %>
+                                  <% if admin_signed_in? %>
+                                    <%= link_to "Dashboard", dashboard_path , class:'text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300' %>
+                                    <%= link_to " Sign out ", destroy_admin_session_path, class:'border border-black bg-white rounded-lg text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300',  id:'signOut', style: 'margin-left:2%; ' %>
+
+                                  <% else %>
+                                    <%= button_to " Sign in ", admin_google_oauth2_omniauth_authorize_path, class:'border border-black bg-white rounded-lg text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300', id:'signIn', style: 'margin-left:15%;width:130%;padding-left:5%; padding-right:5%; ' %>
+                                  <% end %>
+
+                    </div>
+                  </div>
+                  
+                  <div id="nav-title" class="">
+                      <a href="https://www.tamu.edu" target="_blank" rel="noopener noreferrer" class="text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl" >Texas A&M<br>University</br></a>
+                  </div>                 
+                </nav>
+
+                <div id="text-overlay">
+                  <div id="img1-text" class="img-text text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">
+                    <h1>Apply for a GoBabyGo car!</h1>
+                  </div>
+                  <div id="img2-text" class="img-text text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl" style="display:none;">
+                    <h1>Apply for a GoBabyGo car!</h1>
+                  </div>
+                  
+                  <div id="img3-text" class="img-text text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl" style="display:none;">
+                    <h1>Apply for a GoBabyGo car!</h1>
+                  </div>
+                </div>
+
+                
+                
+            </div>
+      </div> 
+      
+      <!-- About Section -->
+      <div id="about-section" class="" style="">
+        <div id="aboutImg-wrapper">
+          <img id="aboutImg" src= <%= asset_path('aboutHomePage.JPG') %> style="">
+        </div>
+        <div id="aboutText-wrapper">
+          <h1 id="aboutTitle" class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-4xl " style="">About GoBabyGo x TAMU</h1>
+          <h4 id="aboutSubTitle" class="text-sm md:text-sm lg:text-md xl:text-lg 2xl:text-xl" style="">How did GoBabyGo get involved with A&M?</h4>
+          <p id ="aboutText" class=" md:text-xs lg:text-xs xl:text-sm 2xl:text-md">Our journey with GoBabyGo began when we combined the pioneering 
+          spirit of Professor Cole Galloway's mobility project at the University of Deleware with the heart and 
+          ingenuity of Texas A&M. Together, we're turning everyday play into paths 
+          of joy and discovery for kids with mobility challenges, using adapted toy 
+          cars. </p>
+          <a href="/abouts" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition duration-300" style="text-align:center; ">Read More</a>
+        </div>
+      </div>
+
+      <!-- Process of Applying Section -->
+      <div id="process-section" class="" style="">
+        <h2 class="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">
+        
+          <span style="display: flex; align-items: center; justify-content: center;">
+            <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+            <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 15C5 16.8565 5.73754 18.6371 7.05029 19.9498C8.36305 21.2626 10.1435 21.9999 12 21.9999C13.8565 21.9999 15.637 21.2626 16.9498 19.9498C18.2625 18.6371 19 16.8565 19 15V9C19 7.14348 18.2625 5.36305 16.9498 4.05029C15.637 2.73754 13.8565 2 12 2C10.1435 2 8.36305 2.73754 7.05029 4.05029C5.73754 5.36305 5 7.14348 5 9V15Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 6V14" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 11L12 14L9 11" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Apply for a new ride!
+            <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+            <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 15C5 16.8565 5.73754 18.6371 7.05029 19.9498C8.36305 21.2626 10.1435 21.9999 12 21.9999C13.8565 21.9999 15.637 21.2626 16.9498 19.9498C18.2625 18.6371 19 16.8565 19 15V9C19 7.14348 18.2625 5.36305 16.9498 4.05029C15.637 2.73754 13.8565 2 12 2C10.1435 2 8.36305 2.73754 7.05029 4.05029C5.73754 5.36305 5 7.14348 5 9V15Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 6V14" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 11L12 14L9 11" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>        
+          </span>
+        </h2>
+        <% if admin_signed_in? %>
+            <a id="applyHereButton" href="/user_applications" class="text-xs md:text-sm 
+            lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition 
+            duration-300" style="text-align:center; ">
+            
+            Click to Begin Application Here
+            <?xml version="1.0" encoding="iso-8859-1"?>
+            <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+            <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+              viewBox="0 0 470.773 470.773" xml:space="preserve" style="display:inline-block;">
+            <g>
+              <path d="M397.743,156.286c-7.435,0-14.493,1.63-20.841,4.553C372.586,137.628,352.185,120,327.743,120
+                c-7.68,0-14.958,1.745-21.467,4.852c-5.392-21.789-25.101-37.995-48.533-37.995c-7.109,0-13.871,1.501-20,4.187V50
+                c0-27.57-22.43-50-50-50c-27.57,0-50,22.43-50,50v196.337l-19.399-41.602c-11.652-24.988-41.46-35.836-66.447-24.184
+                c-24.986,11.651-35.836,41.459-24.185,66.446l104.349,223.776l279.966-0.006l4.141-8.31c1.289-2.587,31.575-64.054,31.575-124.431
+                V206.286C447.743,178.715,425.313,156.286,397.743,156.286z M417.743,338.026c0,41.223-16.901,84.903-24.64,102.741l-241.93,0.006
+                L54.902,234.319c-4.661-9.995-0.321-21.918,9.674-26.579c9.995-4.661,21.918-0.322,26.579,9.673l51.015,109.403l25.574,0.1V50
+                c0-11.028,8.972-20,20-20s20,8.972,20,20v156.286h30v-69.429c0-11.028,8.972-20,20-20c11.028,0,20,8.972,20,20v69.429h30V170
+                c0-11.028,8.972-20,20-20s20,8.972,20,20v36.286h30c0-11.028,8.972-20,20-20s20,8.972,20,20V338.026z"/>
+            </g>
+            </svg>
+            
+          </a>
+        <% else %>            
+          <%= button_to "Click to Begin Application Here", admin_google_oauth2_omniauth_authorize_path, id:'signIn', class:'text-xs md:text-sm 
+          lg:text-md xl:text-lg 2xl:text-lg hover:text-red-400 transition 
+          duration-300', id:'applyHereButton', style: 'text-align:center; ' %>
+
+            <?xml version="1.0" encoding="iso-8859-1"?>
+              <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+              <svg fill="#000000" height="40px" width="40px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                viewBox="0 0 470.773 470.773" xml:space="preserve" style="display:inline-block;">
+              <g>
+                <path d="M397.743,156.286c-7.435,0-14.493,1.63-20.841,4.553C372.586,137.628,352.185,120,327.743,120
+                  c-7.68,0-14.958,1.745-21.467,4.852c-5.392-21.789-25.101-37.995-48.533-37.995c-7.109,0-13.871,1.501-20,4.187V50
+                  c0-27.57-22.43-50-50-50c-27.57,0-50,22.43-50,50v196.337l-19.399-41.602c-11.652-24.988-41.46-35.836-66.447-24.184
+                  c-24.986,11.651-35.836,41.459-24.185,66.446l104.349,223.776l279.966-0.006l4.141-8.31c1.289-2.587,31.575-64.054,31.575-124.431
+                  V206.286C447.743,178.715,425.313,156.286,397.743,156.286z M417.743,338.026c0,41.223-16.901,84.903-24.64,102.741l-241.93,0.006
+                  L54.902,234.319c-4.661-9.995-0.321-21.918,9.674-26.579c9.995-4.661,21.918-0.322,26.579,9.673l51.015,109.403l25.574,0.1V50
+                  c0-11.028,8.972-20,20-20s20,8.972,20,20v156.286h30v-69.429c0-11.028,8.972-20,20-20c11.028,0,20,8.972,20,20v69.429h30V170
+                  c0-11.028,8.972-20,20-20s20,8.972,20,20v36.286h30c0-11.028,8.972-20,20-20s20,8.972,20,20V338.026z"/>
+              </g>
+              </svg>
+            
+                 
+        <% end %>
+        
+        <div id="applySteps-wrapper" class="applySteps-wrapper">
+
+          <div class="stepBox">
+            <h1 class="stepTitle">Go Apply</h1>
+            <h3 class="stepBodyText">Go ahead and sign up to begin and submit an application.</h3>
+          </div>
+          <div class="down-arrow">&#x25BC;</div> <!-- Simplified arrow representation -->
+
+          <div class="stepBox">
+            <h1 class="stepTitle">You are Accepted</h1>
+            <h3 class="stepBodyText">Once you are accepted, an official GoBabyGo member will reach out from the contact information you provide in your application.</h3>
+          </div>
+          <div class="down-arrow">&#x25BC;</div>
+
+          <div class="stepBox">
+            <h1 class="stepTitle">Assessment Day</h1>
+            <h3 class="stepBodyText">The caregivers and child will come to the Assessment Day site and be evaluated for their future ride!</h3>
+          </div>
+          <div class="down-arrow">&#x25BC;</div>
+
+          <div class="stepBox">
+            <h1 class="stepTitle">Build Day</h1>
+            <h3 class="stepBodyText">GoBabyGo Members will have assembled your new ride, and you can come to pick it up!</h3>
+          </div>
+
+
+        </div>  
+
+      </div>
+
+      <!-- Resources and Contact Section -->
+      <div id="resources-contact" class=""  style="">
+       <!-- Add your resources and contact details here -->
+        <% if admin_signed_in? %>
+          <a id="contactBottom" href="/contacts" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg" style="margin-right:2%;">Contact us!
+            <?xml version="1.0" encoding="iso-8859-1"?>
+            <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+            <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+              viewBox="0 0 470.773 470.773" xml:space="preserve" style="display:inline-block;">
+            <g>
+              <path d="M397.743,156.286c-7.435,0-14.493,1.63-20.841,4.553C372.586,137.628,352.185,120,327.743,120
+                c-7.68,0-14.958,1.745-21.467,4.852c-5.392-21.789-25.101-37.995-48.533-37.995c-7.109,0-13.871,1.501-20,4.187V50
+                c0-27.57-22.43-50-50-50c-27.57,0-50,22.43-50,50v196.337l-19.399-41.602c-11.652-24.988-41.46-35.836-66.447-24.184
+                c-24.986,11.651-35.836,41.459-24.185,66.446l104.349,223.776l279.966-0.006l4.141-8.31c1.289-2.587,31.575-64.054,31.575-124.431
+                V206.286C447.743,178.715,425.313,156.286,397.743,156.286z M417.743,338.026c0,41.223-16.901,84.903-24.64,102.741l-241.93,0.006
+                L54.902,234.319c-4.661-9.995-0.321-21.918,9.674-26.579c9.995-4.661,21.918-0.322,26.579,9.673l51.015,109.403l25.574,0.1V50
+                c0-11.028,8.972-20,20-20s20,8.972,20,20v156.286h30v-69.429c0-11.028,8.972-20,20-20c11.028,0,20,8.972,20,20v69.429h30V170
+                c0-11.028,8.972-20,20-20s20,8.972,20,20v36.286h30c0-11.028,8.972-20,20-20s20,8.972,20,20V338.026z"/>
+            </g>
+            </svg>
+          </a>
+          <%= link_to "Feedback Form", 'https://forms.gle/QC4sMmohcSoP6uzm7', class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium my-4" %>  
+
+        <% else %>
+         <a id="contactBottom" href="/contacts" class="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg ">Contact us!
+          <?xml version="1.0" encoding="iso-8859-1"?>
+          <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+          <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            viewBox="0 0 470.773 470.773" xml:space="preserve" style="display:inline-block;">
+          <g>
+            <path d="M397.743,156.286c-7.435,0-14.493,1.63-20.841,4.553C372.586,137.628,352.185,120,327.743,120
+              c-7.68,0-14.958,1.745-21.467,4.852c-5.392-21.789-25.101-37.995-48.533-37.995c-7.109,0-13.871,1.501-20,4.187V50
+              c0-27.57-22.43-50-50-50c-27.57,0-50,22.43-50,50v196.337l-19.399-41.602c-11.652-24.988-41.46-35.836-66.447-24.184
+              c-24.986,11.651-35.836,41.459-24.185,66.446l104.349,223.776l279.966-0.006l4.141-8.31c1.289-2.587,31.575-64.054,31.575-124.431
+              V206.286C447.743,178.715,425.313,156.286,397.743,156.286z M417.743,338.026c0,41.223-16.901,84.903-24.64,102.741l-241.93,0.006
+              L54.902,234.319c-4.661-9.995-0.321-21.918,9.674-26.579c9.995-4.661,21.918-0.322,26.579,9.673l51.015,109.403l25.574,0.1V50
+              c0-11.028,8.972-20,20-20s20,8.972,20,20v156.286h30v-69.429c0-11.028,8.972-20,20-20c11.028,0,20,8.972,20,20v69.429h30V170
+              c0-11.028,8.972-20,20-20s20,8.972,20,20v36.286h30c0-11.028,8.972-20,20-20s20,8.972,20,20V338.026z"/>
+          </g>
+          </svg></a>
+        
+        <% end %>
+      </div>
+
+      
+      
+    </div>
+    
+
+
+
+
+
+ 
+ <% if flash.any? %>
+      <% flash.each do |key, value| -%>
+        <section class="flash flash__<%= key %>"><%= value.html_safe %></section>
+      <% end -%>
+  <% end %> 
+
+    
+    
+  </body>
+</html>

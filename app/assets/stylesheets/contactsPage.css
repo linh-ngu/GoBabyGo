@@ -1,0 +1,45 @@
+#resources-contact {
+    position: relative;
+    width:60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: white; 
+    padding: 20px; 
+    text-align: center; 
+    bottom:0;
+    padding-top: 3%;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-bottom: 5vh;
+    height: 25vh;
+}
+
+#contactsWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+#contactsWrapper h1{
+    text-align: center;
+    width: 100%;
+    /* background-color: blue; */
+    padding-bottom: 5%;
+}
+
+#guestContact {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 5%;
+}
+
+#guestContact h4{
+    font-weight: 700;
+}
+
+#guestContact h4{
+    font-weight: 450;
+
+}

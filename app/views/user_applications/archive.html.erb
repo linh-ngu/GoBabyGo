@@ -1,56 +1,91 @@
 <div class='mt-8'><%= link_to('Back to Current User Applications', user_applications_path, class:'rounded-lg ml-3 py-2 px-3 bg-blue-500 text-white inline-block font-medium cursor-pointer hover:bg-blue-600') %></div>
 
-<% # Handles applying sorting options # %>
+<% # Handles applying filters # %>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const sortOptionDropdown = document.getElementById("sortOption");
-        sortOptionDropdown.addEventListener("change", function() {
-        const selectedSortOption = sortOptionDropdown.value;
-        const currentUrl = new URL(window.location.href);
-        currentUrl.searchParams.set('sort_option', selectedSortOption);
-        window.location.href = currentUrl.href;
-        });
+  document.addEventListener("DOMContentLoaded", function() {
+    const clearFiltersBtn = document.getElementById("clearFiltersBtn");
+    clearFiltersBtn.addEventListener("click", function() {
+      // Clear all filter options
+      document.querySelectorAll("input[type='checkbox']").forEach(function(checkbox) {
+        checkbox.checked = false;
+      });
+      
+      // Clear text input fields
+      document.querySelectorAll("input[type='text']").forEach(function(input) {
+        input.value = "";
+      });
+
+      // Clear date input fields
+      document.querySelectorAll("input[type='date']").forEach(function(input) {
+        input.value = "";
+      });
+
+      // Clear number input fields
+      document.querySelectorAll("input[type='number']").forEach(function(input) {
+        input.value = "";
+      });
+      
+      // Submit the form to apply cleared filters
+      document.querySelector(".filter-options form").submit();
     });
+  });
 </script>
 
-<div class="user_applications index py-10">
-    <div class="ml-3">
-        <%= form_tag(archive_user_applications_path, method: :get) do %>
-            <label class="float-left mr-3 mb-2">
-                Semester:
-                <%= select_tag :semester_input, options_for_select(['', 'Fall', 'Spring'], params[:semester_input]), class: "rounded-lg mt-1 py-2 px-3 bg-white text-gray-900" %>
-            </label>
-            <label class="float-left mr-3 mb-2">
-                Year:
-                <%= number_field_tag :year_input, params[:year_input], placeholder: "Ex. " + Time.now.year.to_s, class: "rounded-lg mt-1 py-2 px-3 bg-white text-gray-900" %>
-            </label>
+<% # Handles applying sorting options # %>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const sortOptionDropdown = document.getElementById("sortOption");
 
-            <%= submit_tag "Apply Filter", class: "rounded-lg mt-1 m-2 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700" %>
-            <%= link_to "Clear Filter", archive_user_applications_path, class: "rounded-lg mt-1 m-2 py-2 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer hover:bg-red-700" %>
-        <% end %>
+    sortOptionDropdown.addEventListener("change", function() {
+      // Get the selected sorting option
+      const selectedSortOption = sortOptionDropdown.value;
 
-        <% if false%>
-        <div class="flex justify-between items-center">
-            <h1 class='font-bold text-2xl'>Archived Applications</h1>
-            
-            <label class="float-right mr-3 mb-2">
-                Sort By:
-                <select id="sortOption" class="rounded-lg mt-1 py-2 px-3 bg-white text-gray-900">
-                    <option value="created_at_desc" <%= params[:sort_option] == "created_at_desc" ? "selected" : "" %>>Newest to oldest</option>
-                    <option value="created_at_asc" <%= params[:sort_option] == "created_at_asc" ? "selected" : "" %>>Oldest to newest</option>
-                </select>
-            </label>
-        </div>
-        <% end %>
-    </div>
+      // Update the URL with the selected sorting option
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set('sort_option', selectedSortOption);
 
-    <%= render partial: 'user_applications_table', locals: {  
-        user_applications: @user_applications, 
-        view_link_class: "action show rounded-md py-2 m-1 px-3 bg-gray-300 text-black inline-block font-small cursor-pointer hover:bg-gray-400",
-        status_link_class: "action accept rounded-md py-2 m-1 px-3 bg-gray-300 text-black inline-block font-medium cursor-pointer hover:bg-gray-400",
-        archive_link_class: "rounded-md py-2 m-1 px-3 bg-gray-300 text-black inline-block font-medium cursor-pointer hover:bg-gray-400",
-        delete_link_class: "rounded-md py-2 m-1 px-3 bg-red-600 text-white inline-block font-medium cursor-pointer hover:bg-red-700",
-        table_class: "accepted",
-        header_color: "green-800"
-    } %>
-</div>
+      // Redirect to the updated URL
+      window.location.href = currentUrl.href;
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const filterOptionsBox = document.querySelector(".filter-options");
+    const toggleFiltersBtn = document.getElementById("toggleFiltersBtn");
+
+    toggleFiltersBtn.addEventListener("click", function() {
+      // Toggle the display property of the filter options box
+      if (filterOptionsBox.style.display === "none") {
+        filterOptionsBox.style.display = "block";
+        toggleFiltersBtn.textContent = "Hide Filters";
+      } else {
+        filterOptionsBox.style.display = "none";
+        toggleFiltersBtn.textContent = "Show Filters";
+      }
+    });
+  });
+</script>
+
+<h1 class='text-4xl font-bold m-5 text-center'>Archived User Applications</h1>
+<% if @user.officer_member? || @user.admin? || @user.staff_member? %>
+  <% if @date_range_error.present? %>
+    <div class="text-red-600 text-bold ml-3"><%= @date_range_error %></div>
+  <% end %>
+  <% if @height_range_error.present? %>
+    <div class="text-red-600 text-bold ml-3"><%= @height_range_error %></div>
+  <% end %>
+  <% if @height_value_error.present? %>
+    <div class="text-red-600 text-bold ml-3"><%= @height_value_error %></div>
+  <% end %>
+  <%= render partial: 'user_applications_table', locals: {  
+    user_applications: @officer_user_applications, 
+    view_link_class: "action show py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-300 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100",
+    status_link_class: "action accept py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-300 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 ",
+    archive_link_class: "py-2.5 px-5 me-2 mb-2 text-sm font-medium bg-gray-300 text-black focus:outline-none rounded-full border border-gray-400 hover:bg-gray-400",
+    delete_link_class: "text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2",
+    table_class: "accepted",
+    header_color: "green-800"
+  } %>
+<% end %>
