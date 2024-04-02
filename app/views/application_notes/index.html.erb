@@ -10,7 +10,7 @@
     <%= link_to "New Note", new_user_application_application_note_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="application_notes" class="max-w-full">
+  <div id="application_notes">
     <%= render partial: 'application_note_table', application_notes: @application_notes %>
   </div>
 </div>
