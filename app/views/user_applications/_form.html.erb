@@ -95,19 +95,19 @@
         </tr>
     <% end %>
         <tr>
-            <th class=''>Child's First Name</th>
+            <th class=''>Child's First Name *</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:child_first_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_first_name)}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class=''>Child's Last Name</th>
+            <th class=''>Child's Last Name *</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:child_last_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_last_name)}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class=''>Child's Birthdate</th>
+            <th class=''>Child's Birthdate *</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.date_field(:child_birthdate, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_birthdate)}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class=''>Child's Primary Diagnosis</th>
+            <th class=''>Child's Primary Diagnosis *</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:primary_diagnosis, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.primary_diagnosis)}</div>".html_safe %></td>
         </tr>
         <tr>
@@ -119,32 +119,32 @@
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:adaptive_equipment, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.adaptive_equipment)}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class='p'>Child's Height (in inches)</th>
+            <th class='p'>Child's Height (in inches)  *</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.number_field(:child_height, class: 'py-1 px-2', min: 1) : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_height)}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class=''>Child's Weight (in pounds)</th>
+            <th class=''>Child's Weight (in pounds)  *</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.number_field(:child_weight, class: 'py-1 px-2', min: 1) : "<div class='py-1 px-2 bg-white'>#{h(@user_application.child_weight)}</div>".html_safe %></td>
 
         </tr>
         <tr>
-            <th class=''>Caregiver's First Name</th>
+            <th class=''>Caregiver's First Name  *</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_first_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.caregiver_first_name)}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class=''>Caregiver's Last Name</th>
+            <th class=''>Caregiver's Last Name  *</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_last_name, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.caregiver_last_name)}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class=''>Caregiver's Email</th>
+            <th class=''>Caregiver's Email  *</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_email, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.caregiver_email)}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class=''>Caregiver's Phone</th>
+            <th class=''>Caregiver's Phone *</th>
             <td class='p-1'><%= ['new', 'edit'].include?(action_name) ? f.text_field(:caregiver_phone, class: 'py-1 px-2') : "<div class='py-1 px-2 bg-white'>#{h(@user_application.caregiver_phone)}</div>".html_safe %></td>
         </tr>
         <tr>
-            <th class='p-2'>Do you have the ability to transport the car on Build Day?</th>
+            <th class='p-2'>Do you have the ability to transport the car on Build Day?  *</th>
             <td class='p-1'>
                 <% if ['new', 'edit'].include?(action_name) %>
                     <%= f.radio_button(:can_transport, true) %> Yes
@@ -155,7 +155,7 @@
             </td>
         </tr>
         <tr>
-            <th class=''>Do you have the ability to store the car?</th>
+            <th class=''>Do you have the ability to store the car?  *</th>
             <td class='p-1'>
                 <% if ['new', 'edit'].include?(action_name) %>
                     <%= f.radio_button(:can_store, true) %> Yes

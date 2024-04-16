@@ -7,7 +7,7 @@
     <h1 class="text-3xl font-bold p-4">Notes</h1>
     </div>
     <%= form_with(model: Note.new, url: notes_path, local: true, class: 'w-full') do |form| %>
-      <div class="flex items-center w-full" width = "100%">
+      <div class="flex items-center w-full bg-gray-300" width = "100%">
         <%= form.text_area :content, class: 'form-textarea resize-y w-full h-32 w-full py-2 m-2 px-2', placeholder: 'Enter your note here...' %>
         <%= form.submit "Create Note", class: "m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
         <%= form.hidden_field :car_id, value: @car.id %>
