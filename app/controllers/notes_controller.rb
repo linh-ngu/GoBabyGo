@@ -17,6 +17,12 @@ class NotesController < ApplicationController
 
   # GET /notes/1/edit
   def edit
+    @current_user = User.find_by(admin_id: current_admin.id)
+    @edit_access = @current_user.id == @note.user_id || @current_user.admin?
+    if !@edit_access
+      redirect_to root_path
+      flash[:notice] = "You do not have permission to view that page!"
+    end
   end
 
   # POST /notes or /notes.json
@@ -49,6 +55,13 @@ class NotesController < ApplicationController
   # DELETE /notes/1 or /notes/1.json
   def destroy
     car_id = @note.car_id
+    
+    @current_user = User.find_by(admin_id: current_admin.id)
+    @edit_access = @current_user.id == @note.user_id || @current_user.admin?
+    if !@edit_access
+      format.html { redirect_to car_path(car_id), notice: "Not allowed to destroy that!" }
+      format.json { head :no_content }
+    end
     @note.destroy
 
     respond_to do |format|
